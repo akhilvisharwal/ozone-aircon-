@@ -1,0 +1,21 @@
+---
+description: GitHub/Vercel — no production pushes or prod deploy unless user explicitly approves final release.
+alwaysApply: true
+---
+
+# Production release guardrails
+
+## Do not publish the live site without explicit approval
+
+- **Never** `git push` to **`origin/main`** unless the user has **clearly instructed** something equivalent to pushing the **final/production** update for the live website (approve release to GitHub production branch).
+- **Never** push **only** production unless they asked for that—including no force-push to `main`, no rewriting `main` history, unless they explicitly requested it.
+- **Never** run **Vercel production** deployment (`vercel deploy --prod`, promote-to-production flows, or any command whose purpose is updating the **production** deployment) unless the user **explicitly** asked to deploy the approved version **to production / live**.
+- Treat phrases like **“deploy to preview”**, **“push develop”**, or **“commit locally”** as **not** permission to push `main` or run production Vercel—unless they also explicitly asked for production.
+
+## Preferred workflow for this repo
+
+- **Daily / iterative work:** use branch **`develop`**. Local commits here are fine when the user wants work saved.
+- **Pushes to GitHub:** prefer **`develop`** until the user explicitly requests **production**—then **`main`** gets the finalized changes (merge or push as they direct).
+- **Vercel behavior (typical):** pushes to `main` update the **live** domain; pushes to **`develop`** normally produce **Preview** URLs only and do **not** replace production.
+
+When the user is ready for live, wait for wording like **“push final updates to GitHub and deploy to Vercel production”** / **“release to production”** before touching `origin/main` or production deploy.
