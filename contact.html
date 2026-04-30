@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — Ozone Aircon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════ TOKENS ═══════════════ */
+    :root {
+      --white:      #FFFFFF;
+      --black:      #080101;
+      --blue:       #0B63A5;
+      --blue-dark:  #084E84;
+      --blue-deep:  #06325A;
+      --gray-bg:    #F2F2F2;
+      --gray-soft:  #F7F8FA;
+      --border:     rgba(8,1,1,0.13);
+      --shadow-sm:  0 2px 12px rgba(8,1,1,0.07);
+      --shadow-md:  0 8px 32px rgba(8,1,1,0.10);
+      --shadow-lg:  0 20px 60px rgba(8,1,1,0.13);
+      --font-sora:  'Sora', sans-serif;
+      --font-inter: 'Inter', sans-serif;
+      --pad-v: clamp(64px, 8vw, 120px);
+      --pad-h: clamp(20px, 4.4vw, 72px);
+      --gap:   clamp(32px, 5.5vw, 80px);
+      --section-pad-h: clamp(20px, 4.4vw, 72px);
+      --nav-bar-h: 68px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 93.75%; scroll-behavior: smooth; }
+    body { font-family: var(--font-inter); background: var(--white); color: var(--black); width: 100%; max-width: 1440px; margin: 0 auto; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ═══════════════ TYPE ═══════════════ */
+    .h1  { font-family: var(--font-sora); font-weight: 600; font-size: clamp(40px,5.5vw,80px); line-height: 112%; letter-spacing: -0.025em; }
+    .h2  { font-family: var(--font-sora); font-weight: 600; font-size: clamp(28px,3.6vw,52px); line-height: 118%; letter-spacing: -0.025em; }
+    .h4  { font-family: var(--font-sora); font-weight: 600; font-size: clamp(20px,2vw,28px);  line-height: 130%; letter-spacing: -0.015em; }
+    .h6  { font-family: var(--font-sora); font-weight: 600; font-size: clamp(16px,1.4vw,20px); line-height: 138%; letter-spacing: -0.01em; }
+    .tagline { font-family: var(--font-inter); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); }
+    .text-md  { font-family: var(--font-inter); font-weight: 400; font-size: clamp(15px,1.25vw,18px); line-height: 162%; }
+    .text-reg { font-family: var(--font-inter); font-weight: 400; font-size: clamp(14px,1.1vw,16px); line-height: 162%; }
+    .text-sm  { font-family: var(--font-inter); font-weight: 400; font-size: 14px; line-height: 150%; }
+    .text-sm-bold { font-family: var(--font-inter); font-weight: 600; font-size: 14px; line-height: 150%; }
+    .text-sm-link { font-family: var(--font-inter); font-weight: 400; font-size: 14px; line-height: 150%; text-decoration: underline; }
+    .muted { color: rgba(8,1,1,0.5); }
+    .blue  { color: var(--blue); }
+
+    /* ═══════════════ BUTTONS ═══════════════ */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: clamp(12px,1.4vw,16px) clamp(22px,2.4vw,32px);
+      background: var(--blue); color: var(--white); border: none; border-radius: 8px;
+      font-family: var(--font-inter); font-weight: 600; font-size: clamp(14px,1.1vw,16px);
+      line-height: 150%; cursor: pointer; text-decoration: none; white-space: nowrap;
+      transition: transform .18s ease, box-shadow .18s ease, background .2s ease;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(11,99,165,0.35); }
+    .btn-primary-sm {
+      display: inline-flex; align-items: center; justify-content: center; padding: 4px 10px;
+      background: var(--blue); color: var(--white); border: none; border-radius: 6px;
+      font-family: var(--font-inter); font-weight: 500; font-size: 16px; line-height: 150%;
+      cursor: pointer; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn-primary-sm:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(11,99,165,0.25); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: clamp(12px,1.4vw,16px) clamp(22px,2.4vw,32px);
+      background: transparent; color: var(--black); border: 1.5px solid var(--border); border-radius: 8px;
+      font-family: var(--font-inter); font-weight: 600; font-size: clamp(14px,1.1vw,16px);
+      line-height: 150%; cursor: pointer; text-decoration: none; white-space: nowrap;
+      transition: border-color .2s ease, background .2s ease, transform .18s ease;
+    }
+    .btn-ghost:hover { border-color: var(--black); background: rgba(8,1,1,0.04); transform: translateY(-2px); }
+    .btn-ghost-white {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: clamp(12px,1.4vw,16px) clamp(22px,2.4vw,32px);
+      background: rgba(255,255,255,0.12); color: var(--white); border: 1.5px solid rgba(255,255,255,0.3); border-radius: 8px;
+      font-family: var(--font-inter); font-weight: 600; font-size: clamp(14px,1.1vw,16px);
+      line-height: 150%; cursor: pointer; text-decoration: none; white-space: nowrap;
+      transition: background .2s ease, border-color .2s ease, transform .18s ease;
+    }
+    .btn-ghost-white:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5); transform: translateY(-2px); }
+
+    /* ═══════════════ NAVBAR (same as Home) ═══════════════ */
+    .nav-shell {
+      position: sticky; top: 0; z-index: 100;
+      padding: 0 var(--section-pad-h);
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(12px) saturate(1.25);
+      border-bottom: 1px solid rgba(8,1,1,0.06);
+      box-shadow: 0 10px 26px rgba(8,1,1,0.06);
+    }
+    .nav-shell.scrolled {
+      background: rgba(255,255,255,0.92);
+      border-bottom: 1px solid rgba(8,1,1,0.08);
+    }
+    .navbar-inner {
+      display: flex; flex-direction: row;
+      align-items: center; justify-content: space-between; gap: 16px;
+      min-height: var(--nav-bar-h);
+      padding: 0;
+    }
+    .navbar-brand {
+      display: flex; flex-direction: row; align-items: center; gap: 12px;
+      text-decoration: none; color: inherit;
+      flex-shrink: 0;
+    }
+    .navbar-logo {
+      height: 52px; width: auto; max-width: 150px;
+      object-fit: contain; border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; flex-direction: row; align-items: center;
+      gap: clamp(14px, 2vw, 28px);
+      flex: 1; justify-content: center; min-width: 0;
+    }
+    .nav-link {
+      display: flex; align-items: center; gap: 4px;
+      color: rgba(8,1,1,0.62); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 500;
+      font-size: 14.5px; line-height: 150%; white-space: nowrap;
+    }
+    .nav-link.active { color: var(--blue); font-weight: 600; }
+    .nav-consult {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 7px 9px 7px 16px;
+      background: var(--blue); color: var(--white);
+      border-radius: 10px; text-decoration: none;
+      font-family: var(--font-inter); font-weight: 700; font-size: 14px;
+      border: 1.5px solid var(--blue);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .nav-consult:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(11,99,165,0.38);
+    }
+    .nav-consult-icon {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-consult-icon svg { width: 16px; height: 16px; stroke: var(--blue); }
+    .nav-hamburger {
+      display: none; flex-direction: column;
+      justify-content: center; align-items: center;
+      width: 42px; height: 42px; gap: 5px;
+      background: var(--gray-soft); border: 1px solid var(--border);
+      border-radius: 10px; cursor: pointer; padding: 0;
+      margin-left: auto;
+    }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 2px; transition: all 0.22s ease; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed;
+      top: calc(12px + var(--nav-bar-h) + 10px + 8px);
+      left: 0; right: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      z-index: 99; padding: 8px 0 16px;
+      max-height: calc(100vh - 100px); overflow-y: auto;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-nav-link {
+      display: block; padding: 12px clamp(16px,4vw,24px);
+      color: var(--black); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 400; font-size: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-nav-link:last-child { border-bottom: none; }
+    .mobile-solutions-toggle {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px clamp(16px,4vw,24px);
+      width: 100%; background: none; border: none; border-bottom: 1px solid var(--border);
+      color: var(--black); font-family: var(--font-inter);
+      font-weight: 400; font-size: 16px; cursor: pointer; text-align: left;
+    }
+    .mobile-solutions-toggle svg { width: 18px; height: 18px; transition: transform 0.22s; stroke: var(--black); }
+    .mobile-solutions-toggle.open svg { transform: rotate(180deg); }
+    .mobile-solutions-list { display: none; background: var(--gray-bg); padding: 8px clamp(16px,4vw,24px); }
+    .mobile-solutions-list.open { display: block; }
+    .mobile-solution-item {
+      display: block; padding: 10px 0; color: var(--black); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 500; font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-solution-item:last-child { border-bottom: none; }
+    .mobile-cta { padding: 16px clamp(16px,4vw,24px); }
+    .mobile-cta .btn-primary { width: 100%; justify-content: center; }
+
+    /* Solutions dropdown */
+    .nav-solutions { position: relative; }
+    .nav-solutions-btn {
+      display: flex; align-items: center; gap: 4px;
+      background: none; border: none; cursor: pointer;
+      color: rgba(8,1,1,0.62); font-family: var(--font-inter);
+      font-weight: 500; font-size: 14.5px; line-height: 150%;
+      padding: 0; white-space: nowrap;
+    }
+    .nav-solutions-btn svg { width: 18px; height: 18px; flex-shrink: 0; stroke: currentColor; transition: transform 0.22s ease; }
+    .nav-solutions-btn.open svg { transform: rotate(180deg); }
+    .solutions-dropdown {
+      display: none; position: absolute;
+      top: calc(100% + 14px); left: 50%;
+      transform: translateX(-50%);
+      width: min(640px, calc(100vw - 32px));
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px 24px 20px; z-index: 200;
+      box-shadow: var(--shadow-md);
+    }
+    .solutions-dropdown.open { display: block; }
+    .solutions-dropdown-header {
+      font-family: var(--font-inter); font-weight: 600;
+      font-size: 11px; line-height: 150%; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(8,1,1,0.4); margin-bottom: 14px;
+    }
+    .solutions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .solution-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 12px; border-radius: 8px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .solution-item:hover { background: var(--gray-bg); }
+    .solution-icon {
+      width: 34px; height: 34px; border-radius: 7px;
+      background: var(--gray-bg);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .solution-icon svg { width: 17px; height: 17px; stroke: var(--black); }
+    .solution-text { display: flex; flex-direction: column; gap: 2px; }
+    .solution-title { font-family: var(--font-inter); font-weight: 600; font-size: 13px; line-height: 150%; color: var(--black); }
+    .solution-subtitle { font-family: var(--font-inter); font-weight: 400; font-size: 11px; line-height: 150%; color: rgba(8,1,1,0.5); }
+    .solutions-dropdown-divider { height: 1px; background: var(--border); margin: 14px 0; }
+    .solutions-footer { display: flex; align-items: center; justify-content: flex-end; }
+    .solutions-footer-link {
+      font-family: var(--font-inter); font-weight: 600; font-size: 12px;
+      color: var(--blue); text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .solutions-footer-link svg { width: 13px; height: 13px; stroke: var(--blue); }
+
+    /* ═══════════════════════════════════════
+       SECTION 1 — HERO (premium gradient)
+    ═══════════════════════════════════════ */
+    .section-hero {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue) 55%, #1a88d4 100%);
+      padding: clamp(72px,10vw,140px) var(--pad-h) clamp(72px,10vw,140px);
+    }
+    /* Decorative dot mesh */
+    .section-hero::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.10) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    /* Bottom fade */
+    .section-hero::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:80px; pointer-events:none;
+      background: linear-gradient(to bottom, transparent, rgba(6,50,90,0.18));
+    }
+    .hero-inner { position:relative; z-index:1; max-width: 900px; display: flex; flex-direction: column; gap: 32px; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); border-radius:40px; width:fit-content; }
+    .hero-badge-dot { width:7px; height:7px; background:#4FE879; border-radius:50%; }
+    .hero-badge-text { font-family:var(--font-inter); font-weight:500; font-size:13px; color:rgba(255,255,255,0.9); }
+    .hero-heading { color: var(--white); }
+    .hero-subtitle { color: rgba(255,255,255,0.75); max-width: 540px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+    .hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; overflow: hidden; margin-top: 16px; }
+    .hero-stat { padding: clamp(16px,2vw,24px) clamp(20px,2.5vw,32px); background: rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 4px; }
+    .hero-stat-num { font-family:var(--font-sora); font-weight:600; font-size:clamp(22px,2.5vw,36px); color:var(--white); letter-spacing:-0.02em; line-height:1.1; }
+    .hero-stat-label { font-family:var(--font-inter); font-weight:400; font-size:clamp(12px,1vw,14px); color:rgba(255,255,255,0.6); }
+
+    /* ═══════════════════════════════════════
+       SECTION 2 — MAIN CONTACT FORM
+    ═══════════════════════════════════════ */
+    .section-form {
+      background: var(--white);
+      padding: var(--pad-v) var(--pad-h);
+    }
+    .form-wrapper {
+      display: grid; grid-template-columns: 400px 1fr;
+      gap: 0; border-radius: 20px; overflow: hidden;
+      box-shadow: var(--shadow-lg); border: 1px solid var(--border);
+    }
+
+    /* Left info panel */
+    .form-info-panel {
+      background: linear-gradient(160deg, var(--blue-deep) 0%, var(--blue) 100%);
+      padding: clamp(40px,4.5vw,60px) clamp(32px,3.5vw,48px);
+      display: flex; flex-direction: column; gap: 40px;
+      position: relative; overflow: hidden;
+    }
+    .form-info-panel::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    .form-info-panel::after {
+      content:''; position:absolute; bottom:-60px; right:-60px; width:220px; height:220px;
+      border-radius:50%; background:rgba(255,255,255,0.05); pointer-events:none;
+    }
+    .form-info-content { position:relative; z-index:1; display:flex; flex-direction:column; gap:32px; }
+    .form-info-tagline { font-family:var(--font-inter); font-weight:600; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
+    .form-info-heading { font-family:var(--font-sora); font-weight:600; font-size:clamp(22px,2vw,30px); line-height:1.25; color:var(--white); }
+    .form-info-desc { font-family:var(--font-inter); font-weight:400; font-size:clamp(14px,1.1vw,15px); line-height:1.7; color:rgba(255,255,255,0.7); }
+    .form-contact-list { position:relative; z-index:1; display:flex; flex-direction:column; gap:20px; }
+    .form-contact-item { display:flex; align-items:flex-start; gap:14px; }
+    .form-contact-icon { width:38px; height:38px; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:10px; }
+    .form-contact-icon svg { width:18px; height:18px; stroke:rgba(255,255,255,0.9); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .form-contact-body { display:flex; flex-direction:column; gap:2px; }
+    .form-contact-label { font-family:var(--font-inter); font-weight:600; font-size:12px; color:rgba(255,255,255,0.5); letter-spacing:0.06em; text-transform:uppercase; }
+    .form-contact-value { font-family:var(--font-inter); font-weight:400; font-size:clamp(13px,1vw,15px); color:rgba(255,255,255,0.9); line-height:1.6; }
+    .form-contact-value a { color:rgba(255,255,255,0.9); text-decoration:none; transition:color .18s ease; }
+    .form-contact-value a:hover { color:var(--white); text-decoration:underline; }
+    .form-info-social { position:relative; z-index:1; display:flex; gap:10px; }
+    .form-social-btn { width:38px; height:38px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.18); border-radius:50%; transition:background .2s ease, border-color .2s ease, transform .18s ease; }
+    .form-social-btn:hover { background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.4); transform:translateY(-2px); }
+    .form-social-btn svg { width:16px; height:16px; stroke:rgba(255,255,255,0.85); }
+
+    /* Right form panel */
+    .form-right-panel {
+      background: var(--white);
+      padding: clamp(40px,4.5vw,60px) clamp(32px,3.5vw,52px);
+    }
+    .form-right-header { display:flex; flex-direction:column; gap:6px; margin-bottom: 36px; }
+    .form-right-title { font-family:var(--font-sora); font-weight:600; font-size:clamp(20px,2vw,26px); line-height:1.3; }
+    .form-right-subtitle { font-family:var(--font-inter); font-weight:400; font-size:14px; color:rgba(8,1,1,0.5); }
+
+    /* Form fields — premium bordered style */
+    .contact-form { display: flex; flex-direction: column; gap: 22px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-family:var(--font-inter); font-weight:500; font-size:12px; line-height:150%;
+      color:rgba(8,1,1,0.55); letter-spacing:0.04em; text-transform:uppercase;
+    }
+    .form-input {
+      width:100%; background:var(--gray-soft); border:1.5px solid rgba(8,1,1,0.08);
+      border-radius:8px; padding:clamp(10px,1.2vw,13px) 14px;
+      font-family:var(--font-inter); font-weight:400; font-size:clamp(14px,1.1vw,15px);
+      line-height:150%; color:var(--black); outline:none;
+      transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .form-input:hover { border-color: rgba(8,1,1,0.18); }
+    .form-input:focus { border-color:var(--blue); background:var(--white); box-shadow:0 0 0 3px rgba(11,99,165,0.1); }
+    .form-input::placeholder { color:rgba(8,1,1,0.3); }
+    .form-select {
+      width:100%; background:var(--gray-soft); border:1.5px solid rgba(8,1,1,0.08);
+      border-radius:8px; padding:clamp(10px,1.2vw,13px) 14px;
+      font-family:var(--font-inter); font-weight:400; font-size:clamp(14px,1.1vw,15px);
+      line-height:150%; color:var(--black); outline:none; appearance:none; cursor:pointer;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23080101' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center;
+      transition:border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+      padding-right:40px;
+    }
+    .form-select:hover { border-color:rgba(8,1,1,0.18); }
+    .form-select:focus { border-color:var(--blue); background-color:var(--white); box-shadow:0 0 0 3px rgba(11,99,165,0.1); }
+    .form-textarea {
+      width:100%; background:var(--gray-soft); border:1.5px solid rgba(8,1,1,0.08);
+      border-radius:8px; padding:clamp(10px,1.2vw,13px) 14px;
+      font-family:var(--font-inter); font-weight:400; font-size:clamp(14px,1.1vw,15px);
+      line-height:160%; color:var(--black); outline:none; resize:vertical; min-height:120px;
+      transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .form-textarea:hover { border-color:rgba(8,1,1,0.18); }
+    .form-textarea:focus { border-color:var(--blue); background:var(--white); box-shadow:0 0 0 3px rgba(11,99,165,0.1); }
+    .form-textarea::placeholder { color:rgba(8,1,1,0.3); }
+
+    /* Role chips */
+    .form-chips-label { font-family:var(--font-inter); font-weight:500; font-size:12px; line-height:150%; color:rgba(8,1,1,0.55); letter-spacing:0.04em; text-transform:uppercase; margin-bottom:10px; }
+    .form-chips { display:flex; flex-wrap:wrap; gap:8px; }
+    .chip-input { position:absolute; opacity:0; width:0; height:0; }
+    .chip-label {
+      display:inline-flex; align-items:center; padding:7px 14px;
+      background:var(--gray-soft); border:1.5px solid rgba(8,1,1,0.1); border-radius:40px;
+      font-family:var(--font-inter); font-weight:400; font-size:13px; color:rgba(8,1,1,0.7);
+      cursor:pointer; transition:all .18s ease; user-select:none;
+    }
+    .chip-label:hover { border-color:var(--blue); color:var(--blue); background:rgba(11,99,165,0.05); }
+    .chip-input:checked + .chip-label { background:var(--blue); border-color:var(--blue); color:var(--white); }
+
+    /* Checkbox */
+    .form-check-wrap { display:flex; align-items:flex-start; gap:10px; padding:4px 0; }
+    .form-check-input {
+      width:18px; height:18px; flex-shrink:0; margin-top:1px;
+      accent-color:var(--blue); cursor:pointer; border-radius:4px;
+    }
+    .form-check-text { font-family:var(--font-inter); font-weight:400; font-size:13px; line-height:150%; color:rgba(8,1,1,0.6); cursor:pointer; }
+    .form-check-text a { color:var(--blue); }
+
+    /* Submit */
+    .form-submit-row { display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding-top:6px; }
+    .btn-submit {
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:14px 36px; background:var(--blue); color:var(--white);
+      border:none; border-radius:8px; font-family:var(--font-inter); font-weight:600;
+      font-size:15px; cursor:pointer; transition:background .2s ease, transform .18s ease, box-shadow .18s ease;
+      min-width:140px;
+    }
+    .btn-submit:hover { background:var(--blue-dark); transform:translateY(-2px); box-shadow:0 8px 28px rgba(11,99,165,0.35); }
+    .btn-submit:disabled { background:rgba(8,1,1,0.2); transform:none; box-shadow:none; cursor:not-allowed; }
+    .btn-submit svg { width:16px; height:16px; stroke:var(--white); }
+    .form-privacy-note { font-family:var(--font-inter); font-weight:400; font-size:12px; color:rgba(8,1,1,0.4); }
+    .form-error-msg {
+      display:none; font-family:var(--font-inter); font-size:13px; line-height:1.55; color:#9b1c1c;
+      background:rgba(180, 35, 24, 0.07); border:1px solid rgba(180, 35, 24, 0.22);
+      border-radius:8px; padding:12px 14px; margin:0;
+    }
+    .form-error-msg.show { display:block; }
+
+    /* ═══════════════════════════════════════
+       SECTION 3 — WHY CHOOSE US
+    ═══════════════════════════════════════ */
+    .section-why {
+      background: var(--gray-soft);
+      padding: var(--pad-v) var(--pad-h);
+    }
+    .why-header { max-width: 580px; margin-bottom: clamp(40px,5vw,72px); display:flex; flex-direction:column; gap:16px; }
+    .why-tag { display:inline-flex; align-items:center; gap:6px; }
+    .why-tag-line { width:24px; height:2px; background:var(--blue); border-radius:2px; }
+    .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(16px,2vw,28px); }
+    .why-card {
+      background:var(--white); border:1px solid var(--border); border-radius:16px;
+      padding:clamp(28px,3vw,40px); display:flex; flex-direction:column; gap:20px;
+      box-shadow:var(--shadow-sm); transition:box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+    }
+    .why-card:hover { box-shadow:var(--shadow-md); transform:translateY(-4px); border-color:rgba(11,99,165,0.2); }
+    .why-card-icon {
+      width:52px; height:52px; display:flex; align-items:center; justify-content:center;
+      background:rgba(11,99,165,0.08); border-radius:12px;
+      transition:background .2s ease;
+    }
+    .why-card:hover .why-card-icon { background:rgba(11,99,165,0.14); }
+    .why-card-icon svg { width:24px; height:24px; stroke:var(--blue); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .why-card-body { display:flex; flex-direction:column; gap:8px; }
+    .why-card-num { font-family:var(--font-sora); font-weight:600; font-size:clamp(28px,3vw,44px); color:var(--black); letter-spacing:-0.02em; line-height:1; }
+    .why-card-num span { color:var(--blue); }
+
+    /* ═══════════════════════════════════════
+       SECTION 4 — CONTACT INFO CARDS
+    ═══════════════════════════════════════ */
+    .section-info {
+      background: var(--white);
+      padding: var(--pad-v) var(--pad-h);
+    }
+    .info-header { display:flex; flex-direction:column; gap:16px; margin-bottom:clamp(40px,5vw,64px); }
+    .info-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(16px,2vw,28px); }
+    .info-card {
+      background: var(--gray-soft); border:1px solid var(--border); border-radius:16px;
+      padding: clamp(28px,3vw,40px); display:flex; flex-direction:column; gap:24px;
+      transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+      position:relative; overflow:hidden;
+    }
+    .info-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg, var(--blue), #1a88d4);
+      opacity:0; transition:opacity .25s ease;
+    }
+    .info-card:hover { box-shadow:var(--shadow-md); transform:translateY(-4px); border-color:rgba(11,99,165,0.15); }
+    .info-card:hover::before { opacity:1; }
+    .info-card-icon {
+      width:56px; height:56px; display:flex; align-items:center; justify-content:center;
+      background:var(--white); border:1px solid var(--border); border-radius:14px;
+      box-shadow:var(--shadow-sm);
+    }
+    .info-card-icon svg { width:24px; height:24px; stroke:var(--blue); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .info-card-body { display:flex; flex-direction:column; gap:6px; }
+    .info-card-title { font-family:var(--font-sora); font-weight:600; font-size:clamp(17px,1.5vw,20px); }
+    .info-card-desc { font-family:var(--font-inter); font-weight:400; font-size:14px; color:rgba(8,1,1,0.5); line-height:1.6; }
+    .info-card-value { font-family:var(--font-inter); font-weight:400; font-size:clamp(14px,1.1vw,15px); color:var(--black); line-height:1.7; }
+    .info-card-value a { color:var(--black); text-decoration:none; transition:color .18s ease; }
+    .info-card-value a:hover { color:var(--blue); }
+    .info-card-action { margin-top:auto; }
+    .info-card-link {
+      display:inline-flex; align-items:center; gap:6px;
+      font-family:var(--font-inter); font-weight:600; font-size:14px; color:var(--blue);
+      text-decoration:none; transition:gap .2s ease;
+    }
+    .info-card-link svg { width:16px; height:16px; stroke:var(--blue); transition:transform .2s ease; }
+    .info-card-link:hover { gap:10px; }
+    .info-card-link:hover svg { transform:translateX(3px); }
+
+    /* ═══════════════════════════════════════
+       SECTION 5 — CTA STRIP
+    ═══════════════════════════════════════ */
+    .section-cta {
+      background: linear-gradient(130deg, var(--blue-deep) 0%, var(--blue) 60%, #1a88d4 100%);
+      padding: clamp(56px,7vw,96px) var(--pad-h);
+      position:relative; overflow:hidden;
+    }
+    .section-cta::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background-image:radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size:24px 24px;
+    }
+    .cta-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; text-align:center; display:flex; flex-direction:column; align-items:center; gap:28px; }
+    .cta-eyebrow { font-family:var(--font-inter); font-weight:600; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
+    .cta-heading { font-family:var(--font-sora); font-weight:600; font-size:clamp(28px,3.5vw,50px); line-height:1.15; letter-spacing:-0.015em; color:var(--white); }
+    .cta-subtext { font-family:var(--font-inter); font-weight:400; font-size:clamp(15px,1.2vw,17px); color:rgba(255,255,255,0.7); line-height:1.65; }
+    .cta-actions { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+
+    /* ═══════════════════════════════════════
+       FOOTER (same as Home)
+    ═══════════════════════════════════════ */
+    .footer {
+      background: var(--gray-soft);
+      padding: clamp(36px,5vw,56px) var(--section-pad-h);
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.95fr) 1fr 1fr;
+      gap: clamp(24px, 3vw, 44px);
+      align-items: start;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(22px, 3.2vw, 36px);
+    }
+    .footer-brand-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+    .footer-brand {
+      display: inline-flex; flex-direction: row; align-items: center;
+      text-decoration: none; color: inherit;
+    }
+    .footer-logo {
+      height: 48px; width: auto; max-width: 140px; object-fit: contain;
+      border-radius: 10px; flex-shrink: 0;
+    }
+    .footer-social { display: flex; flex-direction: row; gap: 10px; align-items: center; }
+    .footer-social a { color: rgba(8,1,1,0.78); }
+    .footer-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.9);
+      transition: transform 0.22s ease, color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .footer-social a:hover {
+      transform: translateY(-2px);
+      color: var(--blue);
+      border-color: rgba(11,99,165,0.35);
+      background: rgba(11,99,165,0.05);
+    }
+    .footer-contact-block { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+    .footer-contact-row {
+      display: flex; flex-direction: row; align-items: flex-start; gap: 12px;
+    }
+    .footer-contact-icon {
+      width: 20px; height: 20px; border-radius: 0; flex-shrink: 0;
+      margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-contact-icon svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; }
+    .footer-contact-label {
+      font-family: var(--font-inter); font-weight: 600; font-size: 11px;
+      color: rgba(8,1,1,0.45); text-transform: uppercase; letter-spacing: 0.06em;
+      display: block; margin-bottom: 4px;
+    }
+    .footer-contact-value {
+      font-family: var(--font-inter); font-weight: 400; font-size: 14px;
+      line-height: 155%; color: rgba(8,1,1,0.86);
+      margin: 0;
+    }
+    .footer-contact-value a {
+      color: rgba(8,1,1,0.86); text-decoration: none;
+      border-bottom: 1px solid rgba(8,1,1,0.12);
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+    .footer-contact-value a:hover { color: var(--blue); border-color: rgba(11,99,165,0.35); }
+
+    .footer-links-col { display: flex; flex-direction: column; gap: 0; padding-top: 6px; }
+    .footer-link-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 0;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(8,1,1,0.08);
+      transition: background 0.18s ease;
+    }
+    .footer-link-row:last-child { border-bottom: none; }
+    .footer-link-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .footer-link-icon {
+      width: 36px; height: 36px; border-radius: 12px;
+      background: var(--gray-soft);
+      border: 1px solid rgba(8,1,1,0.06);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .footer-link-icon svg { width: 18px; height: 18px; stroke: var(--blue); }
+    .footer-link-text {
+      font-family: var(--font-inter); font-weight: 600; font-size: 14px;
+      color: rgba(8,1,1,0.78);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .footer-link-chevron { width: 18px; height: 18px; flex-shrink: 0; color: rgba(8,1,1,0.35); transition: color 0.18s ease; }
+    .footer-link-row:hover { background: rgba(11,99,165,0.04); }
+    .footer-link-row:hover .footer-link-text { color: var(--blue); }
+    .footer-link-row:hover .footer-link-icon { border-color: rgba(11,99,165,0.18); background: rgba(11,99,165,0.04); }
+    .footer-link-row:hover .footer-link-chevron { color: var(--blue); }
+
+    /* ═══════════════════════════════════════
+       SUCCESS STATE
+    ═══════════════════════════════════════ */
+    .form-success {
+      display:none; flex-direction:column; align-items:center; justify-content:center;
+      gap:20px; padding:60px 20px; text-align:center;
+    }
+    .form-success.show { display:flex; }
+    .form-success-icon {
+      width:72px; height:72px; background:rgba(26,122,60,0.1); border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .form-success-icon svg { width:34px; height:34px; stroke:#1a7a3c; }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1200px) {
+      .nav-links { gap: 20px; }
+    }
+    @media (max-width: 1180px) {
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer-brand-col { grid-column: 1 / -1; }
+    }
+    @media (max-width: 1100px) {
+      .form-wrapper { grid-template-columns: 340px 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 1024px) {
+      .form-wrapper { grid-template-columns: 1fr; }
+      .form-info-panel { order:2; }
+      .form-right-panel { order:1; }
+      .info-grid { grid-template-columns: 1fr 1fr; }
+      .hero-stats { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 900px) {
+      .nav-links, .nav-consult { display: none; }
+      .nav-hamburger { display: flex; }
+      .solutions-dropdown { width: min(520px, calc(100vw - 32px)); }
+    }
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 640px) {
+      .solutions-dropdown {
+        position: fixed;
+        top: calc(12px + var(--nav-bar-h) + 10px + 8px);
+        left: 8px; right: 8px;
+        width: auto; border-radius: 10px;
+        transform: translateY(-10px) scale(0.97);
+      }
+      .solutions-dropdown.open { transform: translateY(0) scale(1); }
+      .solutions-grid { grid-template-columns: 1fr; }
+      .footer-main {
+        grid-template-columns: 1fr;
+      }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .cta-actions { flex-direction: column; align-items: stretch; }
+      .cta-actions > * { text-align: center; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .footer-links-col { padding-top: 0; }
+    }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════ */
+    @keyframes pageFadeIn { from{opacity:0} to{opacity:1} }
+    body { animation: pageFadeIn 0.4s ease both; }
+    @keyframes rvUp    { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes rvLeft  { from{opacity:0;transform:translateX(-36px)} to{opacity:1;transform:translateX(0)} }
+    @keyframes rvRight { from{opacity:0;transform:translateX(36px)}  to{opacity:1;transform:translateX(0)} }
+    @keyframes rvScale { from{opacity:0;transform:scale(0.93)}       to{opacity:1;transform:scale(1)} }
+    .rv,.rv-l,.rv-r,.rv-sc { opacity:0; }
+    .rv.on    { animation:rvUp    0.72s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-l.on  { animation:rvLeft  0.72s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-r.on  { animation:rvRight 0.72s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-sc.on { animation:rvScale 0.58s cubic-bezier(0.22,1,0.36,1) both; }
+    .d1{animation-delay:.05s!important}.d2{animation-delay:.12s!important}.d3{animation-delay:.19s!important}.d4{animation-delay:.26s!important}
+
+    .nav-link { position:relative; transition:color 0.2s ease !important; }
+    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1.5px; background:var(--blue); transition:width 0.22s cubic-bezier(0.22,1,0.36,1); }
+    .nav-link:hover::after, .nav-link.active::after { width:100%; }
+    .nav-link:hover { color:var(--blue) !important; }
+    .nav-solutions-btn { transition:color 0.2s ease !important; }
+    .nav-solutions-btn:hover { color:var(--blue); }
+
+    .solutions-dropdown {
+      display:block !important; visibility:hidden; opacity:0;
+      transform:translateX(-50%) translateY(-10px) scale(0.97); transform-origin:top center; pointer-events:none;
+      transition:opacity .22s ease, transform .22s cubic-bezier(0.22,1,0.36,1), visibility 0s linear .22s;
+    }
+    .solutions-dropdown.open {
+      visibility:visible; opacity:1; transform:translateX(-50%) translateY(0) scale(1); pointer-events:auto;
+      transition:opacity .22s ease, transform .22s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0s;
+    }
+    .solutions-dropdown.open .solution-item:nth-child(1){animation:rvUp .3s .04s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(2){animation:rvUp .3s .08s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(3){animation:rvUp .3s .12s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(4){animation:rvUp .3s .16s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(5){animation:rvUp .3s .20s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(6){animation:rvUp .3s .24s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(7){animation:rvUp .3s .28s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(8){animation:rvUp .3s .32s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(9){animation:rvUp .30s .36s cubic-bezier(0.22,1,0.36,1) both}
+    .solution-item { transition:background .15s ease, transform .17s ease !important; }
+    .solution-item:hover { transform:translateX(3px) !important; }
+    .solution-icon { transition:background .18s ease !important; }
+    .solution-item:hover .solution-icon { background:rgba(11,99,165,0.1) !important; }
+    .mobile-menu {
+      display:block !important; visibility:hidden; opacity:0; transform:translateY(-10px);
+      pointer-events:none;
+      transition:opacity .26s ease, transform .26s cubic-bezier(0.22,1,0.36,1), visibility 0s linear .26s;
+    }
+    .mobile-menu.open { visibility:visible; opacity:1; transform:translateY(0); pointer-events:auto; transition:opacity .26s ease, transform .26s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0s; }
+    .mobile-nav-link { transition:background .15s ease, padding-left .18s ease !important; }
+    .mobile-nav-link:hover { background:var(--gray-bg); padding-left:calc(clamp(16px,4vw,24px) + 6px) !important; }
+    .mobile-solutions-list { display:block !important; visibility:hidden; opacity:0; max-height:0; overflow:hidden; pointer-events:none; transition:max-height .35s cubic-bezier(0.22,1,0.36,1), opacity .25s ease, visibility 0s linear .25s; }
+    .mobile-solutions-list.open { visibility:visible; opacity:1; max-height:600px; pointer-events:auto; transition:max-height .35s cubic-bezier(0.22,1,0.36,1), opacity .25s ease, visibility 0s linear 0s; }
+    .navbar-logo { transition:transform .3s cubic-bezier(0.22,1,0.36,1) !important; }
+    .navbar-logo:hover { transform:scale(1.03); }
+    .footer-logo { transition:transform .3s cubic-bezier(0.22,1,0.36,1), opacity .2s ease; display:block; }
+    .footer-logo:hover { transform:scale(1.04); opacity:0.82; }
+    .footer-social a svg rect, .footer-social a svg path, .footer-social a svg circle[r="4.5"] { stroke: rgba(8,1,1,0.62); transition: stroke 0.22s ease; }
+    .footer-social a svg circle[r="1"] { fill: rgba(8,1,1,0.62); transition: fill 0.22s ease; }
+    .footer-social a:hover svg rect, .footer-social a:hover svg path, .footer-social a:hover svg circle[r="4.5"] { stroke: var(--blue); }
+    .footer-social a:hover svg circle[r="1"] { fill: var(--blue); }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- NAVBAR (same as Home)                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="nav-shell">
+    <nav class="navbar-inner">
+      <a href="index.html" class="navbar-brand">
+        <img src="public/images/logo.png" alt="Ozone Aircon" class="navbar-logo" />
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+
+        <div class="nav-solutions">
+          <button class="nav-solutions-btn" id="solutionsBtn" onclick="toggleSolutions(event)" aria-expanded="false">
+            Solutions
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+
+          <div class="solutions-dropdown" id="solutionsDropdown" role="menu">
+            <p class="solutions-dropdown-header">Our Services</p>
+            <div class="solutions-grid">
+
+              <a href="services.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Services</span>
+                  <span class="solution-subtitle">Full HVAC service portfolio</span>
+                </div>
+              </a>
+
+              <a href="vrf-system.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1M3 12h1M12 21v-1M21 12h-1"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l.7.7M18.4 5.6l-.7.7M5.6 18.4l.7-.7M18.4 18.4l-.7-.7"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">VRV / VRF System</span>
+                  <span class="solution-subtitle">Variable refrigerant flow systems</span>
+                </div>
+              </a>
+
+              <a href="indoor-units.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="12.5"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Indoor Units</span>
+                  <span class="solution-subtitle">Split, cassette &amp; concealed units</span>
+                </div>
+              </a>
+
+              <a href="chiller-plant.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Chiller Plant</span>
+                  <span class="solution-subtitle">Central cooling infrastructure</span>
+                </div>
+              </a>
+
+              <a href="ventilation.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C6 3 3 9 3 12s3 9 9 9 9-6 9-9-3-9-9-9z"/><path d="M12 8v4M8 12h8"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Ventilation</span>
+                  <span class="solution-subtitle">Fresh air &amp; circulation systems</span>
+                </div>
+              </a>
+
+              <a href="ductwork-design.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 17h16"/><path d="M9 7v10"/><path d="M15 7v10"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Ductwork Design</span>
+                  <span class="solution-subtitle">Air distribution &amp; specification</span>
+                </div>
+              </a>
+
+              <a href="tfas.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">TFA's</span>
+                  <span class="solution-subtitle">Treated fresh air units</span>
+                </div>
+              </a>
+
+              <a href="hvac-consultancy.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">HVAC Consultancy &amp; Design</span>
+                  <span class="solution-subtitle">Expert design &amp; engineering</span>
+                </div>
+              </a>
+
+              <a href="hvac-maintainence.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Maintenance &amp; After-Sales</span>
+                  <span class="solution-subtitle">Ongoing care &amp; support</span>
+                </div>
+              </a>
+
+            </div>
+
+            <div class="solutions-dropdown-divider"></div>
+            <div class="solutions-footer">
+              <a href="contact.html" class="solutions-footer-link">
+                Book a consultation
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="how-we-work.html" class="nav-link">How we work</a>
+        <a href="about-us.html" class="nav-link">About us</a>
+      </div>
+
+      <a href="contact.html" class="nav-consult">
+        Consult
+        <span class="nav-consult-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+
+      <button class="nav-hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <button class="mobile-solutions-toggle" id="mobileSolutionsBtn" onclick="toggleMobileSolutions()" aria-expanded="false">
+      Solutions
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="mobile-solutions-list" id="mobileSolutionsList">
+      <a href="services.html" class="mobile-solution-item">Services</a>
+      <a href="vrf-system.html" class="mobile-solution-item">VRV / VRF System</a>
+      <a href="indoor-units.html" class="mobile-solution-item">Indoor Units</a>
+      <a href="chiller-plant.html" class="mobile-solution-item">Chiller Plant</a>
+      <a href="ventilation.html" class="mobile-solution-item">Ventilation</a>
+      <a href="ductwork-design.html" class="mobile-solution-item">Ductwork design</a>
+      <a href="tfas.html" class="mobile-solution-item">TFA's</a>
+      <a href="hvac-consultancy.html" class="mobile-solution-item">HVAC Consultancy &amp; Design</a>
+      <a href="hvac-maintainence.html" class="mobile-solution-item">Maintenance &amp; After-Sales Service</a>
+    </div>
+    <a href="how-we-work.html" class="mobile-nav-link">How we work</a>
+    <a href="about-us.html" class="mobile-nav-link">About us</a>
+    <div class="mobile-cta">
+      <a href="contact.html" class="btn-primary">Consult</a>
+    </div>
+  </div>
+
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 1 — HERO
+  ═══════════════════════════════════════ -->
+  <section class="section-hero">
+    <div class="hero-inner">
+      <div class="hero-badge rv">
+        <span class="hero-badge-dot"></span>
+        <span class="hero-badge-text">Available for new projects — Response within 24 hrs</span>
+      </div>
+      <h1 class="h1 hero-heading rv d1">Let's build something<br>exceptional together.</h1>
+      <p class="text-md hero-subtitle rv d2">Reach out to Ozone Aircon for expert HVAC consultations, system installations, maintenance, or any questions about indoor climate solutions.</p>
+      <div class="hero-actions rv d3">
+        <a href="#contact-form" class="btn-primary" onclick="scrollToForm(event)">
+          Send a message
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://maps.google.com/?q=Nangal+Dewat+Vasant+Kunj+New+Delhi" target="_blank" class="btn-ghost-white">
+          Get directions
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 2 — CONTACT FORM
+  ═══════════════════════════════════════ -->
+  <section class="section-form" id="contact-form">
+    <div class="form-wrapper rv-sc">
+
+      <!-- Left: info panel -->
+      <div class="form-info-panel">
+        <div class="form-info-content">
+          <span class="form-info-tagline">Get in touch</span>
+          <h2 class="form-info-heading">We're ready<br>to help you</h2>
+          <p class="form-info-desc">Whether you have a large-scale commercial HVAC project or a residential query, our team of engineers and consultants are here to guide you at every step.</p>
+        </div>
+        <div class="form-contact-list">
+          <div class="form-contact-item">
+            <div class="form-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="form-contact-body">
+              <span class="form-contact-label">Email us</span>
+              <span class="form-contact-value"><a href="mailto:info@ozoneaircon.com">info@ozoneaircon.com</a></span>
+            </div>
+          </div>
+          <div class="form-contact-item">
+            <div class="form-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15v1.92z"/></svg>
+            </div>
+            <div class="form-contact-body">
+              <span class="form-contact-label">Call us</span>
+              <span class="form-contact-value"><a href="tel:+911120862212">+91-11-20862212</a><br><a href="tel:+919811934078">+91-9811934078</a></span>
+            </div>
+          </div>
+          <div class="form-contact-item">
+            <div class="form-contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="form-contact-body">
+              <span class="form-contact-label">Visit us</span>
+              <span class="form-contact-value">A-41, Basement, Nangal Dewat,<br>Vasant Kunj, New Delhi – 110070</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-info-social">
+          <a href="https://www.instagram.com/ozoneaircon?igsh=MTBhbGd0bTM2N2xncA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="form-social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="https://www.linkedin.com/in/kanwarpal-singh-13bab9406" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="form-social-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="form-right-panel">
+        <div class="form-right-header">
+          <h3 class="form-right-title">Send us a message</h3>
+          <p class="form-right-subtitle">We'll get back to you within 24 hours.</p>
+        </div>
+
+        <!-- Form -->
+        <form class="contact-form" id="mainContactForm" onsubmit="handleSubmit(event)" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="firstName">First name</label>
+              <input class="form-input" type="text" id="firstName" name="firstName" placeholder="John" required autocomplete="given-name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lastName">Last name</label>
+              <input class="form-input" type="text" id="lastName" name="lastName" placeholder="Doe" required autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="email">Email address</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="you@company.com" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone number</label>
+              <input class="form-input" type="tel" id="phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="topic">What can we help you with?</label>
+            <select class="form-select" id="topic" name="topic">
+              <option value="" disabled selected>Select a topic…</option>
+              <option value="installation">New HVAC installation</option>
+              <option value="maintenance">Maintenance &amp; servicing</option>
+              <option value="support">Technical support</option>
+              <option value="consultation">Design consultation</option>
+              <option value="vrf">VRF/VRV systems</option>
+              <option value="chiller">Chiller plant enquiry</option>
+              <option value="general">General enquiry</option>
+            </select>
+          </div>
+
+          <!-- Role chips -->
+          <div>
+            <p class="form-chips-label">I am a…</p>
+            <div class="form-chips">
+              <input class="chip-input" type="radio" name="role" id="r-homeowner" value="homeowner" />
+              <label class="chip-label" for="r-homeowner">Homeowner</label>
+              <input class="chip-input" type="radio" name="role" id="r-business" value="business" />
+              <label class="chip-label" for="r-business">Business owner</label>
+              <input class="chip-input" type="radio" name="role" id="r-facility" value="facility" />
+              <label class="chip-label" for="r-facility">Facility manager</label>
+              <input class="chip-input" type="radio" name="role" id="r-architect" value="architect" />
+              <label class="chip-label" for="r-architect">Architect / Designer</label>
+              <input class="chip-input" type="radio" name="role" id="r-contractor" value="contractor" />
+              <label class="chip-label" for="r-contractor">Contractor</label>
+              <input class="chip-input" type="radio" name="role" id="r-other" value="other" />
+              <label class="chip-label" for="r-other">Other</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Describe your project or question in detail…" rows="5"></textarea>
+          </div>
+
+          <label class="form-check-wrap">
+            <input class="form-check-input" type="checkbox" name="agree" required />
+            <span class="form-check-text">I agree to the <a href="#">privacy policy</a> and <a href="#">terms of service</a>. I consent to being contacted by Ozone Aircon.</span>
+          </label>
+
+          <p class="form-error-msg" id="formError" role="alert" aria-live="polite"></p>
+
+          <div class="form-submit-row">
+            <button type="submit" class="btn-submit" id="submitBtn">
+              Send message
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+            <span class="form-privacy-note">🔒 Your information is never shared.</span>
+          </div>
+        </form>
+
+        <!-- Success state -->
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3 class="form-right-title">Message sent!</h3>
+          <p style="color:rgba(8,1,1,0.55);font-size:15px;line-height:1.6;">Thank you for reaching out. Our team will get back to you within 24 hours.</p>
+          <button class="btn-ghost" onclick="resetForm()" style="margin-top:8px;">Send another message</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SECTION 4 — CONTACT INFO CARDS
+  ═══════════════════════════════════════ -->
+  <section class="section-info">
+    <div class="info-header rv-l">
+      <div class="why-tag">
+        <span class="why-tag-line"></span>
+        <span class="tagline blue">Contact details</span>
+      </div>
+      <h2 class="h2">Reach us directly</h2>
+      <p class="text-md muted">Multiple ways to connect — pick whichever works best for you.</p>
+    </div>
+    <div class="info-grid">
+      <div class="info-card rv d1">
+        <div class="info-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="info-card-body">
+          <h3 class="info-card-title">Email</h3>
+          <p class="info-card-desc">Send us a detailed message anytime — we respond within 24 hours, every day.</p>
+        </div>
+        <div class="info-card-value">
+          <a href="mailto:info@ozoneaircon.com">info@ozoneaircon.com</a>
+        </div>
+        <div class="info-card-action">
+          <a href="mailto:info@ozoneaircon.com" class="info-card-link">
+            Write to us
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="info-card rv d2">
+        <div class="info-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15v1.92z"/></svg>
+        </div>
+        <div class="info-card-body">
+          <h3 class="info-card-title">Phone</h3>
+          <p class="info-card-desc">Speak directly with our team for urgent queries or to book a site visit.</p>
+        </div>
+        <div class="info-card-value">
+          <a href="tel:+911120862212">+91-11-20862212</a><br>
+          <a href="tel:+919811934078">+91-9811934078</a>
+        </div>
+        <div class="info-card-action">
+          <a href="tel:+911120862212" class="info-card-link">
+            Call now
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="info-card rv d3">
+        <div class="info-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="info-card-body">
+          <h3 class="info-card-title">Office</h3>
+          <p class="info-card-desc">Visit us at our Delhi office — meet the team and explore our showroom.</p>
+        </div>
+        <div class="info-card-value">
+          A-41, Basement, Nangal Dewat,<br>Vasant Kunj, New Delhi – 110070
+        </div>
+        <div class="info-card-action">
+          <a href="https://maps.google.com/?q=Nangal+Dewat+Vasant+Kunj+New+Delhi" target="_blank" rel="noopener noreferrer" class="info-card-link">
+            Get directions
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 5 — CTA STRIP
+  ═══════════════════════════════════════ -->
+  <section class="section-cta">
+    <div class="cta-inner">
+      <span class="cta-eyebrow rv">Start your project today</span>
+      <h2 class="cta-heading rv d1">Ready to upgrade your<br>indoor climate?</h2>
+      <p class="cta-subtext rv d2">From a single split unit to a complete chiller plant, Ozone Aircon delivers precision-engineered HVAC solutions tailored to your exact needs.</p>
+      <div class="cta-actions rv d3">
+        <a href="#contact-form" class="btn-primary" onclick="scrollToForm(event)">Get a free consultation</a>
+        <a href="services.html" class="btn-ghost-white">Explore our services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- FOOTER (same as Home)                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <footer class="footer">
+
+    <div class="footer-main">
+      <div class="footer-brand-col">
+        <a href="index.html" class="footer-brand">
+          <img src="public/images/logo.png" alt="Ozone Aircon" class="footer-logo" />
+        </a>
+
+        <div class="footer-contact-block">
+          <div class="footer-contact-row">
+            <div class="footer-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div>
+              <span class="footer-contact-label">Location</span>
+              <p class="footer-contact-value">A-41, Basement, Nangal Dewat, Vasant Kunj, New Delhi – 110070</p>
+            </div>
+          </div>
+
+          <div class="footer-contact-row">
+            <div class="footer-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <span class="footer-contact-label">Reach us</span>
+              <p class="footer-contact-value"><a href="tel:+91">Call our team</a></p>
+              <p class="footer-contact-value" style="margin-top:6px;"><a href="mailto:hello@ozoneaircon.com">hello@ozoneaircon.com</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-social">
+          <a href="https://www.instagram.com/ozoneaircon?igsh=MTBhbGd0bTM2N2xncA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/kanwarpal-singh-13bab9406" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="3" stroke="currentColor" stroke-width="1.5" />
+              <path d="M7 10V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M7 7.2V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M11 17V13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M11 10V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <a href="about-us.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21V19a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4 21V19a4 4 0 0 1 3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="footer-link-text">About us</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="how-we-work.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M12 20v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4.93 4.93l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M17.66 17.66l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M2 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M20 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4.93 19.07l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="footer-link-text">How we work</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="vrf-system.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M12 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">VRF systems</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="contact.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Contact us</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="services.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Services</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="footer-links-col">
+        <a href="services.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 14l4 4 12-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2" opacity="0.15" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Air purification</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="ventilation.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3C6 3 3 9 3 12s3 9 9 9 9-6 9-9-3-9-9-9z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 8v4M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Ventilation</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="ductwork-design.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 7h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M7 7v14h10V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Ducting</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="hvac-maintainence.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Maintenance</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </footer>
+
+
+
+  <script>
+    /* Contact form email: create a free access key at https://web3forms.com (sent to your inbox).
+       Paste it below, then restrict domains in the Web3Forms dashboard for production. */
+    var WEB3FORMS_ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE';
+
+    /* ── Nav ── */
+    function toggleSolutions(e) {
+      e.stopPropagation();
+      var btn = document.getElementById('solutionsBtn'), dd = document.getElementById('solutionsDropdown');
+      var open = dd.classList.toggle('open'); btn.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open));
+    }
+    document.addEventListener('click', function(e) {
+      var btn = document.getElementById('solutionsBtn'), dd = document.getElementById('solutionsDropdown');
+      if (btn && !btn.contains(e.target) && dd && !dd.contains(e.target)) { dd.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+    });
+    function toggleMobileMenu() {
+      var btn = document.getElementById('hamburgerBtn'), menu = document.getElementById('mobileMenu');
+      var open = menu.classList.toggle('open'); btn.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    function toggleMobileSolutions() {
+      var btn = document.getElementById('mobileSolutionsBtn'), list = document.getElementById('mobileSolutionsList');
+      var open = list.classList.toggle('open'); btn.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open));
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      var dd = document.getElementById('solutionsDropdown'), btn = document.getElementById('solutionsBtn');
+      if (dd) { dd.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+      var menu = document.getElementById('mobileMenu'), hbtn = document.getElementById('hamburgerBtn');
+      if (menu && menu.classList.contains('open')) { menu.classList.remove('open'); hbtn.classList.remove('open'); hbtn.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900) {
+        var menu = document.getElementById('mobileMenu'), btn = document.getElementById('hamburgerBtn');
+        if (menu && menu.classList.contains('open')) { menu.classList.remove('open'); btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
+      }
+    });
+
+    /* Glass navbar — match Home (over hero, solid after gradient band) */
+    (function () {
+      var shell = document.querySelector('.nav-shell');
+      var hero = document.querySelector('.section-hero');
+      if (!shell || !hero) return;
+      function sync() {
+        var threshold = hero.offsetHeight - 8;
+        if (window.scrollY > threshold) shell.classList.add('scrolled');
+        else shell.classList.remove('scrolled');
+      }
+      window.addEventListener('scroll', sync, { passive: true });
+      sync();
+    }());
+
+    /* ── Form ── */
+    function scrollToForm(e) {
+      e.preventDefault();
+      var el = document.getElementById('contact-form');
+      if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    }
+
+    function contactFormSubmitBtnIdleHTML() {
+      return 'Send message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+    }
+    function contactFormSubmitBtnSendingHTML() {
+      return 'Sending… <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>';
+    }
+
+    var CONTACT_ROLE_LABELS = {
+      homeowner: 'Homeowner',
+      business: 'Business owner',
+      facility: 'Facility manager',
+      architect: 'Architect / Designer',
+      contractor: 'Contractor',
+      other: 'Other'
+    };
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      var form = document.getElementById('mainContactForm');
+      var btn = document.getElementById('submitBtn');
+      var errEl = document.getElementById('formError');
+      if (errEl) { errEl.textContent = ''; errEl.classList.remove('show'); }
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      var key = typeof WEB3FORMS_ACCESS_KEY === 'string' ? WEB3FORMS_ACCESS_KEY.trim() : '';
+      if (!key || key === 'YOUR_ACCESS_KEY_HERE') {
+        if (errEl) {
+          errEl.textContent = 'Form email is not configured yet. Add your Web3Forms access key in contact.html (see comment in the script).';
+          errEl.classList.add('show');
+        }
+        return;
+      }
+
+      var firstName = document.getElementById('firstName').value.trim();
+      var lastName = document.getElementById('lastName').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      var message = document.getElementById('message').value.trim();
+
+      var topicSelect = document.getElementById('topic');
+      var topicVal = topicSelect.value;
+      var topicLabel = topicVal
+        ? topicSelect.options[topicSelect.selectedIndex].text.replace(/\s+/g, ' ').trim()
+        : 'Not specified';
+
+      var roleRadio = form.querySelector('input[name="role"]:checked');
+      var roleKey = roleRadio ? roleRadio.value : '';
+      var roleLabel = roleKey ? (CONTACT_ROLE_LABELS[roleKey] || roleKey) : 'Not specified';
+
+      var fullName = (firstName + ' ' + lastName).trim();
+      var submittedAt = new Date().toISOString();
+
+      var plainBody = [
+        'New contact form enquiry — Ozone Aircon',
+        '────────────────────────────────────',
+        '',
+        'Name:        ' + fullName,
+        'Email:       ' + email,
+        'Phone:       ' + (phone || '—'),
+        'Topic:       ' + topicLabel,
+        'I am a:      ' + roleLabel,
+        '',
+        'Message',
+        '────────────────────────────────────',
+        (message || '(No message provided)'),
+        '',
+        '—',
+        'Submitted: ' + submittedAt,
+        'Source: website contact form'
+      ].join('\n');
+
+      btn.disabled = true;
+      btn.innerHTML = contactFormSubmitBtnSendingHTML();
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: key,
+          subject: 'Website enquiry — ' + fullName + ' — ' + topicLabel,
+          name: fullName,
+          from_name: fullName,
+          email: email,
+          reply_to: email,
+          message: plainBody,
+          phone: phone || '—',
+          topic: topicLabel,
+          role: roleLabel
+        })
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { ok: res.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (result.data && result.data.success) {
+            form.style.display = 'none';
+            document.getElementById('formSuccess').classList.add('show');
+          } else {
+            var msg =
+              (result.data && (result.data.message || result.data.error)) ||
+              'Submission was not accepted. Please try again or email us directly.';
+            throw new Error(typeof msg === 'string' ? msg : 'Send failed');
+          }
+        })
+        .catch(function () {
+          if (errEl) {
+            errEl.textContent =
+              'We could not send your message. Check your connection and try again, or email info@ozoneaircon.com.';
+            errEl.classList.add('show');
+          }
+          btn.disabled = false;
+          btn.innerHTML = contactFormSubmitBtnIdleHTML();
+        });
+    }
+
+    function resetForm() {
+      document.getElementById('mainContactForm').reset();
+      document.getElementById('mainContactForm').style.display = '';
+      document.getElementById('formSuccess').classList.remove('show');
+      var errEl = document.getElementById('formError');
+      if (errEl) { errEl.textContent = ''; errEl.classList.remove('show'); }
+      var btn = document.getElementById('submitBtn');
+      btn.innerHTML = contactFormSubmitBtnIdleHTML();
+      btn.disabled = false;
+    }
+
+    /* ── Scroll reveal ── */
+    (function() {
+      var map = [
+        ['.hero-inner > *', ['rv']],
+        ['.form-wrapper',   ['rv-sc']],
+        ['.why-header',     ['rv-l']],
+        ['.why-card',       ['rv']],
+        ['.info-header',    ['rv-l']],
+        ['.info-card',      ['rv']],
+        ['.cta-inner > *',  ['rv']],
+        ['.footer-main',    ['rv']],
+      ];
+      map.forEach(function(pair) {
+        document.querySelectorAll(pair[0]).forEach(function(el, i) {
+          pair[1].forEach(function(cls) { el.classList.add(cls); });
+          var dCls = ['d1','d2','d3','d4'];
+          if (pair[0] === '.why-card' || pair[0] === '.info-card' || pair[0] === '.cta-inner > *') {
+            if (dCls[i]) el.classList.add(dCls[i]);
+          }
+        });
+      });
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+      }, { threshold: 0.06, rootMargin: '0px 0px -50px 0px' });
+      document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-sc').forEach(function(el) { io.observe(el); });
+
+      /* Page transitions */
+      document.querySelectorAll('a[href]').forEach(function(a) {
+        var href = a.getAttribute('href') || '';
+        if (!href || href.charAt(0) === '#' || href.indexOf('mailto') === 0 || href.indexOf('tel') === 0 || a.target === '_blank') return;
+        if (href.indexOf('.html') === -1) return;
+        a.addEventListener('click', function(e) {
+          e.preventDefault(); var dest = href;
+          document.body.style.transition = 'opacity 0.3s ease'; document.body.style.opacity = '0';
+          setTimeout(function() { window.location.href = dest; }, 310);
+        });
+      });
+    }());
+  </script>
+</body>
+</html>

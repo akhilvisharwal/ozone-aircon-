@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ozone Aircon – Climate Control Built on Expertise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:       #0B63A5;
+      --blue-dark:  #084E84;
+      --blue-deep:  #06325A;
+      --black:      #080101;
+      --white:      #FFFFFF;
+      --gray-bg:    #F2F2F2;
+      --gray-soft:  #F7F8FA;
+      --border:     rgba(8,1,1,0.13);
+      --font-sora:  'Sora', sans-serif;
+      --font-inter: 'Inter', sans-serif;
+
+      --section-pad-v: clamp(64px, 8vw, 120px);
+      --section-pad-h: clamp(20px, 4.4vw, 72px);
+      --container-gap: clamp(40px, 5.5vw, 88px);
+
+      --shadow-sm: 0 2px 12px rgba(8,1,1,0.07);
+      --shadow-md: 0 8px 32px rgba(8,1,1,0.10);
+      --shadow-lg: 0 20px 60px rgba(8,1,1,0.13);
+      --footer-navy:   #0B1221;
+      --footer-border: rgba(255,255,255,0.08);
+      --nav-bar-h:     68px;
+    }
+
+    html { font-size: 93.75%; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-inter);
+      color: var(--black);
+      background: var(--white);
+      width: 100%; max-width: 1440px;
+      margin: 0 auto; overflow-x: hidden;
+    }
+
+    /* ═══════════════════ TYPOGRAPHY ═══════════════════ */
+    .h1 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(38px,5.2vw,72px); line-height: 112%; letter-spacing: -0.028em; }
+    .h2 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(28px,3.6vw,52px); line-height: 118%; letter-spacing: -0.025em; }
+    .h3 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(24px,3.1vw,44px); line-height: 122%; letter-spacing: -0.02em; }
+    .h4 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(20px,2.5vw,34px); line-height: 128%; letter-spacing: -0.018em; }
+    .h5 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(17px,1.8vw,24px); line-height: 136%; letter-spacing: -0.014em; }
+    .h6 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(15px,1.4vw,20px); line-height: 140%; letter-spacing: -0.01em; }
+    .tagline { font-family: var(--font-inter); font-weight: 600; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; line-height: 150%; color: var(--blue); }
+    .text-md  { font-family: var(--font-inter); font-weight: 400; font-size: clamp(14px,1.2vw,17px); line-height: 165%; }
+    .text-reg { font-family: var(--font-inter); font-weight: 400; font-size: 14px; line-height: 165%; }
+    .text-sm  { font-family: var(--font-inter); font-weight: 400; font-size: 12px; line-height: 150%; }
+    .text-sm-bold { font-family: var(--font-inter); font-weight: 600; font-size: 12px; line-height: 150%; }
+    .text-sm-link { font-family: var(--font-inter); font-weight: 400; font-size: 12px; line-height: 150%; text-decoration: underline; }
+    .text-med-semibold { font-family: var(--font-inter); font-weight: 600; font-size: clamp(12px,1.0vw,15px); line-height: 150%; }
+    .muted { color: rgba(8,1,1,0.50); }
+
+    /* ═══════════════════ BUTTONS ═══════════════════ */
+    .btn-primary, .btn-secondary, .btn-primary-sm {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; border-radius: 8px; cursor: pointer;
+      font-family: var(--font-inter); font-weight: 600;
+      font-size: 15px; line-height: 150%; text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-primary    { padding: 12px 24px; background: var(--blue); color: var(--white); border: 1.5px solid var(--blue); }
+    .btn-secondary  { padding: 12px 24px; background: transparent; color: var(--black); border: 1.5px solid var(--border); }
+    .btn-primary-sm { padding: 8px 18px; background: var(--blue); color: var(--white); border: 1.5px solid var(--blue); }
+    .btn-primary:hover, .btn-primary-sm:hover { opacity: 0.88; }
+    .btn-secondary:hover { background: var(--gray-bg); }
+
+    /* ═══════════════════ NAVBAR (integrated minimal) ═══════════════════ */
+    .nav-shell {
+      position: sticky; top: 0; z-index: 100;
+      padding: 0 var(--section-pad-h);
+      /* Transparent glass over the hero */
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(12px) saturate(1.25);
+      border-bottom: 1px solid rgba(8,1,1,0.06);
+      box-shadow: 0 10px 26px rgba(8,1,1,0.06);
+    }
+    .nav-shell.scrolled {
+      /* More readable glass after the hero */
+      background: rgba(255,255,255,0.92);
+      border-bottom: 1px solid rgba(8,1,1,0.08);
+    }
+    .navbar-inner {
+      display: flex; flex-direction: row;
+      align-items: center; justify-content: space-between; gap: 16px;
+      min-height: var(--nav-bar-h);
+      padding: 0;
+    }
+    .navbar-brand {
+      display: flex; flex-direction: row; align-items: center; gap: 12px;
+      text-decoration: none; color: inherit;
+      flex-shrink: 0;
+    }
+    .navbar-logo {
+      height: 52px; width: auto; max-width: 150px;
+      object-fit: contain; border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; flex-direction: row; align-items: center;
+      gap: clamp(14px, 2vw, 28px);
+      flex: 1; justify-content: center; min-width: 0;
+    }
+    .nav-link {
+      display: flex; align-items: center; gap: 4px;
+      color: rgba(8,1,1,0.62); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 500;
+      font-size: 14.5px; line-height: 150%; white-space: nowrap;
+    }
+    .nav-link.active { color: var(--blue); font-weight: 600; }
+    .nav-consult {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 7px 9px 7px 16px;
+      background: var(--blue); color: var(--white);
+      border-radius: 10px; text-decoration: none;
+      font-family: var(--font-inter); font-weight: 700; font-size: 14px;
+      border: 1.5px solid var(--blue);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .nav-consult:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(11,99,165,0.38);
+    }
+    .nav-consult-icon {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-consult-icon svg { width: 16px; height: 16px; stroke: var(--blue); }
+    .nav-hamburger {
+      display: none; flex-direction: column;
+      justify-content: center; align-items: center;
+      width: 42px; height: 42px; gap: 5px;
+      background: var(--gray-soft); border: 1px solid var(--border);
+      border-radius: 10px; cursor: pointer; padding: 0;
+      margin-left: auto;
+    }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 2px; transition: all 0.22s ease; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed;
+      top: calc(12px + var(--nav-bar-h) + 10px + 8px);
+      left: 0; right: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      z-index: 99; padding: 8px 0 16px;
+      max-height: calc(100vh - 100px); overflow-y: auto;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-nav-link {
+      display: block; padding: 12px clamp(16px,4vw,24px);
+      color: var(--black); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 400; font-size: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-nav-link:last-child { border-bottom: none; }
+    .mobile-solutions-toggle {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px clamp(16px,4vw,24px);
+      width: 100%; background: none; border: none; border-bottom: 1px solid var(--border);
+      color: var(--black); font-family: var(--font-inter);
+      font-weight: 400; font-size: 16px; cursor: pointer; text-align: left;
+    }
+    .mobile-solutions-toggle svg { width: 18px; height: 18px; transition: transform 0.22s; }
+    .mobile-solutions-toggle.open svg { transform: rotate(180deg); }
+    .mobile-solutions-list { display: none; background: var(--gray-bg); padding: 8px clamp(16px,4vw,24px); }
+    .mobile-solutions-list.open { display: block; }
+    .mobile-solution-item {
+      display: block; padding: 10px 0; color: var(--black); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 500; font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-solution-item:last-child { border-bottom: none; }
+    .mobile-cta { padding: 16px clamp(16px,4vw,24px); }
+    .mobile-cta .btn-primary { width: 100%; justify-content: center; }
+
+    /* ═══════════════════ SOLUTIONS DROPDOWN ═══════════════════ */
+    .nav-solutions { position: relative; }
+    .nav-solutions-btn {
+      display: flex; align-items: center; gap: 4px;
+      background: none; border: none; cursor: pointer;
+      color: rgba(8,1,1,0.62); font-family: var(--font-inter);
+      font-weight: 500; font-size: 14.5px; line-height: 150%;
+      padding: 0; white-space: nowrap;
+    }
+    .nav-solutions-btn svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.22s ease; }
+    .nav-solutions-btn.open svg { transform: rotate(180deg); }
+    .solutions-dropdown {
+      display: none; position: absolute;
+      top: calc(100% + 14px); left: 50%;
+      transform: translateX(-50%);
+      width: min(640px, calc(100vw - 32px));
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px 24px 20px; z-index: 200;
+      box-shadow: var(--shadow-md);
+    }
+    .solutions-dropdown.open { display: block; }
+    .solutions-dropdown-header {
+      font-family: var(--font-inter); font-weight: 600;
+      font-size: 11px; line-height: 150%; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(8,1,1,0.4); margin-bottom: 14px;
+    }
+    .solutions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .solution-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 12px; border-radius: 8px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .solution-item:hover { background: var(--gray-bg); }
+    .solution-icon {
+      width: 34px; height: 34px; border-radius: 7px;
+      background: var(--gray-bg);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .solution-icon svg { width: 17px; height: 17px; stroke: var(--black); }
+    .solution-text { display: flex; flex-direction: column; gap: 2px; }
+    .solution-title { font-family: var(--font-inter); font-weight: 600; font-size: 13px; line-height: 150%; color: var(--black); }
+    .solution-subtitle { font-family: var(--font-inter); font-weight: 400; font-size: 11px; line-height: 150%; color: rgba(8,1,1,0.5); }
+    .solutions-dropdown-divider { height: 1px; background: var(--border); margin: 14px 0; }
+    .solutions-footer { display: flex; align-items: center; justify-content: flex-end; }
+    .solutions-footer-link {
+      font-family: var(--font-inter); font-weight: 600; font-size: 12px;
+      color: var(--blue); text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .solutions-footer-link svg { width: 13px; height: 13px; stroke: var(--blue); }
+
+    /* ═══════════════════ HERO ═══════════════════ */
+    .hero {
+      position: relative;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      padding: 0 var(--section-pad-h);
+      background-image:
+        linear-gradient(to bottom, rgba(4,20,40,0.30) 0%, rgba(4,20,40,0.58) 60%, rgba(4,20,40,0.78) 100%),
+        url('public/images/hero-bg.png');
+      background-size: cover; background-repeat: no-repeat; background-position: center top;
+      min-height: clamp(580px, 65vw, 840px);
+    }
+    .hero-main {
+      display: flex; flex-direction: column; gap: 32px;
+      max-width: 720px;
+      padding: clamp(84px,10vw,132px) 0 clamp(56px,7vw,88px);
+    }
+    .hero-text { display: flex; flex-direction: column; gap: 24px; }
+    .hero-h1 { color: var(--white); }
+    .hero-sub { color: rgba(255,255,255,0.78); max-width: 520px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .hero-cta-primary {
+      padding: 14px 28px; background: var(--blue); color: var(--white);
+      border: 1.5px solid var(--blue); border-radius: 8px;
+      font-family: var(--font-inter); font-weight: 700; font-size: 15px;
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; cursor: pointer; white-space: nowrap;
+    }
+    .hero-cta-secondary {
+      padding: 14px 28px;
+      background: rgba(255,255,255,0.10); color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.30); border-radius: 8px;
+      font-family: var(--font-inter); font-weight: 600; font-size: 15px;
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; cursor: pointer; white-space: nowrap;
+      backdrop-filter: blur(6px);
+    }
+    /* ═══════════════════ INTRO (What HVAC Does) ═══════════════════ */
+    .section-intro {
+      background: var(--white);
+      padding: var(--section-pad-v) var(--section-pad-h);
+    }
+    .intro-inner {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(28px, 4.2vw, 64px);
+      align-items: center;
+    }
+    .intro-left { display: flex; flex-direction: column; gap: 32px; }
+    .intro-label { display: flex; align-items: center; gap: 10px; }
+    .intro-label-line { width: 28px; height: 2px; background: var(--blue); border-radius: 2px; }
+    .intro-text { display: flex; flex-direction: column; gap: 20px; }
+    .intro-highlights {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      padding-top: 8px;
+    }
+    .intro-chip {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--gray-soft);
+    }
+    .intro-chip-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+    .intro-chip span { font-family: var(--font-inter); font-weight: 500; font-size: 13px; color: var(--black); }
+    .intro-right {
+      display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto;
+      gap: 12px;
+    }
+    .intro-img {
+      width: 100%; object-fit: cover;
+      border-radius: 10px; display: block;
+    }
+    .intro-img-a { aspect-ratio: 1/1; }
+    .intro-img-b { aspect-ratio: 1/1; }
+    .intro-img-c { aspect-ratio: 1/1; }
+    .intro-img-d { aspect-ratio: 1/1; }
+
+    /* ═══════════════════ FEATURES ═══════════════════ */
+    .features { background: var(--white); display: flex; flex-direction: column; align-items: stretch; }
+
+    .feature-row {
+      display: flex; flex-direction: row; justify-content: center;
+      padding: 0 clamp(28px, 5vw, 104px);
+      border-top: 1px solid var(--border);
+    }
+    .feature-container {
+      display: flex; flex-direction: column;
+      gap: clamp(28px, 3.5vw, 52px);
+      padding-bottom: var(--section-pad-v);
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .feature-section-info {
+      display: flex; flex-direction: row; align-items: center;
+      gap: 16px; padding-top: clamp(28px, 3.5vw, 52px);
+    }
+    .feature-num {
+      font-family: var(--font-sora); font-weight: 600; font-size: 12px;
+      color: var(--blue); letter-spacing: 0.04em;
+    }
+    .feature-section-info-divider { width: 1px; height: 14px; background: var(--border); flex-shrink: 0; }
+    .feature-section-name {
+      font-family: var(--font-inter); font-weight: 600; font-size: 12px;
+      color: rgba(8,1,1,0.50); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    .feature-content-row {
+      display: flex; flex-direction: row; align-items: center;
+      gap: var(--container-gap);
+    }
+    /* Desktop alternate (image / text swap). Use a class — not inline style — so responsive rules can override. */
+    .feature-content-row--reverse {
+      flex-direction: row-reverse;
+    }
+    .feature-text-block { display: flex; flex-direction: column; gap: 32px; flex: 1; min-width: 0; }
+    .section-title-group { display: flex; flex-direction: column; gap: 16px; }
+    .tagline-wrapper { display: flex; flex-direction: row; align-items: center; }
+    .feature-heading-group { display: flex; flex-direction: column; gap: 22px; }
+    .features .feature-heading-group .h2 {
+      /* Slightly smaller headings for a cleaner, more spacious hierarchy */
+      font-size: clamp(26px, 3.3vw, 46px);
+      line-height: 118%;
+      letter-spacing: -0.02em;
+    }
+    .feature-actions { display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px; }
+
+    .feature-image-wrap {
+      position: relative;
+      width: clamp(240px,28vw,420px);
+      aspect-ratio: 4/3;
+      flex-shrink: 0; border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 16px 52px rgba(8,1,1,0.14);
+    }
+    .feature-image {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    /* ═══════════════════ PROCESS ═══════════════════ */
+    .section-process {
+      background: var(--gray-soft);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      border-top: 1px solid var(--border);
+    }
+    .section-process-inner { display: flex; flex-direction: column; gap: clamp(48px,6vw,80px); }
+    .process-header {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 16px; text-align: center;
+    }
+    .process-header-text { max-width: 560px; }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: clamp(14px, 2vw, 24px);
+    }
+    .process-card {
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; gap: 20px;
+      padding: clamp(24px,3vw,36px) clamp(20px,2.2vw,28px);
+      background: var(--white);
+      border: 1px solid var(--border); border-radius: 18px;
+    }
+    .process-card-accent {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--blue-dark) 100%);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.42s cubic-bezier(0.22,1,0.36,1);
+      border-radius: 0 0 3px 3px;
+    }
+    .process-card:hover .process-card-accent { transform: scaleX(1); }
+    .process-card-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .process-num-big {
+      font-family: var(--font-sora); font-weight: 600;
+      font-size: clamp(40px,4.5vw,60px);
+      color: rgba(8,1,1,0.06); letter-spacing: -0.04em; line-height: 1;
+    }
+    .process-icon { width: 40px; height: 40px; }
+    .process-card-body { display: flex; flex-direction: column; gap: 10px; }
+
+    /* ═══════════════════ MITSUBISHI ═══════════════════ */
+    .section-mits {
+      background: var(--blue-deep);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      position: relative; overflow: hidden;
+    }
+    .section-mits::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 40%, rgba(11,99,165,0.35) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .section-mits-inner { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .mits-component { display: flex; flex-direction: row; align-items: center; gap: var(--container-gap); }
+    .mits-left { display: flex; flex-direction: column; gap: 32px; flex: 1; min-width: 0; }
+    .mits-bullets { display: flex; flex-direction: column; gap: 12px; }
+    .mits-bullet {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .mits-bullet-icon {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .mits-bullet-icon svg { width: 11px; height: 11px; stroke: rgba(255,255,255,0.85); }
+    .mits-bullet span { font-family: var(--font-inter); font-weight: 400; font-size: 14px; color: rgba(255,255,255,0.78); }
+    .mits-image-wrap {
+      flex-shrink: 0; position: relative;
+      width: clamp(160px, 9.5vw, 100px);
+      aspect-ratio: 4/3;
+    }
+    .mits-image-bg {
+      position: absolute; inset: -12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+    }
+    .mits-image {
+      width: 100%; height: 100%; object-fit: contain;
+      border-radius: 8px; display: block;
+      position: relative; z-index: 1;
+      filter: brightness(1.05) contrast(1.02);
+    }
+
+    /* ═══════════════════ CTA ═══════════════════ */
+    .section-cta {
+      background: var(--white);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      border-top: 1px solid var(--border);
+    }
+    .cta-card {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-deep) 100%);
+      border-radius: 20px; overflow: hidden;
+      padding: clamp(40px,5.5vw,80px) clamp(32px,4.4vw,72px);
+      display: flex; flex-direction: row; align-items: center;
+      gap: clamp(32px,5vw,80px); justify-content: space-between;
+      position: relative;
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 75% 50%, rgba(255,255,255,0.08) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .cta-card::after {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+    .cta-content { display: flex; flex-direction: column; gap: 16px; flex: 1; min-width: 0; position: relative; z-index: 1; }
+    .cta-actions { display: flex; flex-direction: row; gap: 12px; align-items: center; flex-shrink: 0; position: relative; z-index: 1; }
+    .cta-btn-white {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; background: var(--white); color: var(--blue-deep);
+      border: 1.5px solid var(--white); border-radius: 8px;
+      font-family: var(--font-inter); font-weight: 700; font-size: 15px;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+    }
+    .cta-btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; background: transparent; color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.38); border-radius: 8px;
+      font-family: var(--font-inter); font-weight: 600; font-size: 15px;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+    }
+
+    /* ═══════════════════ FOOTER (clean minimal) ═══════════════════ */
+    .footer {
+      background: var(--gray-soft);
+      padding: clamp(36px,5vw,56px) var(--section-pad-h);
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.95fr) 1fr 1fr;
+      gap: clamp(24px, 3vw, 44px);
+      align-items: start;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(22px, 3.2vw, 36px);
+    }
+    .footer-brand-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+    .footer-brand {
+      display: inline-flex; flex-direction: row; align-items: center;
+      text-decoration: none; color: inherit;
+    }
+    .footer-logo {
+      height: 48px; width: auto; max-width: 140px; object-fit: contain;
+      border-radius: 10px; flex-shrink: 0;
+    }
+    .footer-social { display: flex; flex-direction: row; gap: 10px; align-items: center; }
+    .footer-social a { color: rgba(8,1,1,0.78); }
+    .footer-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.9);
+      transition: transform 0.22s ease, color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .footer-social a:hover {
+      transform: translateY(-2px);
+      color: var(--blue);
+      border-color: rgba(11,99,165,0.35);
+      background: rgba(11,99,165,0.05);
+    }
+    .footer-contact-block { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+    .footer-contact-row {
+      display: flex; flex-direction: row; align-items: flex-start; gap: 12px;
+    }
+    .footer-contact-icon {
+      width: 20px; height: 20px; border-radius: 0; flex-shrink: 0;
+      margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-contact-icon svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; }
+    .footer-contact-label {
+      font-family: var(--font-inter); font-weight: 600; font-size: 11px;
+      color: rgba(8,1,1,0.45); text-transform: uppercase; letter-spacing: 0.06em;
+      display: block; margin-bottom: 4px;
+    }
+    .footer-contact-value {
+      font-family: var(--font-inter); font-weight: 400; font-size: 14px;
+      line-height: 155%; color: rgba(8,1,1,0.86);
+      margin: 0;
+    }
+    .footer-contact-value a {
+      color: rgba(8,1,1,0.86); text-decoration: none;
+      border-bottom: 1px solid rgba(8,1,1,0.12);
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+    .footer-contact-value a:hover { color: var(--blue); border-color: rgba(11,99,165,0.35); }
+
+    /* Link columns (with icons + chevrons) */
+    .footer-links-col { display: flex; flex-direction: column; gap: 0; padding-top: 6px; }
+    .footer-link-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 0;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(8,1,1,0.08);
+      transition: background 0.18s ease;
+    }
+    .footer-link-row:last-child { border-bottom: none; }
+    .footer-link-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .footer-link-icon {
+      width: 36px; height: 36px; border-radius: 12px;
+      background: var(--gray-soft);
+      border: 1px solid rgba(8,1,1,0.06);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .footer-link-icon svg { width: 18px; height: 18px; stroke: var(--blue); }
+    .footer-link-text {
+      font-family: var(--font-inter); font-weight: 600; font-size: 14px;
+      color: rgba(8,1,1,0.78);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .footer-link-chevron { width: 18px; height: 18px; flex-shrink: 0; color: rgba(8,1,1,0.35); transition: color 0.18s ease; }
+    .footer-link-row:hover { background: rgba(11,99,165,0.04); }
+    .footer-link-row:hover .footer-link-text { color: var(--blue); }
+    .footer-link-row:hover .footer-link-icon { border-color: rgba(11,99,165,0.18); background: rgba(11,99,165,0.04); }
+    .footer-link-row:hover .footer-link-chevron { color: var(--blue); }
+
+    /* ═══════════════════ RESPONSIVE ═══════════════════ */
+    @media (max-width: 1200px) {
+      .nav-links { gap: 20px; }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 1024px) {
+      .feature-content-row,
+      .feature-content-row--reverse {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .feature-image-wrap {
+        width: 100%;
+        max-width: none;
+        flex-shrink: 1;
+        aspect-ratio: 16/9;
+      }
+    }
+    @media (max-width: 1180px) {
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer-brand-col { grid-column: 1 / -1; }
+    }
+    @media (max-width: 900px) {
+      .nav-links, .nav-consult { display: none; }
+      .nav-hamburger { display: flex; }
+      .intro-inner { grid-template-columns: 1fr; }
+      .intro-right { grid-template-columns: repeat(4,1fr); grid-template-rows: auto; }
+      .intro-img-a, .intro-img-b, .intro-img-c, .intro-img-d { aspect-ratio: 1/1; }
+      .mits-component { flex-direction: column; align-items: flex-start; }
+      .mits-image-wrap { width: 100%; max-width: 260px; aspect-ratio: 16/9; }
+      .cta-card { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .solutions-dropdown { width: min(520px, calc(100vw - 32px)); }
+    }
+    @media (max-width: 640px) {
+      .solutions-dropdown {
+        position: fixed;
+        top: calc(12px + var(--nav-bar-h) + 10px + 8px);
+        left: 8px; right: 8px;
+        width: auto; border-radius: 10px;
+        transform: translateY(-10px) scale(0.97);
+      }
+      .solutions-dropdown.open { transform: translateY(0) scale(1); }
+      .solutions-grid { grid-template-columns: 1fr; }
+      .footer-main {
+        grid-template-columns: 1fr;
+      }
+      .intro-highlights { grid-template-columns: 1fr; }
+      .intro-right { grid-template-columns: 1fr 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .hero-actions { flex-direction: column; }
+      .hero-cta-primary, .hero-cta-secondary { width: 100%; justify-content: center; }
+      .cta-actions { flex-direction: column; width: 100%; }
+      .cta-btn-white, .cta-btn-outline { width: 100%; justify-content: center; }
+      .footer-links-col { padding-top: 0; }
+    }
+
+    /* ═══════════════════ ANIMATIONS ═══════════════════ */
+    @keyframes pageFadeIn { from{opacity:0} to{opacity:1} }
+    body { animation: pageFadeIn 0.4s ease both; }
+
+    @keyframes rvUp    { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes rvLeft  { from{opacity:0;transform:translateX(-28px)} to{opacity:1;transform:translateX(0)} }
+    @keyframes rvRight { from{opacity:0;transform:translateX(28px)}  to{opacity:1;transform:translateX(0)} }
+    @keyframes rvScale { from{opacity:0;transform:scale(0.95)}       to{opacity:1;transform:scale(1)} }
+    @keyframes rvFade  { from{opacity:0} to{opacity:1} }
+
+    .rv, .rv-l, .rv-r, .rv-sc, .rv-fd { opacity:0; }
+    .rv.on    { animation: rvUp    0.62s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-l.on  { animation: rvLeft  0.62s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-r.on  { animation: rvRight 0.62s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-sc.on { animation: rvScale 0.52s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-fd.on { animation: rvFade  0.66s ease both; }
+
+    .s1{animation-delay:0.06s!important} .s2{animation-delay:0.12s!important}
+    .s3{animation-delay:0.18s!important} .s4{animation-delay:0.24s!important}
+    .s5{animation-delay:0.30s!important} .s6{animation-delay:0.36s!important}
+
+    /* Nav underline */
+    .nav-link { position:relative; transition:color 0.2s ease !important; }
+    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1.5px; background:var(--blue); transition:width 0.22s cubic-bezier(0.22,1,0.36,1); }
+    .nav-link:hover::after, .nav-link.active::after { width:100%; }
+    .nav-link:hover { color:var(--blue) !important; }
+    .nav-solutions-btn { transition:color 0.2s ease !important; }
+    .nav-solutions-btn:hover { color:var(--blue); }
+
+    /* Button lift */
+    .btn-primary { transition: transform 0.22s ease, box-shadow 0.22s ease !important; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(11,99,165,0.30) !important; }
+    .btn-primary:active { transform: translateY(0) scale(0.98) !important; box-shadow: none !important; }
+    .btn-secondary { transition: background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease !important; }
+    .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(8,1,1,0.09) !important; }
+    .btn-secondary:active { transform: translateY(0) scale(0.98) !important; }
+    .btn-primary-sm { transition: transform 0.22s ease, box-shadow 0.22s ease !important; }
+    .btn-primary-sm:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(11,99,165,0.28) !important; }
+
+    .hero-cta-primary { transition: transform 0.22s ease, box-shadow 0.22s ease; }
+    .hero-cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(11,99,165,0.38); }
+    .hero-cta-secondary { transition: background 0.22s ease, transform 0.22s ease; }
+    .hero-cta-secondary:hover { background: rgba(255,255,255,0.20) !important; transform: translateY(-2px); }
+
+    /* Solutions dropdown */
+    .solutions-dropdown {
+      display:block !important; visibility:hidden; opacity:0;
+      transform:translateX(-50%) translateY(-10px) scale(0.97); transform-origin:top center;
+      pointer-events:none;
+      transition:opacity .22s ease, transform .22s cubic-bezier(0.22,1,0.36,1), visibility 0s linear .22s;
+    }
+    .solutions-dropdown.open {
+      visibility:visible; opacity:1; transform:translateX(-50%) translateY(0) scale(1); pointer-events:auto;
+      transition:opacity .22s ease, transform .22s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0s;
+    }
+    .solutions-dropdown.open .solution-item:nth-child(1){animation:rvUp .30s .04s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(2){animation:rvUp .30s .08s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(3){animation:rvUp .30s .12s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(4){animation:rvUp .30s .16s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(5){animation:rvUp .30s .20s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(6){animation:rvUp .30s .24s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(7){animation:rvUp .30s .28s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(8){animation:rvUp .30s .32s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(9){animation:rvUp .30s .36s cubic-bezier(0.22,1,0.36,1) both}
+    .solution-item { transition:background .15s ease, transform .17s ease !important; }
+    .solution-item:hover { transform:translateX(3px) !important; }
+    .solution-icon { transition:background .18s ease !important; }
+    .solution-item:hover .solution-icon { background:rgba(11,99,165,0.1); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display:block !important; visibility:hidden; opacity:0; transform:translateY(-10px);
+      pointer-events:none;
+      transition:opacity .26s ease, transform .26s cubic-bezier(0.22,1,0.36,1), visibility 0s linear .26s;
+    }
+    .mobile-menu.open {
+      visibility:visible; opacity:1; transform:translateY(0); pointer-events:auto;
+      transition:opacity .26s ease, transform .26s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0s;
+    }
+    .mobile-nav-link { transition:background .15s ease, padding-left .18s ease !important; }
+    .mobile-nav-link:hover { background:var(--gray-bg); padding-left:calc(clamp(16px,4vw,24px) + 6px) !important; }
+    .mobile-solutions-list {
+      display:block !important; visibility:hidden; opacity:0; max-height:0; overflow:hidden;
+      pointer-events:none;
+      transition:max-height .35s cubic-bezier(0.22,1,0.36,1), opacity .25s ease, visibility 0s linear .25s;
+    }
+    .mobile-solutions-list.open {
+      visibility:visible; opacity:1; max-height:600px; pointer-events:auto;
+      transition:max-height .35s cubic-bezier(0.22,1,0.36,1), opacity .25s ease, visibility 0s linear 0s;
+    }
+
+    /* Feature image hover */
+    .feature-image { transition:transform .5s cubic-bezier(0.22,1,0.36,1) !important; }
+    .feature-content-row:hover .feature-image { transform:scale(1.05); }
+
+    /* Process card */
+    .process-card { transition:transform .26s cubic-bezier(0.22,1,0.36,1), box-shadow .26s ease !important; }
+    .process-card:hover { transform:translateY(-6px); box-shadow: 0 14px 40px rgba(8,1,1,0.10) !important; }
+
+    /* Mits image */
+    .mits-image { transition:transform .42s cubic-bezier(0.22,1,0.36,1) !important; }
+    .mits-component:hover .mits-image { transform:scale(1.02) translateY(-3px); }
+
+    /* CTA buttons */
+    .cta-btn-white { transition:transform .22s ease, box-shadow .22s ease; }
+    .cta-btn-white:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,0.22); }
+    .cta-btn-outline { transition:background .22s ease, border-color .22s ease, transform .22s ease; }
+    .cta-btn-outline:hover { background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.65); transform:translateY(-2px); }
+
+    /* Footer polish */
+    .footer-social a svg rect, .footer-social a svg path, .footer-social a svg circle[r="4.5"] { stroke: rgba(8,1,1,0.62); transition: stroke 0.22s ease; }
+    .footer-social a svg circle[r="1"] { fill: rgba(8,1,1,0.62); transition: fill 0.22s ease; }
+    .footer-social a:hover svg rect, .footer-social a:hover svg path, .footer-social a:hover svg circle[r="4.5"] { stroke: var(--blue); }
+    .footer-social a:hover svg circle[r="1"] { fill: var(--blue); }
+    .text-sm-link { transition:color .18s ease !important; }
+    .text-sm-link:hover { color:var(--blue) !important; }
+    .navbar-logo { transition:transform .3s cubic-bezier(0.22,1,0.36,1) !important; }
+    .navbar-logo:hover { transform:scale(1.03); }
+    .footer-logo { transition:transform .3s cubic-bezier(0.22,1,0.36,1), opacity .2s ease; display:block; }
+    .footer-logo:hover { transform:scale(1.04); opacity:0.82; }
+
+    /* Intro image hover */
+    .intro-img { transition:transform .45s cubic-bezier(0.22,1,0.36,1) !important; }
+    .intro-img:hover { transform:scale(1.03); }
+
+    @media (prefers-reduced-motion:reduce) {
+      *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- NAVBAR                                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="nav-shell">
+    <nav class="navbar-inner">
+      <a href="index.html" class="navbar-brand">
+        <img src="public/images/logo.png" alt="Ozone Aircon" class="navbar-logo" />
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+
+        <div class="nav-solutions">
+          <button class="nav-solutions-btn" id="solutionsBtn" onclick="toggleSolutions(event)" aria-expanded="false">
+            Solutions
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+
+          <div class="solutions-dropdown" id="solutionsDropdown" role="menu">
+            <p class="solutions-dropdown-header">Our Services</p>
+            <div class="solutions-grid">
+
+              <a href="services.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Services</span>
+                  <span class="solution-subtitle">Full HVAC service portfolio</span>
+                </div>
+              </a>
+
+              <a href="vrf-system.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1M3 12h1M12 21v-1M21 12h-1"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l.7.7M18.4 5.6l-.7.7M5.6 18.4l.7-.7M18.4 18.4l-.7-.7"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">VRV / VRF System</span>
+                  <span class="solution-subtitle">Variable refrigerant flow systems</span>
+                </div>
+              </a>
+
+              <a href="indoor-units.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="12.5"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Indoor Units</span>
+                  <span class="solution-subtitle">Split, cassette &amp; concealed units</span>
+                </div>
+              </a>
+
+              <a href="chiller-plant.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Chiller Plant</span>
+                  <span class="solution-subtitle">Central cooling infrastructure</span>
+                </div>
+              </a>
+
+              <a href="ventilation.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C6 3 3 9 3 12s3 9 9 9 9-6 9-9-3-9-9-9z"/><path d="M12 8v4M8 12h8"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Ventilation</span>
+                  <span class="solution-subtitle">Fresh air &amp; circulation systems</span>
+                </div>
+              </a>
+
+              <a href="ductwork-design.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 17h16"/><path d="M9 7v10"/><path d="M15 7v10"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Ductwork Design</span>
+                  <span class="solution-subtitle">Air distribution &amp; specification</span>
+                </div>
+              </a>
+
+              <a href="tfas.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">TFA's</span>
+                  <span class="solution-subtitle">Treated fresh air units</span>
+                </div>
+              </a>
+
+              <a href="hvac-consultancy.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">HVAC Consultancy &amp; Design</span>
+                  <span class="solution-subtitle">Expert design &amp; engineering</span>
+                </div>
+              </a>
+
+              <a href="hvac-maintainence.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Maintenance &amp; After-Sales</span>
+                  <span class="solution-subtitle">Ongoing care &amp; support</span>
+                </div>
+              </a>
+
+            </div>
+
+            <div class="solutions-dropdown-divider"></div>
+            <div class="solutions-footer">
+              <a href="contact.html" class="solutions-footer-link">
+                Book a consultation
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="how-we-work.html" class="nav-link">How we work</a>
+        <a href="about-us.html" class="nav-link">About us</a>
+      </div>
+
+      <a href="contact.html" class="nav-consult">
+        Consult
+        <span class="nav-consult-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+
+      <button class="nav-hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation">
+    <a href="index.html" class="mobile-nav-link active">Home</a>
+    <button class="mobile-solutions-toggle" id="mobileSolutionsBtn" onclick="toggleMobileSolutions()" aria-expanded="false">
+      Solutions
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="mobile-solutions-list" id="mobileSolutionsList">
+      <a href="services.html" class="mobile-solution-item">Services</a>
+      <a href="vrf-system.html" class="mobile-solution-item">VRV / VRF System</a>
+      <a href="indoor-units.html" class="mobile-solution-item">Indoor Units</a>
+      <a href="chiller-plant.html" class="mobile-solution-item">Chiller Plant</a>
+      <a href="ventilation.html" class="mobile-solution-item">Ventilation</a>
+      <a href="ductwork-design.html" class="mobile-solution-item">Ductwork design</a>
+      <a href="tfas.html" class="mobile-solution-item">TFA's</a>
+      <a href="hvac-consultancy.html" class="mobile-solution-item">HVAC Consultancy &amp; Design</a>
+      <a href="hvac-maintainence.html" class="mobile-solution-item">Maintenance &amp; After-Sales Service</a>
+    </div>
+    <a href="how-we-work.html" class="mobile-nav-link">How we work</a>
+    <a href="about-us.html" class="mobile-nav-link">About us</a>
+    <div class="mobile-cta">
+      <a href="contact.html" class="btn-primary">Consult</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- HERO                                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="hero">
+
+    <!-- Main content -->
+    <div class="hero-main">
+      <div class="hero-text">
+        <h1 class="h1 hero-h1">Climate control built on<br>expertise and precision</h1>
+        <p class="text-md hero-sub">Ozone Aircon combines decades of HVAC mastery with Mitsubishi Electric's advanced technology to deliver systems that work as hard as you do. From residential comfort to commercial scale, we engineer solutions that last.</p>
+      </div>
+      <div class="hero-actions">
+        <a href="contact.html" class="hero-cta-primary">Book a Consultation</a>
+        <a href="services.html" class="hero-cta-secondary">Our Services</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- FEATURES SECTION                           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="features">
+
+    <!-- Feature 01 – VRF Systems -->
+    <div class="feature-row">
+      <div class="feature-container">
+        <div class="feature-section-info">
+          <span class="feature-num">01</span>
+          <div class="feature-section-info-divider"></div>
+          <span class="feature-section-name">VRF systems</span>
+        </div>
+        <div class="feature-content-row">
+          <div class="feature-text-block">
+            <div class="section-title-group">
+              <div class="tagline-wrapper">
+                <span class="tagline">Efficient</span>
+              </div>
+              <div class="feature-heading-group">
+                <h2 class="h2">Variable refrigerant flow for precise climate control</h2>
+                <p class="text-md muted">Advanced VRF and VRV systems engineered for maximum efficiency and individual zone management. Mitsubishi Electric technology ensures reliable performance across residential and commercial spaces.</p>
+              </div>
+            </div>
+            <div class="feature-actions">
+              <a href="vrf-system.html" class="btn-secondary">Explore VRF Systems</a>
+            </div>
+          </div>
+          <div class="feature-image-wrap">
+            <img src="public/images/feature-vrf.png" alt="VRF Systems" class="feature-image" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 02 – Ventilation -->
+    <div class="feature-row">
+      <div class="feature-container">
+        <div class="feature-section-info">
+          <span class="feature-num">02</span>
+          <div class="feature-section-info-divider"></div>
+          <span class="feature-section-name">Ventilation</span>
+        </div>
+        <div class="feature-content-row feature-content-row--reverse">
+          <div class="feature-text-block">
+            <div class="section-title-group">
+              <div class="tagline-wrapper">
+                <span class="tagline">Fresh</span>
+              </div>
+              <div class="feature-heading-group">
+                <h2 class="h2">Complete air circulation and quality management</h2>
+                <p class="text-md muted">Comprehensive ventilation solutions that maintain healthy indoor air quality. Our systems ensure proper circulation while minimizing energy consumption and maintaining comfort standards.</p>
+              </div>
+            </div>
+            <div class="feature-actions">
+              <a href="ventilation.html" class="btn-secondary">Explore Ventilation</a>
+            </div>
+          </div>
+          <div class="feature-image-wrap">
+            <img src="public/images/feature-ventilation.png" alt="Ventilation" class="feature-image" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 03 – Ducting -->
+    <div class="feature-row">
+      <div class="feature-container">
+        <div class="feature-section-info">
+          <span class="feature-num">03</span>
+          <div class="feature-section-info-divider"></div>
+          <span class="feature-section-name">Ducting</span>
+        </div>
+        <div class="feature-content-row">
+          <div class="feature-text-block">
+            <div class="section-title-group">
+              <div class="tagline-wrapper">
+                <span class="tagline">Precise</span>
+              </div>
+              <div class="feature-heading-group">
+                <h2 class="h2">Strategic ductwork design for optimal distribution</h2>
+                <p class="text-md muted">Expertly designed and installed ductwork that distributes conditioned air evenly throughout your space. Precision engineering minimizes losses and maximizes system efficiency.</p>
+              </div>
+            </div>
+            <div class="feature-actions">
+              <a href="ductwork-design.html" class="btn-secondary">Explore Ducting</a>
+            </div>
+          </div>
+          <div class="feature-image-wrap">
+            <img src="public/images/feature-ducting.png" alt="Ducting" class="feature-image" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 04 – Air Purification -->
+    <div class="feature-row">
+      <div class="feature-container">
+        <div class="feature-section-info">
+          <span class="feature-num">04</span>
+          <div class="feature-section-info-divider"></div>
+          <span class="feature-section-name">Air purification</span>
+        </div>
+        <div class="feature-content-row feature-content-row--reverse">
+          <div class="feature-text-block">
+            <div class="section-title-group">
+              <div class="tagline-wrapper">
+                <span class="tagline">Pure</span>
+              </div>
+              <div class="feature-heading-group">
+                <h2 class="h2">Advanced purification for cleaner indoor environments</h2>
+                <p class="text-md muted">Integrated air purification systems that remove contaminants and allergens. We combine filtration technology with ventilation to create healthier spaces for living and working.</p>
+              </div>
+            </div>
+            <div class="feature-actions">
+              <a href="services.html" class="btn-secondary">Explore Air Purification</a>
+            </div>
+          </div>
+          <div class="feature-image-wrap">
+            <img src="public/images/feature-purification.png" alt="Air Purification" class="feature-image" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PROCESS SECTION                            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section-process">
+    <div class="section-process-inner">
+
+      <!-- Header -->
+      <div class="process-header">
+        <span class="tagline">Process</span>
+        <h2 class="h2">From assessment to long-term performance</h2>
+        <p class="text-md muted process-header-text">Understanding your space, engineering the right solution, and standing by it for years.</p>
+      </div>
+
+      <!-- Cards grid -->
+      <div class="process-grid">
+
+        <div class="process-card">
+          <div class="process-card-accent"></div>
+          <div class="process-card-top">
+            <span class="process-num-big">01</span>
+            <svg class="process-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 8C15.16 8 8 15.16 8 24C8 32.84 15.16 40 24 40C32.84 40 40 32.84 40 24" stroke="#0B63A5" stroke-width="2" stroke-linecap="round"/>
+              <path d="M34 8V18M34 18H44M34 18L42 10" stroke="#0B63A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M24 16V24L28 28" stroke="#0B63A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="process-card-body">
+            <h5 class="h5">Heat load assessment determines system capacity</h5>
+            <p class="text-reg muted">We calculate thermal requirements for your environment</p>
+          </div>
+        </div>
+
+        <div class="process-card">
+          <div class="process-card-accent"></div>
+          <div class="process-card-top">
+            <span class="process-num-big">02</span>
+            <svg class="process-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 36L18 30M18 30L24 24M18 30L12 24M18 30L24 36" stroke="#0B63A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="8" y="8" width="14" height="14" rx="2" stroke="#0B63A5" stroke-width="2"/>
+              <rect x="26" y="8" width="14" height="14" rx="2" stroke="#0B63A5" stroke-width="2"/>
+              <rect x="26" y="26" width="14" height="14" rx="2" stroke="#0B63A5" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="process-card-body">
+            <h5 class="h5">Custom solutions tailored to your project</h5>
+            <p class="text-reg muted">Our engineers create detailed plans for optimal performance</p>
+          </div>
+        </div>
+
+        <div class="process-card">
+          <div class="process-card-accent"></div>
+          <div class="process-card-top">
+            <span class="process-num-big">03</span>
+            <svg class="process-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32 8L40 16L18 38L8 40L10 30L32 8Z" stroke="#0B63A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M28 12L36 20" stroke="#0B63A5" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="process-card-body">
+            <h5 class="h5">Precision execution by experienced technicians</h5>
+            <p class="text-reg muted">Every component placed with care and technical accuracy</p>
+          </div>
+        </div>
+
+        <div class="process-card">
+          <div class="process-card-accent"></div>
+          <div class="process-card-top">
+            <span class="process-num-big">04</span>
+            <svg class="process-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="14" stroke="#0B63A5" stroke-width="2"/>
+              <path d="M24 17V24L28 28" stroke="#0B63A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 8L12 12M32 8L36 12" stroke="#0B63A5" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="process-card-body">
+            <h5 class="h5">Commissioning and ongoing system care</h5>
+            <p class="text-reg muted">We ensure your system runs smoothly for years ahead</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- MITSUBISHI SECTION                         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section-mits">
+    <div class="section-mits-inner">
+      <div class="mits-component">
+
+        <div class="mits-left">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <span class="tagline" style="color:rgba(255,255,255,0.55);">Certified</span>
+            <h2 class="h2" style="color:var(--white);">Mitsubishi Electric authorized dealer</h2>
+            <p class="text-md" style="color:rgba(255,255,255,0.70); max-width:480px;">We deliver cutting-edge technology backed by decades of innovation. Energy-efficient systems engineered for reliability and performance across residential and commercial projects.</p>
+          </div>
+          <div class="mits-bullets">
+            <div class="mits-bullet">
+              <div class="mits-bullet-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span>Genuine Mitsubishi Electric products &amp; parts</span>
+            </div>
+            <div class="mits-bullet">
+              <div class="mits-bullet-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span>Factory-trained and certified installation teams</span>
+            </div>
+            <div class="mits-bullet">
+              <div class="mits-bullet-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span>Full manufacturer warranty support</span>
+            </div>
+          </div>
+          <div>
+            <a href="contact.html" class="hero-cta-primary" style="display:inline-flex;">Get a Quote</a>
+          </div>
+        </div>
+
+        <div class="mits-image-wrap">
+          <div class="mits-image-bg"></div>
+          <img src="public/images/mitsubishi.png" alt="Mitsubishi Electric Authorized Dealer" class="mits-image" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CTA SECTION                                -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section-cta">
+    <div class="cta-card">
+      <div class="cta-content">
+        <span class="tagline" style="color:rgba(255,255,255,0.55);">Ready to begin?</span>
+        <h3 class="h3" style="color:var(--white);">Start your project today</h3>
+        <p class="text-md" style="color:rgba(255,255,255,0.72); max-width:480px;">Book a site assessment and let our engineers design the right solution for your space.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="contact.html" class="cta-btn-white">Consult Now</a>
+        <a href="how-we-work.html" class="cta-btn-outline">How We Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- FOOTER                                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <footer class="footer">
+
+    <div class="footer-main">
+      <div class="footer-brand-col">
+        <a href="index.html" class="footer-brand">
+          <img src="public/images/logo.png" alt="Ozone Aircon" class="footer-logo" />
+        </a>
+
+        <div class="footer-contact-block">
+          <div class="footer-contact-row">
+            <div class="footer-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div>
+              <span class="footer-contact-label">Location</span>
+              <p class="footer-contact-value">A-41, Basement, Nangal Dewat, Vasant Kunj, New Delhi – 110070</p>
+            </div>
+          </div>
+
+          <div class="footer-contact-row">
+            <div class="footer-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <span class="footer-contact-label">Reach us</span>
+              <p class="footer-contact-value"><a href="tel:+91">Call our team</a></p>
+              <p class="footer-contact-value" style="margin-top:6px;"><a href="mailto:hello@ozoneaircon.com">hello@ozoneaircon.com</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-social">
+          <a href="https://www.instagram.com/ozoneaircon?igsh=MTBhbGd0bTM2N2xncA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/kanwarpal-singh-13bab9406" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="3" stroke="currentColor" stroke-width="1.5" />
+              <path d="M7 10V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M7 7.2V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M11 17V13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M11 10V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <a href="about-us.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21V19a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4 21V19a4 4 0 0 1 3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="footer-link-text">About us</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="how-we-work.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M12 20v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4.93 4.93l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M17.66 17.66l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M2 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M20 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4.93 19.07l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="footer-link-text">How we work</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="vrf-system.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M12 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">VRF systems</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="contact.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Contact us</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="services.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Services</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="footer-links-col">
+        <a href="services.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 14l4 4 12-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2" opacity="0.15" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Air purification</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="ventilation.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3C6 3 3 9 3 12s3 9 9 9 9-6 9-9-3-9-9-9z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 8v4M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Ventilation</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="ductwork-design.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 7h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M7 7v14h10V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Ducting</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="hvac-maintainence.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Maintenance</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    /* ── Desktop Solutions dropdown ─────────────── */
+    function toggleSolutions(e) {
+      e.stopPropagation();
+      const btn = document.getElementById('solutionsBtn');
+      const dd  = document.getElementById('solutionsDropdown');
+      const open = dd.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    document.addEventListener('click', function (e) {
+      const btn = document.getElementById('solutionsBtn');
+      const dd  = document.getElementById('solutionsDropdown');
+      if (btn && !btn.contains(e.target) && !dd.contains(e.target)) {
+        dd.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /* ── Mobile hamburger ────────────────────────── */
+    function toggleMobileMenu() {
+      const btn  = document.getElementById('hamburgerBtn');
+      const menu = document.getElementById('mobileMenu');
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    /* ── Mobile solutions sub-list ───────────────── */
+    function toggleMobileSolutions() {
+      const btn  = document.getElementById('mobileSolutionsBtn');
+      const list = document.getElementById('mobileSolutionsList');
+      const open = list.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+
+    /* ── Close on Escape ─────────────────────────── */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      ['solutionsDropdown','solutionsBtn'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.classList.remove('open'); el.setAttribute('aria-expanded','false'); }
+      });
+      const menu = document.getElementById('mobileMenu');
+      const hbtn = document.getElementById('hamburgerBtn');
+      if (menu && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        hbtn.classList.remove('open');
+        hbtn.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+      }
+    });
+
+    /* ── Close mobile menu on resize ─ */
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 900) {
+        const menu = document.getElementById('mobileMenu');
+        const btn  = document.getElementById('hamburgerBtn');
+        if (menu && menu.classList.contains('open')) {
+          menu.classList.remove('open');
+          btn.classList.remove('open');
+          btn.setAttribute('aria-expanded','false');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    /* Glass navbar: transparent on hero, solid after scrolling */
+    (function () {
+      var shell = document.querySelector('.nav-shell');
+      var hero  = document.querySelector('.hero');
+      if (!shell || !hero) return;
+
+      function sync() {
+        var threshold = hero.offsetHeight - 8; // keep glass over hero headline
+        if (window.scrollY > threshold) shell.classList.add('scrolled');
+        else shell.classList.remove('scrolled');
+      }
+
+      window.addEventListener('scroll', sync, { passive: true });
+      sync();
+    }());
+
+    /* ═══════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════ */
+    (function () {
+      'use strict';
+      var map = [
+        ['.hero-main',                                     ['rv','s1']     ],
+        // intro section removed
+        ['.feature-row:nth-child(1) .feature-section-info',['rv-fd','s1'] ],
+        ['.feature-row:nth-child(1) .feature-text-block',  ['rv-l','s1']  ],
+        ['.feature-row:nth-child(1) .feature-image-wrap',  ['rv-r','s2']  ],
+        ['.feature-row:nth-child(2) .feature-section-info',['rv-fd','s1'] ],
+        ['.feature-row:nth-child(2) .feature-text-block',  ['rv-r','s1']  ],
+        ['.feature-row:nth-child(2) .feature-image-wrap',  ['rv-l','s2']  ],
+        ['.feature-row:nth-child(3) .feature-section-info',['rv-fd','s1'] ],
+        ['.feature-row:nth-child(3) .feature-text-block',  ['rv-l','s1']  ],
+        ['.feature-row:nth-child(3) .feature-image-wrap',  ['rv-r','s2']  ],
+        ['.feature-row:nth-child(4) .feature-section-info',['rv-fd','s1'] ],
+        ['.feature-row:nth-child(4) .feature-text-block',  ['rv-r','s1']  ],
+        ['.feature-row:nth-child(4) .feature-image-wrap',  ['rv-l','s2']  ],
+        ['.process-header',                                ['rv-fd']       ],
+        ['.process-card:nth-child(1)',                     ['rv-sc','s1']  ],
+        ['.process-card:nth-child(2)',                     ['rv-sc','s2']  ],
+        ['.process-card:nth-child(3)',                     ['rv-sc','s3']  ],
+        ['.process-card:nth-child(4)',                     ['rv-sc','s4']  ],
+        ['.mits-left',                                     ['rv-l']        ],
+        ['.mits-image-wrap',                               ['rv-r','s1']   ],
+        ['.cta-card',                                      ['rv-sc']       ],
+        ['.footer-main',                                   ['rv-fd']       ],
+      ];
+
+      map.forEach(function(pair) {
+        document.querySelectorAll(pair[0]).forEach(function(el) {
+          pair[1].forEach(function(cls) { el.classList.add(cls); });
+        });
+      });
+
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-sc,.rv-fd').forEach(function(el) {
+        io.observe(el);
+      });
+
+      /* Page-exit fade */
+      document.querySelectorAll('a[href]').forEach(function(a) {
+        var href = a.getAttribute('href') || '';
+        if (!href || href.charAt(0) === '#' || href.indexOf('mailto') === 0 || href.indexOf('tel') === 0 || a.target === '_blank') return;
+        if (href.indexOf('.html') === -1) return;
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          var dest = href;
+          document.body.style.transition = 'opacity 0.28s ease';
+          document.body.style.opacity    = '0';
+          setTimeout(function() { window.location.href = dest; }, 290);
+        });
+      });
+    }());
+  </script>
+</body>
+</html>

@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VRV / VRF System — Ozone Aircon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600&display=swap" rel="stylesheet" />
+  <style>
+
+    /* ═══════════════ DESIGN TOKENS (aligned with Home) ═══════════════ */
+    :root {
+      --white:   #FFFFFF;
+      --black:   #080101;
+      --blue:    #0B63A5;
+      --blue-dark:  #084E84;
+      --blue-deep:  #06325A;
+      --gray-bg: #F2F2F2;
+      --gray-soft:  #F7F8FA;
+      --border:  rgba(8,1,1,0.13);
+      --font-sora:  'Sora', sans-serif;
+      --font-inter: 'Inter', sans-serif;
+      --section-pad-v: clamp(64px, 8vw, 120px);
+      --section-pad-h: clamp(20px, 4.4vw, 72px);
+      --container-gap: clamp(40px, 5.5vw, 88px);
+      --pad-v: var(--section-pad-v);
+      --pad-h: var(--section-pad-h);
+      --gap:   var(--container-gap);
+      --shadow-sm: 0 2px 12px rgba(8,1,1,0.07);
+      --shadow-md: 0 8px 32px rgba(8,1,1,0.10);
+      --shadow-lg: 0 20px 60px rgba(8,1,1,0.12);
+      --nav-bar-h: 68px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 93.75%; scroll-behavior: smooth; }
+    body { font-family: var(--font-inter); background: var(--white); color: var(--black); width: 100%; max-width: 1440px; margin: 0 auto; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ═══════════════ TYPE ═══════════════ */
+    .h1 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(36px,5vw,72px); line-height: 115%; letter-spacing: -0.025em; }
+    .h2 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(26px,3.6vw,52px); line-height: 118%; letter-spacing: -0.025em; }
+    .h3 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(22px,3.1vw,44px); line-height: 122%; letter-spacing: -0.02em; }
+    .h4 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(20px,2.5vw,36px); line-height: 130%; letter-spacing: -0.015em; }
+    .h5 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(18px,2vw,28px); line-height: 138%; letter-spacing: -0.01em; }
+    .tagline { font-family: var(--font-inter); font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 150%; color: var(--blue); }
+    .text-md  { font-family: var(--font-inter); font-weight: 400; font-size: clamp(14px,1.2vw,17px); line-height: 165%; }
+    .text-reg { font-family: var(--font-inter); font-weight: 400; font-size: 14px; line-height: 165%; }
+    .text-sm  { font-family: var(--font-inter); font-weight: 400; font-size: 12px; line-height: 150%; }
+    .text-sm-bold { font-family: var(--font-inter); font-weight: 600; font-size: 12px; line-height: 150%; }
+    .text-sm-link { font-family: var(--font-inter); font-weight: 400; font-size: 12px; line-height: 150%; text-decoration: underline; }
+    .h6 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(16px, 1.5vw, 20px); line-height: 130%; letter-spacing: -0.01em; color: var(--black); }
+
+    /* ═══════════════ BUTTONS (same as Home) ═══════════════ */
+    .btn-primary, .btn-secondary, .btn-primary-sm {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; border-radius: 8px; cursor: pointer;
+      font-family: var(--font-inter); font-weight: 600;
+      font-size: 15px; line-height: 150%; text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-primary    { padding: 12px 24px; background: var(--blue); color: var(--white); border: 1.5px solid var(--blue); }
+    .btn-secondary  { padding: 12px 24px; background: transparent; color: var(--black); border: 1.5px solid var(--border); }
+    .btn-primary-sm { padding: 8px 18px; background: var(--blue); color: var(--white); border: 1.5px solid var(--blue); }
+    .btn-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-inter); font-weight: 500; font-size: clamp(14px,1.1vw,16px);
+      color: var(--black); text-decoration: none; padding: 8px 0;
+    }
+    .btn-link svg { width: 20px; height: 20px; stroke: var(--black); transition: transform 0.2s ease; }
+    .btn-link:hover svg { transform: translateX(4px); }
+
+    /* ═══════════════ NAVBAR (same as Home) ═══════════════ */
+    .nav-shell {
+      position: sticky; top: 0; z-index: 100;
+      padding: 0 var(--section-pad-h);
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(12px) saturate(1.25);
+      border-bottom: 1px solid rgba(8,1,1,0.06);
+      box-shadow: 0 10px 26px rgba(8,1,1,0.06);
+    }
+    .nav-shell.scrolled {
+      background: rgba(255,255,255,0.92);
+      border-bottom: 1px solid rgba(8,1,1,0.08);
+    }
+    .navbar-inner {
+      display: flex; flex-direction: row;
+      align-items: center; justify-content: space-between; gap: 16px;
+      min-height: var(--nav-bar-h);
+      padding: 0;
+    }
+    .navbar-brand {
+      display: flex; flex-direction: row; align-items: center; gap: 12px;
+      text-decoration: none; color: inherit;
+      flex-shrink: 0;
+    }
+    .navbar-logo {
+      height: 52px; width: auto; max-width: 150px;
+      object-fit: contain; border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; flex-direction: row; align-items: center;
+      gap: clamp(14px, 2vw, 28px);
+      flex: 1; justify-content: center; min-width: 0;
+    }
+    .nav-link {
+      display: flex; align-items: center; gap: 4px;
+      color: rgba(8,1,1,0.62); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 500;
+      font-size: 14.5px; line-height: 150%; white-space: nowrap;
+    }
+    .nav-link.active { color: var(--blue); font-weight: 600; }
+    .nav-consult {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 7px 9px 7px 16px;
+      background: var(--blue); color: var(--white);
+      border-radius: 10px; text-decoration: none;
+      font-family: var(--font-inter); font-weight: 700; font-size: 14px;
+      border: 1.5px solid var(--blue);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .nav-consult:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(11,99,165,0.38);
+    }
+    .nav-consult-icon {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-consult-icon svg { width: 16px; height: 16px; stroke: var(--blue); }
+    .nav-hamburger {
+      display: none; flex-direction: column;
+      justify-content: center; align-items: center;
+      width: 42px; height: 42px; gap: 5px;
+      background: var(--gray-soft); border: 1px solid var(--border);
+      border-radius: 10px; cursor: pointer; padding: 0;
+      margin-left: auto;
+    }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 2px; transition: all 0.22s ease; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed;
+      top: calc(12px + var(--nav-bar-h) + 10px + 8px);
+      left: 0; right: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      z-index: 99; padding: 8px 0 16px;
+      max-height: calc(100vh - 100px); overflow-y: auto;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-nav-link {
+      display: block; padding: 12px clamp(16px,4vw,24px);
+      color: var(--black); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 400; font-size: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-nav-link:last-child { border-bottom: none; }
+    .mobile-solutions-toggle {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px clamp(16px,4vw,24px);
+      width: 100%; background: none; border: none; border-bottom: 1px solid var(--border);
+      color: var(--black); font-family: var(--font-inter);
+      font-weight: 400; font-size: 16px; cursor: pointer; text-align: left;
+    }
+    .mobile-solutions-toggle svg { width: 18px; height: 18px; transition: transform 0.22s; stroke: var(--black); }
+    .mobile-solutions-toggle.open svg { transform: rotate(180deg); }
+    .mobile-solutions-list { display: none; background: var(--gray-bg); padding: 8px clamp(16px,4vw,24px); }
+    .mobile-solutions-list.open { display: block; }
+    .mobile-solution-item {
+      display: block; padding: 10px 0; color: var(--black); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 500; font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-solution-item:last-child { border-bottom: none; }
+    .mobile-cta { padding: 16px clamp(16px,4vw,24px); }
+    .mobile-cta .btn-primary { width: 100%; justify-content: center; }
+
+    /* Solutions dropdown */
+    .nav-solutions { position: relative; }
+    .nav-solutions-btn {
+      display: flex; align-items: center; gap: 4px;
+      background: none; border: none; cursor: pointer;
+      color: rgba(8,1,1,0.62); font-family: var(--font-inter);
+      font-weight: 500; font-size: 14.5px; line-height: 150%;
+      padding: 0; white-space: nowrap;
+    }
+    .nav-solutions-btn svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.22s ease; stroke: currentColor; }
+    .nav-solutions-btn.open svg { transform: rotate(180deg); }
+    .solutions-dropdown {
+      display: none; position: absolute;
+      top: calc(100% + 14px); left: 50%;
+      transform: translateX(-50%);
+      width: min(640px, calc(100vw - 32px));
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px 24px 20px; z-index: 200;
+      box-shadow: var(--shadow-md);
+    }
+    .solutions-dropdown.open { display: block; }
+    .solutions-dropdown-header {
+      font-family: var(--font-inter); font-weight: 600;
+      font-size: 11px; line-height: 150%; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(8,1,1,0.4); margin-bottom: 14px;
+    }
+    .solutions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .solution-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 12px; border-radius: 8px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .solution-item:hover { background: var(--gray-bg); }
+    .solution-icon {
+      width: 34px; height: 34px; border-radius: 7px;
+      background: var(--gray-bg);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .solution-icon svg { width: 17px; height: 17px; stroke: var(--black); }
+    .solution-text { display: flex; flex-direction: column; gap: 2px; }
+    .solution-title { font-family: var(--font-inter); font-weight: 600; font-size: 13px; line-height: 150%; color: var(--black); }
+    .solution-subtitle { font-family: var(--font-inter); font-weight: 400; font-size: 11px; line-height: 150%; color: rgba(8,1,1,0.5); }
+    .solutions-dropdown-divider { height: 1px; background: var(--border); margin: 14px 0; }
+    .solutions-footer { display: flex; align-items: center; justify-content: flex-end; }
+    .solutions-footer-link {
+      font-family: var(--font-inter); font-weight: 600; font-size: 12px;
+      color: var(--blue); text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .solutions-footer-link svg { width: 13px; height: 13px; stroke: var(--blue); }
+
+    /* ════════════════════════════════════════════
+       PAGE HERO + SHOWCASE (vrf-hero.png — same asset, framed)
+    ════════════════════════════════════════════ */
+    .about-hero {
+      position: relative; overflow: hidden;
+      padding: clamp(72px, 10vw, 120px) var(--section-pad-h) clamp(48px, 6vw, 80px);
+      background: linear-gradient(145deg, var(--blue-deep) 0%, #082a52 42%, var(--blue-dark) 100%);
+      color: var(--white);
+    }
+    .about-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 55% at 78% -10%, rgba(11,99,165,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 10% 100%, rgba(11,99,165,0.22) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .about-hero::after {
+      content: ''; position: absolute; inset: 0; opacity: 0.07;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+    }
+    .about-hero-inner {
+      position: relative; z-index: 1;
+      max-width: 880px;
+      display: flex; flex-direction: column;
+      gap: clamp(18px, 3vw, 26px);
+    }
+    .about-hero-tag { color: rgba(255,255,255,0.72) !important; letter-spacing: 0.12em; }
+    .about-hero-title {
+      font-family: var(--font-sora); font-weight: 600;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 108%; letter-spacing: -0.03em;
+      color: var(--white);
+    }
+    .about-hero-lead {
+      max-width: 640px;
+      font-size: clamp(15px, 1.35vw, 18px);
+      line-height: 170%;
+      color: rgba(255,255,255,0.78);
+    }
+    .tagline-wrapper { display: flex; align-items: center; }
+
+    .vrf-hero-visual {
+      position: relative; z-index: 2;
+      margin-top: clamp(-52px, -6vw, -36px);
+      padding: 0 var(--section-pad-h) clamp(56px, 8vw, 104px);
+      background: linear-gradient(180deg, transparent 0%, var(--gray-soft) 18%, var(--white) 100%);
+    }
+    .vrf-hero-visual-inner {
+      max-width: 1180px; margin: 0 auto;
+    }
+    .vrf-hero-visual-frame {
+      position: relative;
+      border-radius: 20px; overflow: hidden;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(11,99,165,0.45), rgba(8,1,1,0.08));
+      box-shadow: var(--shadow-lg);
+    }
+    .vrf-hero-visual-frame-inner {
+      border-radius: 19px; overflow: hidden;
+      background: var(--black);
+    }
+    .vrf-hero-img {
+      width: 100%;
+      height: clamp(280px, 42vw, 560px);
+      object-fit: cover;
+      object-position: center 42%;
+      display: block;
+      transform: scale(1.01);
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .vrf-hero-visual-frame:hover .vrf-hero-img { transform: scale(1.04); }
+
+    /* ════════════════════════════════════════════
+       EXPLAINED SECTION
+    ════════════════════════════════════════════ */
+    .section-explained {
+      background: var(--white);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      border-top: 1px solid rgba(8,1,1,0.06);
+    }
+    .explained-inner {
+      display: flex; flex-direction: column;
+      gap: 32px; max-width: 760px; margin: 0 auto;
+    }
+    .explained-content {
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .section-title {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .section-title .tagline { color: var(--black); }
+
+    /* ════════════════════════════════════════════
+       COMPARISON SECTION
+    ════════════════════════════════════════════ */
+    .section-comparison {
+      background: linear-gradient(180deg, var(--white) 0%, var(--gray-soft) 55%, var(--white) 100%);
+      padding: var(--section-pad-v) var(--section-pad-h);
+    }
+    .comparison-shell { max-width: 1180px; margin: 0 auto; }
+    .comparison-header {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 16px; text-align: center;
+      margin-bottom: clamp(40px, 5.5vw, 80px);
+    }
+    .comparison-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(20px, 2.5vw, 36px);
+    }
+    .comparison-card {
+      border: 1px solid rgba(8,1,1,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .comparison-card-header {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: clamp(20px,2.8vw,32px);
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison-icon {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px; background: var(--gray-bg);
+      margin-bottom: 4px;
+    }
+    .comparison-icon svg { width: 28px; height: 28px; }
+    .comparison-card.vrf .comparison-icon { background: rgba(11,99,165,0.08); }
+    .comparison-table { padding: 0 clamp(20px,2.8vw,32px); }
+    .comparison-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison-row:last-child { border-bottom: none; }
+    .comparison-row-label { font-family: var(--font-inter); font-weight: 400; font-size: clamp(13px,1vw,15px); color: rgba(8,1,1,0.6); line-height: 150%; }
+    .comparison-row-value { font-family: var(--font-sora); font-weight: 600; font-size: clamp(14px,1.1vw,16px); color: var(--black); line-height: 140%; text-align: right; }
+    .comparison-card.vrf .comparison-row-value { color: var(--blue); }
+    .comparison-list { display: flex; flex-direction: column; gap: 14px; padding: clamp(20px,2.8vw,32px); border-top: 1px solid var(--border); }
+    .comparison-list-item {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .check-icon, .cross-icon {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .check-icon { background: rgba(11,99,165,0.1); }
+    .check-icon svg { width: 13px; height: 13px; stroke: var(--blue); }
+    .cross-icon { background: rgba(8,1,1,0.07); }
+    .cross-icon svg { width: 12px; height: 12px; stroke: rgba(8,1,1,0.4); }
+
+    /* ════════════════════════════════════════════
+       HOW VRF WORKS (TABS SECTION)
+    ════════════════════════════════════════════ */
+    .section-how {
+      background: var(--white);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      border-top: 1px solid rgba(8,1,1,0.06);
+    }
+    .how-shell { max-width: 1180px; margin: 0 auto; }
+    .how-header {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 16px; text-align: center;
+      margin-bottom: clamp(40px,5.5vw,80px);
+    }
+    .tabs-container {
+      border: 1px solid rgba(8,1,1,0.08);
+      border-radius: 20px; overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow-md);
+    }
+    .tabs-menu {
+      display: flex; border-bottom: 1px solid rgba(8,1,1,0.08);
+      background: linear-gradient(180deg, var(--gray-soft) 0%, rgba(247,248,250,0.5) 100%);
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .tabs-menu::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex: 1; min-width: 120px;
+      padding: clamp(16px,2.2vw,24px) clamp(16px,2.2vw,32px);
+      background: transparent; border: none; border-right: 1px solid rgba(8,1,1,0.08);
+      font-family: var(--font-sora); font-weight: 600;
+      font-size: clamp(13px,1.1vw,16px); line-height: 140%;
+      color: rgba(8,1,1,0.45); cursor: pointer; text-align: left;
+      transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+    }
+    .tab-btn:last-child { border-right: none; }
+    .tab-btn.active {
+      color: var(--blue); background: var(--white);
+      box-shadow: inset 0 3px 0 var(--blue);
+    }
+    .tab-btn:hover:not(.active) { color: var(--black); background: rgba(11,99,165,0.04); }
+    .tabs-content { overflow: hidden; background: linear-gradient(180deg, var(--white) 0%, var(--gray-soft) 100%); }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: flex; }
+    .tab-pane-inner {
+      display: flex; gap: clamp(32px,5.5vw,80px);
+      align-items: center;
+      padding: clamp(32px,4vw,56px) clamp(28px,3.8vw,48px);
+    }
+    .tab-pane-content {
+      display: flex; flex-direction: column; gap: 24px;
+      flex: 1;
+    }
+    .tab-pane-title { display: flex; flex-direction: column; gap: 16px; }
+    .tab-pane-visual { display: none; }
+
+    /* ════════════════════════════════════════════
+       INDOOR UNITS SECTION
+    ════════════════════════════════════════════ */
+    .section-units {
+      background: linear-gradient(180deg, var(--gray-soft) 0%, var(--white) 48%);
+      padding: var(--section-pad-v) var(--section-pad-h);
+    }
+    .units-shell { max-width: 1180px; margin: 0 auto; }
+    .units-header {
+      max-width: 680px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 16px; text-align: center;
+      margin-bottom: clamp(40px,5.5vw,80px);
+    }
+    .units-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(12px,1.8vw,24px);
+      margin-bottom: clamp(32px,4.4vw,64px);
+    }
+    .unit-card {
+      background: var(--white);
+      border: 1px solid rgba(8,1,1,0.08);
+      border-radius: 16px;
+      padding: clamp(24px,3.3vw,40px);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 20px; text-align: center;
+    }
+    .unit-icon {
+      width: 56px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(145deg, rgba(11,99,165,0.08), var(--gray-bg));
+      border-radius: 14px;
+      border: 1px solid rgba(11,99,165,0.12);
+    }
+    .unit-icon svg { width: 32px; height: 32px; fill: var(--black); }
+    .unit-card-content { display: flex; flex-direction: column; gap: 10px; }
+    .units-actions { display: flex; justify-content: center; }
+
+    /* ════════════════════════════════════════════
+       WHERE VRF EXCELS (gray bg)
+    ════════════════════════════════════════════ */
+    .section-excel {
+      background: linear-gradient(180deg, var(--white) 0%, var(--gray-bg) 100%);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      border-top: 1px solid rgba(8,1,1,0.06);
+    }
+    .excel-inner {
+      display: flex; flex-direction: column; gap: clamp(40px,5.5vw,80px);
+      max-width: 1180px; margin: 0 auto;
+    }
+    .excel-header {
+      display: flex; gap: clamp(40px,5.5vw,80px);
+      align-items: flex-start;
+    }
+    .excel-header-left {
+      display: flex; flex-direction: column; gap: 16px; flex: 1;
+    }
+    .excel-header-right { flex: 1; }
+    .excel-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(12px,1.8vw,24px);
+    }
+    .excel-card {
+      background: var(--white);
+      display: flex; flex-direction: column; gap: 20px;
+      padding: clamp(22px,2.8vw,32px);
+      border-radius: 16px;
+      border: 1px solid rgba(8,1,1,0.08);
+      box-shadow: var(--shadow-sm);
+    }
+    .excel-icon {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(145deg, rgba(11,99,165,0.1), var(--gray-soft));
+      border-radius: 12px;
+      border: 1px solid rgba(11,99,165,0.12);
+      flex-shrink: 0;
+    }
+    .excel-icon svg { width: 28px; height: 28px; stroke: var(--black); fill: none; }
+    .excel-card-content { display: flex; flex-direction: column; gap: 12px; }
+
+    /* ════════════════════════════════════════════
+       CLOSING CTA (aligned with Services)
+    ════════════════════════════════════════════ */
+    .section-vrf-cta {
+      padding: clamp(56px, 8vw, 96px) var(--section-pad-h);
+      background: linear-gradient(135deg, var(--blue-deep) 0%, #0a4578 48%, var(--blue-dark) 100%);
+      position: relative; overflow: hidden;
+    }
+    .section-vrf-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 100% 0%, rgba(11,99,165,0.35) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .vrf-cta-inner {
+      position: relative; z-index: 1;
+      max-width: 720px; margin: 0 auto;
+      text-align: center;
+      display: flex; flex-direction: column; gap: 18px; align-items: center;
+    }
+    .vrf-cta-title {
+      font-family: var(--font-sora); font-weight: 600;
+      font-size: clamp(26px, 3.6vw, 42px);
+      line-height: 118%; color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .vrf-cta-lead {
+      font-size: clamp(14px, 1.25vw, 17px);
+      line-height: 168%;
+      color: rgba(255,255,255,0.78);
+      max-width: 540px;
+    }
+    .vrf-cta-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+    .vrf-cta-actions {
+      display: flex; flex-wrap: wrap;
+      gap: 12px 16px; justify-content: center;
+      margin-top: 10px;
+    }
+    .section-vrf-cta .btn-primary {
+      background: var(--white); color: var(--blue-deep);
+      border-color: var(--white);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+    }
+    .section-vrf-cta .btn-primary:hover {
+      box-shadow: 0 16px 44px rgba(0,0,0,0.28);
+    }
+    .section-vrf-cta .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.4);
+      color: var(--white);
+    }
+    .section-vrf-cta .btn-secondary:hover {
+      background: rgba(255,255,255,0.16);
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER (same as Home)
+    ═══════════════════════════════════════ */
+    .footer {
+      background: var(--gray-soft);
+      padding: clamp(36px,5vw,56px) var(--section-pad-h);
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.95fr) 1fr 1fr;
+      gap: clamp(24px, 3vw, 44px);
+      align-items: start;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(22px, 3.2vw, 36px);
+    }
+    .footer-brand-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+    .footer-brand {
+      display: inline-flex; flex-direction: row; align-items: center;
+      text-decoration: none; color: inherit;
+    }
+    .footer-logo {
+      height: 48px; width: auto; max-width: 140px; object-fit: contain;
+      border-radius: 10px; flex-shrink: 0;
+    }
+    .footer-social { display: flex; flex-direction: row; gap: 10px; align-items: center; }
+    .footer-social a { color: rgba(8,1,1,0.78); }
+    .footer-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.9);
+      transition: transform 0.22s ease, color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .footer-social a:hover {
+      transform: translateY(-2px);
+      color: var(--blue);
+      border-color: rgba(11,99,165,0.35);
+      background: rgba(11,99,165,0.05);
+    }
+    .footer-contact-block { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+    .footer-contact-row {
+      display: flex; flex-direction: row; align-items: flex-start; gap: 12px;
+    }
+    .footer-contact-icon {
+      width: 20px; height: 20px; border-radius: 0; flex-shrink: 0;
+      margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-contact-icon svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; }
+    .footer-contact-label {
+      font-family: var(--font-inter); font-weight: 600; font-size: 11px;
+      color: rgba(8,1,1,0.45); text-transform: uppercase; letter-spacing: 0.06em;
+      display: block; margin-bottom: 4px;
+    }
+    .footer-contact-value {
+      font-family: var(--font-inter); font-weight: 400; font-size: 14px;
+      line-height: 155%; color: rgba(8,1,1,0.86);
+      margin: 0;
+    }
+    .footer-contact-value a {
+      color: rgba(8,1,1,0.86); text-decoration: none;
+      border-bottom: 1px solid rgba(8,1,1,0.12);
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+    .footer-contact-value a:hover { color: var(--blue); border-color: rgba(11,99,165,0.35); }
+
+    .footer-links-col { display: flex; flex-direction: column; gap: 0; padding-top: 6px; }
+    .footer-link-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 0;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(8,1,1,0.08);
+      transition: background 0.18s ease;
+    }
+    .footer-link-row:last-child { border-bottom: none; }
+    .footer-link-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .footer-link-icon {
+      width: 36px; height: 36px; border-radius: 12px;
+      background: var(--gray-soft);
+      border: 1px solid rgba(8,1,1,0.06);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .footer-link-icon svg { width: 18px; height: 18px; stroke: var(--blue); }
+    .footer-link-text {
+      font-family: var(--font-inter); font-weight: 600; font-size: 14px;
+      color: rgba(8,1,1,0.78);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .footer-link-chevron { width: 18px; height: 18px; flex-shrink: 0; color: rgba(8,1,1,0.35); transition: color 0.18s ease; }
+    .footer-link-row:hover { background: rgba(11,99,165,0.04); }
+    .footer-link-row:hover .footer-link-text { color: var(--blue); }
+    .footer-link-row:hover .footer-link-icon { border-color: rgba(11,99,165,0.18); background: rgba(11,99,165,0.04); }
+    .footer-link-row:hover .footer-link-chevron { color: var(--blue); }
+
+/* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1200px) {
+      .nav-links { gap: 20px; }
+    }
+    @media (max-width: 1100px) {
+      .units-grid { grid-template-columns: repeat(2, 1fr); }
+      .excel-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 1024px) {
+      .vrf-hero-img { height: clamp(240px, 48vw, 440px); }
+      .explained-inner { max-width: 100%; }
+      .explained-visual { min-height: 220px; }
+      .excel-header { flex-direction: column; gap: 24px; }
+    }
+    @media (max-width: 1180px) {
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer-brand-col { grid-column: 1 / -1; }
+    }
+    @media (max-width: 900px) {
+      .nav-links, .nav-consult { display: none; }
+      .nav-hamburger { display: flex; }
+      .solutions-dropdown { width: min(520px, calc(100vw - 32px)); }
+    }
+    @media (max-width: 768px) {
+      .vrf-hero-img { height: clamp(200px, 52vw, 360px); }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .tab-pane.active { display: block; }
+      .tab-pane-inner { flex-direction: column; }
+      .tab-pane-visual { flex: none; width: 100%; max-width: 280px; margin: 0 auto; }
+      .footer-card { flex-direction: column; }
+      .footer-left { max-width: 100%; }
+    }
+    @media (max-width: 640px) {
+      .solutions-dropdown {
+        position: fixed;
+        top: calc(12px + var(--nav-bar-h) + 10px + 8px);
+        left: 8px; right: 8px;
+        width: auto; border-radius: 10px;
+        transform: translateY(-10px) scale(0.97);
+      }
+      .solutions-dropdown.open { transform: translateY(0) scale(1); }
+      .solutions-grid { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr; }
+      .tabs-menu { flex-wrap: nowrap; }
+      .footer-right { flex-direction: column; }
+      .footer-credits-row { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .mobile-cta .btn-primary { width: 100%; justify-content: center; }
+      .footer-links-col { padding-top: 0; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .vrf-cta-actions .btn-primary,
+      .vrf-cta-actions .btn-secondary { width: 100%; }
+      .units-grid { grid-template-columns: 1fr; }
+      .excel-grid { grid-template-columns: 1fr; }
+    }
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════ */
+    @keyframes pageFadeIn { from{opacity:0} to{opacity:1} }
+    body { animation: pageFadeIn 0.4s ease both; }
+    @keyframes rvUp    { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes rvLeft  { from{opacity:0;transform:translateX(-30px)} to{opacity:1;transform:translateX(0)} }
+    @keyframes rvRight { from{opacity:0;transform:translateX(30px)}  to{opacity:1;transform:translateX(0)} }
+    @keyframes rvScale { from{opacity:0;transform:scale(0.94)}       to{opacity:1;transform:scale(1)} }
+    @keyframes rvFade  { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+    .rv,.rv-l,.rv-r,.rv-sc,.rv-fd { opacity:0; }
+    .rv.on    { animation: rvUp    0.68s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-l.on  { animation: rvLeft  0.68s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-r.on  { animation: rvRight 0.68s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-sc.on { animation: rvScale 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-fd.on { animation: rvFade  0.72s cubic-bezier(0.22,1,0.36,1) both; }
+    .s1{animation-delay:.07s!important} .s2{animation-delay:.14s!important} .s3{animation-delay:.21s!important}
+
+    .nav-link { position:relative; transition:color 0.2s ease !important; }
+    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1.5px; background:var(--blue); transition:width 0.22s cubic-bezier(0.22,1,0.36,1); }
+    .nav-link:hover::after, .nav-link.active::after { width:100%; }
+    .nav-link:hover { color:var(--blue) !important; }
+    .nav-solutions-btn { transition:color 0.2s ease !important; }
+    .nav-solutions-btn:hover { color:var(--blue); }
+    .btn-primary { transition: transform 0.22s ease, box-shadow 0.22s ease !important; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(11,99,165,0.30) !important; }
+    .btn-primary:active { transform: translateY(0) scale(0.98) !important; box-shadow: none !important; }
+    .btn-secondary { transition: background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease !important; }
+    .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(8,1,1,0.09) !important; }
+    .btn-secondary:active { transform: translateY(0) scale(0.98) !important; }
+    .btn-primary-sm { transition: transform 0.22s ease, box-shadow 0.22s ease !important; }
+    .btn-primary-sm:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(11,99,165,0.28) !important; }
+    .btn-link { transition:color .18s ease !important; }
+    .btn-link:hover { color:var(--blue) !important; }
+    .btn-link:hover svg { stroke:var(--blue); }
+
+    .solutions-dropdown {
+      display:block !important; visibility:hidden; opacity:0;
+      transform:translateX(-50%) translateY(-10px) scale(0.97); transform-origin:top center; pointer-events:none;
+      transition:opacity .22s ease, transform .22s cubic-bezier(0.22,1,0.36,1), visibility 0s linear .22s;
+    }
+    .solutions-dropdown.open {
+      visibility:visible; opacity:1; transform:translateX(-50%) translateY(0) scale(1); pointer-events:auto;
+      transition:opacity .22s ease, transform .22s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0s;
+    }
+    .solutions-dropdown.open .solution-item:nth-child(1){animation:rvUp .30s .04s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(2){animation:rvUp .30s .08s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(3){animation:rvUp .30s .12s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(4){animation:rvUp .30s .16s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(5){animation:rvUp .30s .20s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(6){animation:rvUp .30s .24s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(7){animation:rvUp .30s .28s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(8){animation:rvUp .30s .32s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(9){animation:rvUp .30s .36s cubic-bezier(0.22,1,0.36,1) both}
+    .solution-item { transition:background .15s ease, transform .17s ease !important; }
+    .solution-item:hover { transform:translateX(3px) !important; }
+    .solution-icon { transition:background .18s ease !important; }
+    .solution-item:hover .solution-icon { background:rgba(11,99,165,0.1); }
+    .mobile-menu { display:block !important; visibility:hidden; opacity:0; transform:translateY(-10px); pointer-events:none; transition:opacity .26s ease, transform .26s cubic-bezier(0.22,1,0.36,1), visibility 0s linear .26s; }
+    .mobile-menu.open { visibility:visible; opacity:1; transform:translateY(0); pointer-events:auto; transition:opacity .26s ease, transform .26s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0s; }
+    .mobile-nav-link { transition:background .15s ease, padding-left .18s ease !important; }
+    .mobile-nav-link:hover { background:var(--gray-bg); padding-left:calc(clamp(16px,4vw,24px) + 6px) !important; }
+    .mobile-solutions-list { display:block !important; visibility:hidden; opacity:0; max-height:0; overflow:hidden; pointer-events:none; transition:max-height .35s cubic-bezier(0.22,1,0.36,1), opacity .25s ease, visibility 0s linear .25s; }
+    .mobile-solutions-list.open { visibility:visible; opacity:1; max-height:600px; pointer-events:auto; transition:max-height .35s cubic-bezier(0.22,1,0.36,1), opacity .25s ease, visibility 0s linear 0s; }
+    .comparison-card { transition: box-shadow .22s ease, transform .22s ease !important; }
+    .comparison-card:hover { box-shadow: 0 8px 32px rgba(8,1,1,0.08); transform: translateY(-3px); }
+    .unit-card { transition: box-shadow .22s ease, transform .22s ease, border-color .22s ease !important; }
+    .unit-card:hover { box-shadow: 0 8px 24px rgba(8,1,1,0.08); transform: translateY(-3px); border-color: rgba(11,99,165,0.25); }
+    .excel-card { transition: transform .2s ease, border-color .2s ease !important; }
+    .excel-card:hover { transform: translateY(-3px); border-color: var(--blue); }
+    .navbar-logo { transition:transform .3s cubic-bezier(0.22,1,0.36,1) !important; }
+    .navbar-logo:hover { transform:scale(1.03); }
+    .footer-logo { transition:transform .3s cubic-bezier(0.22,1,0.36,1), opacity .2s ease; display:block; }
+    .footer-logo:hover { transform:scale(1.04); opacity:0.82; }
+    .footer-social a svg rect,
+    .footer-social a svg path,
+    .footer-social a svg circle[r="4.5"] { stroke: rgba(8,1,1,0.62); transition: stroke 0.22s ease; }
+    .footer-social a svg circle[r="1"] { fill: rgba(8,1,1,0.62); transition: fill 0.22s ease; }
+    .footer-social a:hover svg rect,
+    .footer-social a:hover svg path,
+    .footer-social a:hover svg circle[r="4.5"] { stroke: var(--blue); }
+    .footer-social a:hover svg circle[r="1"] { fill: var(--blue); }
+    .text-sm-link { transition: color 0.18s ease !important; }
+    .text-sm-link:hover { color: var(--blue) !important; }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+  
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- NAVBAR (same as Home)                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="nav-shell">
+    <nav class="navbar-inner">
+      <a href="index.html" class="navbar-brand">
+        <img src="public/images/logo.png" alt="Ozone Aircon" class="navbar-logo" />
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+
+        <div class="nav-solutions">
+          <button type="button" class="nav-solutions-btn" id="solutionsBtn" onclick="toggleSolutions(event)" aria-expanded="false">
+            Solutions
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+
+          <div class="solutions-dropdown" id="solutionsDropdown" role="menu">
+            <p class="solutions-dropdown-header">Our Services</p>
+            <div class="solutions-grid">
+
+              <a href="services.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Services</span>
+                  <span class="solution-subtitle">Full HVAC service portfolio</span>
+                </div>
+              </a>
+
+              <a href="vrf-system.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1M3 12h1M12 21v-1M21 12h-1"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l.7.7M18.4 5.6l-.7.7M5.6 18.4l.7-.7M18.4 18.4l-.7-.7"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">VRV / VRF System</span>
+                  <span class="solution-subtitle">Variable refrigerant flow systems</span>
+                </div>
+              </a>
+
+              <a href="indoor-units.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="12.5"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Indoor Units</span>
+                  <span class="solution-subtitle">Split, cassette &amp; concealed units</span>
+                </div>
+              </a>
+
+              <a href="chiller-plant.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Chiller Plant</span>
+                  <span class="solution-subtitle">Central cooling infrastructure</span>
+                </div>
+              </a>
+
+              <a href="ventilation.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C6 3 3 9 3 12s3 9 9 9 9-6 9-9-3-9-9-9z"/><path d="M12 8v4M8 12h8"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Ventilation</span>
+                  <span class="solution-subtitle">Fresh air &amp; circulation systems</span>
+                </div>
+              </a>
+
+              <a href="ductwork-design.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 17h16"/><path d="M9 7v10"/><path d="M15 7v10"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Ductwork Design</span>
+                  <span class="solution-subtitle">Air distribution &amp; specification</span>
+                </div>
+              </a>
+
+              <a href="tfas.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">TFA's</span>
+                  <span class="solution-subtitle">Treated fresh air units</span>
+                </div>
+              </a>
+
+              <a href="hvac-consultancy.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">HVAC Consultancy &amp; Design</span>
+                  <span class="solution-subtitle">Expert design &amp; engineering</span>
+                </div>
+              </a>
+
+              <a href="hvac-maintainence.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Maintenance &amp; After-Sales</span>
+                  <span class="solution-subtitle">Ongoing care &amp; support</span>
+                </div>
+              </a>
+
+            </div>
+
+            <div class="solutions-dropdown-divider"></div>
+            <div class="solutions-footer">
+              <a href="contact.html" class="solutions-footer-link">
+                Book a consultation
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="how-we-work.html" class="nav-link">How we work</a>
+        <a href="about-us.html" class="nav-link">About us</a>
+      </div>
+
+      <a href="contact.html" class="nav-consult">
+        Consult
+        <span class="nav-consult-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+
+      <button type="button" class="nav-hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Primary">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <button type="button" class="mobile-solutions-toggle" id="mobileSolutionsBtn" onclick="toggleMobileSolutions()" aria-expanded="false">
+      Solutions
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="mobile-solutions-list" id="mobileSolutionsList">
+      <a href="services.html" class="mobile-solution-item">Services</a>
+      <a href="vrf-system.html" class="mobile-solution-item">VRV / VRF System</a>
+      <a href="indoor-units.html" class="mobile-solution-item">Indoor Units</a>
+      <a href="chiller-plant.html" class="mobile-solution-item">Chiller Plant</a>
+      <a href="ventilation.html" class="mobile-solution-item">Ventilation</a>
+      <a href="ductwork-design.html" class="mobile-solution-item">Ductwork design</a>
+      <a href="tfas.html" class="mobile-solution-item">TFA's</a>
+      <a href="hvac-consultancy.html" class="mobile-solution-item">HVAC Consultancy &amp; Design</a>
+      <a href="hvac-maintainence.html" class="mobile-solution-item">Maintenance &amp; After-Sales Service</a>
+    </div>
+    <a href="how-we-work.html" class="mobile-nav-link">How we work</a>
+    <a href="about-us.html" class="mobile-nav-link">About us</a>
+    <div class="mobile-cta">
+      <a href="contact.html" class="btn-primary">Consult</a>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- HERO + SHOWCASE (vrf-hero.png)              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="about-hero" data-nav-scroll-anchor>
+    <div class="about-hero-inner">
+      <span class="tagline-wrapper"><span class="tagline about-hero-tag">VRV / VRF</span></span>
+      <h1 class="about-hero-title">VRV and VRF systems for precision climate control</h1>
+      <p class="about-hero-lead">One outdoor unit connects to up to 50 indoor zones, each maintaining its own temperature. Individual control throughout your entire building, without compromise.</p>
+    </div>
+  </section>
+
+  <section class="vrf-hero-visual" aria-label="VRF outdoor installation">
+    <div class="vrf-hero-visual-inner">
+      <div class="vrf-hero-visual-frame">
+        <div class="vrf-hero-visual-frame-inner">
+          <img src="public/images/vrf-hero.png" alt="VRF outdoor units on a building installation" class="vrf-hero-img" width="1600" height="900" loading="eager" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- WHAT IS VRF / VRV                          -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section-explained">
+    <div class="explained-inner">
+
+      <div class="explained-content">
+        <div class="section-title">
+          <span class="tagline">Explained</span>
+          <div style="display:flex;flex-direction:column;gap:24px;">
+            <h2 class="h2">What is VRF and VRV</h2>
+            <p class="text-md">Variable refrigerant flow means one outdoor unit sends heated or cooled refrigerant through thin copper pipes to multiple indoor units spread across your building. Each zone operates independently, heating one room while cooling another, with no energy wasted on spaces you don't need to condition.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- COMPARISON                                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section-comparison">
+    <div class="comparison-header">
+      <span class="tagline">Comparison</span>
+      <h2 class="h2" style="text-align:center;">VRF beats traditional AC</h2>
+      <p class="text-md" style="max-width:540px;text-align:center;">See how variable refrigerant flow outperforms standard split systems</p>
+    </div>
+
+    <div class="comparison-shell">
+
+    <div class="comparison-grid">
+
+      <!-- Traditional AC -->
+      <div class="comparison-card">
+        <div class="comparison-card-header">
+          <div class="comparison-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="10" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              <path d="M12 17v3M9 20h6"/>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <span class="h6">Traditional split AC</span>
+            <span class="text-reg" style="color:rgba(8,1,1,0.5);">Limited to single zone</span>
+          </div>
+        </div>
+        <div class="comparison-table">
+          <div class="comparison-row"><span class="comparison-row-label">Zone control</span><span class="comparison-row-value">One zone only</span></div>
+          <div class="comparison-row"><span class="comparison-row-label">Energy efficiency</span><span class="comparison-row-value">Moderate savings</span></div>
+          <div class="comparison-row"><span class="comparison-row-label">Indoor unit types</span><span class="comparison-row-value">Wall mounted only</span></div>
+          <div class="comparison-row"><span class="comparison-row-label">Noise level</span><span class="comparison-row-value">35–40 decibels</span></div>
+        </div>
+        <div class="comparison-list">
+          <div class="comparison-list-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="text-reg">Simultaneous heat and cool</span>
+          </div>
+          <div class="comparison-list-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="text-reg" style="color:rgba(8,1,1,0.45);">Not possible</span>
+          </div>
+          <div class="comparison-list-item">
+            <div class="cross-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></div>
+            <span class="text-reg">Pipe run distance</span>
+          </div>
+          <div class="comparison-list-item">
+            <div class="cross-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></div>
+            <span class="text-reg" style="color:rgba(8,1,1,0.45);">Limited to 25 meters</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VRF System -->
+      <div class="comparison-card vrf">
+        <div class="comparison-card-header">
+          <div class="comparison-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="var(--blue)">
+              <path d="M12 3v1M3 12h1M12 21v-1M21 12h-1"/><circle cx="12" cy="12" r="4"/>
+              <path d="M19.07 4.93l-.7.7M5.64 18.36l-.7.7M19.07 19.07l-.7-.7M5.64 5.64l-.7-.7"/>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <span class="h6" style="color:var(--blue);">VRF system</span>
+            <span class="text-reg" style="color:rgba(8,1,1,0.5);">Up to 50 independent zones</span>
+          </div>
+        </div>
+        <div class="comparison-table">
+          <div class="comparison-row"><span class="comparison-row-label">Zone control</span><span class="comparison-row-value">Up to 50 zones</span></div>
+          <div class="comparison-row"><span class="comparison-row-label">Energy efficiency</span><span class="comparison-row-value">30–40% more efficient</span></div>
+          <div class="comparison-row"><span class="comparison-row-label">Indoor unit types</span><span class="comparison-row-value">Five different styles</span></div>
+          <div class="comparison-row"><span class="comparison-row-label">Noise level</span><span class="comparison-row-value">22–26 decibels</span></div>
+        </div>
+        <div class="comparison-list">
+          <div class="comparison-list-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="text-reg">Simultaneous heat and cool</span>
+          </div>
+          <div class="comparison-list-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="text-reg">Yes, in different zones</span>
+          </div>
+          <div class="comparison-list-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="text-reg">Pipe run distance</span>
+          </div>
+          <div class="comparison-list-item">
+            <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <span class="text-reg">Up to 300 meters</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- HOW VRF WORKS — TABS                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section-how">
+    <div class="how-shell">
+    <div class="how-header">
+      <span class="tagline">Process</span>
+      <h2 class="h2" style="text-align:center;">How VRF systems work</h2>
+      <p class="text-md" style="max-width:560px;text-align:center;">The system moves refrigerant from one outdoor unit through a network of pipes to indoor units in different rooms, with controllers managing temperature in each zone independently.</p>
+    </div>
+
+    <div class="tabs-container">
+      <div class="tabs-menu" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true"  onclick="switchTab(0)">Outdoor unit</button>
+        <button class="tab-btn"        role="tab" aria-selected="false" onclick="switchTab(1)">Indoor units</button>
+        <button class="tab-btn"        role="tab" aria-selected="false" onclick="switchTab(2)">Branch controller</button>
+        <button class="tab-btn"        role="tab" aria-selected="false" onclick="switchTab(3)">Zone controllers</button>
+        <button class="tab-btn"        role="tab" aria-selected="false" onclick="switchTab(4)">System overview</button>
+      </div>
+
+      <div class="tabs-content">
+
+        <!-- Tab 1: Outdoor unit -->
+        <div class="tab-pane active" role="tabpanel">
+          <div class="tab-pane-inner">
+            <div class="tab-pane-content">
+              <div class="tab-pane-title">
+                <span class="tagline">Outdoor</span>
+                <h3 class="h3">The outdoor unit compresses refrigerant and distributes it through copper piping to indoor zones. This single unit handles heating and cooling for your entire building without requiring separate systems for each area.</h3>
+                <p class="text-reg">One powerful unit serves your whole building. No need for multiple outdoor units taking up rooftop or ground space.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Indoor units -->
+        <div class="tab-pane" role="tabpanel">
+          <div class="tab-pane-inner">
+            <div class="tab-pane-content">
+              <div class="tab-pane-title">
+                <span class="tagline">Indoor</span>
+                <h3 class="h3">Indoor units receive refrigerant and deliver conditioned air directly into each zone.</h3>
+                <p class="text-reg">Available in five styles — ceiling cassette, ducted, wall-mounted, floor-standing, and suspended — to suit any room layout and interior design requirement.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Branch controller -->
+        <div class="tab-pane" role="tabpanel">
+          <div class="tab-pane-inner">
+            <div class="tab-pane-content">
+              <div class="tab-pane-title">
+                <span class="tagline">Distribution</span>
+                <h3 class="h3">The branch controller splits refrigerant flow to multiple indoor units from a single pipe run.</h3>
+                <p class="text-reg">Intelligently routes refrigerant to zones that need it, reducing the total pipe length required and improving system efficiency across the building.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Zone controllers -->
+        <div class="tab-pane" role="tabpanel">
+          <div class="tab-pane-inner">
+            <div class="tab-pane-content">
+              <div class="tab-pane-title">
+                <span class="tagline">Control</span>
+                <h3 class="h3">Zone controllers give occupants independent control of their own temperature.</h3>
+                <p class="text-reg">Wall-mounted or wireless controllers let each room set its own temperature, mode, and schedule — giving full comfort control without affecting any other zone in the building.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: System overview -->
+        <div class="tab-pane" role="tabpanel">
+          <div class="tab-pane-inner">
+            <div class="tab-pane-content">
+              <div class="tab-pane-title">
+                <span class="tagline">Overview</span>
+                <h3 class="h3">The complete VRF system integrates all components for seamless building-wide climate control.</h3>
+                <p class="text-reg">From a single outdoor unit to dozens of indoor zones, every component works in harmony — monitored and managed from a central building management system for maximum efficiency and control.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- INDOOR UNIT TYPES                          -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section-units">
+    <div class="units-shell">
+    <div class="units-header">
+      <span class="tagline" style="text-align:center;">Options</span>
+      <h2 class="h2" style="text-align:center;">Indoor unit types to fit your space</h2>
+      <p class="text-md" style="text-align:center;">Each room deserves the right unit for its size and layout. Ceiling cassettes work best in open areas. Ducted systems vanish into walls. Wall-mounted units suit smaller rooms. Floor-standing models fit corners. Suspended units hang from ceilings. Pick what works for your building.</p>
+    </div>
+
+    <div class="units-grid">
+
+      <!-- Card 1: air / ceiling cassette -->
+      <div class="unit-card">
+        <div class="unit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18M5.64 5.64l12.72 12.72M18.36 5.64 5.64 18.36"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="unit-card-content">
+          <h5 class="h5" style="text-align:center;">Ceiling cassettes blend seamlessly into any interior</h5>
+          <p class="text-reg" style="text-align:center;">Square or rectangular units mount flush to the ceiling, distributing air evenly across large open areas without visible ductwork.</p>
+        </div>
+      </div>
+
+      <!-- Card 2: hide / ducted systems -->
+      <div class="unit-card">
+        <div class="unit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="20" height="6" rx="2"/><path d="M7 9V6M17 9V6M7 15v3M17 15v3M2 12h20"/></svg>
+        </div>
+        <div class="unit-card-content">
+          <h5 class="h5" style="text-align:center;">Ducted systems hide completely within your building</h5>
+          <p class="text-reg" style="text-align:center;">Concealed piping and discreet grilles maintain clean sightlines while conditioning entire rooms or multiple zones from a single unit.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: ad_units / wall-mounted -->
+      <div class="unit-card">
+        <div class="unit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M7 12h4M7 15h3"/></svg>
+        </div>
+        <div class="unit-card-content">
+          <h5 class="h5" style="text-align:center;">Wall-mounted units deliver direct, focused cooling</h5>
+          <p class="text-reg" style="text-align:center;">Compact and efficient, these units mount at eye level or higher, ideal for offices, bedrooms, and smaller commercial spaces.</p>
+        </div>
+      </div>
+
+      <!-- Card 4: square / cassette / floor-standing -->
+      <div class="unit-card">
+        <div class="unit-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M9 6h6M9 9h6M9 12h6M12 16v3"/></svg>
+        </div>
+        <div class="unit-card-content">
+          <h5 class="h5" style="text-align:center;">Ceiling cassettes distribute air evenly across large areas</h5>
+          <p class="text-reg" style="text-align:center;">Square or rectangular units mount flush to the ceiling without visible ductwork or pipes.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="units-actions">
+      <a href="indoor-units.html" class="btn-secondary">Explore all unit types</a>
+    </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- WHERE VRF SYSTEMS EXCEL                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="section-excel">
+    <div class="excel-inner">
+
+      <div class="excel-header">
+        <div class="excel-header-left">
+          <span class="tagline">Uses</span>
+          <h2 class="h2">Where VRF systems excel</h2>
+        </div>
+        <div class="excel-header-right">
+          <p class="text-md">VRF technology adapts to any building type and climate control challenge</p>
+        </div>
+      </div>
+
+      <div class="excel-grid">
+
+        <!-- Card 1: energy_savings_leaf -->
+        <div class="excel-card">
+          <div class="excel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 19.5c.5.67 1.49.17 1.49.17l1.96-1.96"/><path d="M17 8c0 4-3 7-7 7a7 7 0 0 1-5-2.1"/></svg>
+          </div>
+          <div class="excel-card-content">
+            <p class="h6">Office buildings</p>
+            <p class="text-reg">Zone control lets each department manage its own temperature. Energy savings come from cooling only occupied spaces during business hours, reducing utility costs significantly.</p>
+          </div>
+        </div>
+
+        <!-- Card 2: manufacturing -->
+        <div class="excel-card">
+          <div class="excel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 14V8l4 3V8l4 3V8l4 3V8l4 3v6"/><path d="M2 14h20"/></svg>
+          </div>
+          <div class="excel-card-content">
+            <p class="h6">Industrial facilities</p>
+            <p class="text-reg">Industrial facilities with varying cooling demands benefit from VRF's ability to heat some zones while cooling others simultaneously, making it ideal for complex manufacturing environments.</p>
+          </div>
+        </div>
+
+        <!-- Card 3: aq_indoor -->
+        <div class="excel-card">
+          <div class="excel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V10l8-8 8 8v10M9 20v-6h6v6"/></svg>
+          </div>
+          <div class="excel-card-content">
+            <p class="h6">Luxury residences</p>
+            <p class="text-reg">Quiet, invisible systems that don't compromise design. VRF delivers individual room control without visible indoor units, maintaining the aesthetic integrity of high-end homes.</p>
+          </div>
+        </div>
+
+        <!-- Card 4: productivity -->
+        <div class="excel-card">
+          <div class="excel-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4M7 8h4M7 11h4M15 8h2M15 11h2"/></svg>
+          </div>
+          <div class="excel-card-content">
+            <p class="h6">Open offices</p>
+            <p class="text-reg">Open offices stay productive when teams control their own comfort zones. VRF reduces energy consumption by conditioning only occupied areas, cutting utility bills while keeping everyone satisfied.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section-vrf-cta">
+    <div class="vrf-cta-inner">
+      <span class="vrf-cta-eyebrow">Next step</span>
+      <h2 class="vrf-cta-title">Design a VRF solution for your building</h2>
+      <p class="vrf-cta-lead">Share your layouts or occupancy needs—we respond with zoning strategies, equipment options, and a clear path from specification to commissioning.</p>
+      <div class="vrf-cta-actions">
+        <a href="contact.html" class="btn-primary">Book a consultation</a>
+        <a href="services.html" class="btn-secondary">View all services</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="footer">
+
+    <div class="footer-main">
+      <div class="footer-brand-col">
+        <a href="index.html" class="footer-brand">
+          <img src="public/images/logo.png" alt="Ozone Aircon" class="footer-logo" />
+        </a>
+
+        <div class="footer-contact-block">
+          <div class="footer-contact-row">
+            <div class="footer-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div>
+              <span class="footer-contact-label">Location</span>
+              <p class="footer-contact-value">A-41, Basement, Nangal Dewat, Vasant Kunj, New Delhi – 110070</p>
+            </div>
+          </div>
+
+          <div class="footer-contact-row">
+            <div class="footer-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <span class="footer-contact-label">Reach us</span>
+              <p class="footer-contact-value"><a href="tel:+91">Call our team</a></p>
+              <p class="footer-contact-value" style="margin-top:6px;"><a href="mailto:hello@ozoneaircon.com">hello@ozoneaircon.com</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-social">
+          <a href="https://www.instagram.com/ozoneaircon?igsh=MTBhbGd0bTM2N2xncA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/kanwarpal-singh-13bab9406" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="3" stroke="currentColor" stroke-width="1.5" />
+              <path d="M7 10V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M7 7.2V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M11 17V13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M11 10V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <a href="about-us.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21V19a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4 21V19a4 4 0 0 1 3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="footer-link-text">About us</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="how-we-work.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M12 20v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4.93 4.93l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M17.66 17.66l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M2 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M20 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4.93 19.07l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="footer-link-text">How we work</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="vrf-system.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M12 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">VRF systems</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="contact.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Contact us</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="services.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Services</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="footer-links-col">
+        <a href="services.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 14l4 4 12-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2" opacity="0.15" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Air purification</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="ventilation.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3C6 3 3 9 3 12s3 9 9 9 9-6 9-9-3-9-9-9z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 8v4M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Ventilation</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="ductwork-design.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 7h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M7 7v14h10V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Ducting</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="hvac-maintainence.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Maintenance</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    function toggleSolutions(e) {
+      e.stopPropagation();
+      var btn = document.getElementById('solutionsBtn');
+      var dd  = document.getElementById('solutionsDropdown');
+      if (!dd || !btn) return;
+      var open = dd.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    document.addEventListener('click', function(e) {
+      var btn = document.getElementById('solutionsBtn');
+      var dd  = document.getElementById('solutionsDropdown');
+      if (!btn || !dd) return;
+      if (!btn.contains(e.target) && !dd.contains(e.target)) {
+        dd.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    function toggleMobileMenu() {
+      var btn  = document.getElementById('hamburgerBtn');
+      var menu = document.getElementById('mobileMenu');
+      if (!btn || !menu) return;
+      var open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    function toggleMobileSolutions() {
+      var btn  = document.getElementById('mobileSolutionsBtn');
+      var list = document.getElementById('mobileSolutionsList');
+      if (!btn || !list) return;
+      var open = list.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      var dd = document.getElementById('solutionsDropdown');
+      var sbtn = document.getElementById('solutionsBtn');
+      if (dd) dd.classList.remove('open');
+      if (sbtn) { sbtn.classList.remove('open'); sbtn.setAttribute('aria-expanded', 'false'); }
+      var menu = document.getElementById('mobileMenu');
+      var hbtn = document.getElementById('hamburgerBtn');
+      if (menu && menu.classList.contains('open') && hbtn) {
+        menu.classList.remove('open');
+        hbtn.classList.remove('open');
+        hbtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900) {
+        var menu = document.getElementById('mobileMenu');
+        var btn  = document.getElementById('hamburgerBtn');
+        if (menu && btn && menu.classList.contains('open')) {
+          menu.classList.remove('open');
+          btn.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    (function () {
+      var shell = document.querySelector('.nav-shell');
+      var band = document.querySelector('[data-nav-scroll-anchor]')
+        || document.querySelector('.about-hero')
+        || document.querySelector('.hero')
+        || document.querySelector('.section-hero')
+        || document.querySelector('.page-header');
+      if (!shell || !band) return;
+      function sync() {
+        var threshold = band.offsetHeight - 8;
+        if (window.scrollY > threshold) shell.classList.add('scrolled');
+        else shell.classList.remove('scrolled');
+      }
+      window.addEventListener('scroll', sync, { passive: true });
+      sync();
+    }());
+
+
+    function switchTab(idx) {
+      var panes = document.querySelectorAll('.tab-pane');
+      var btns  = document.querySelectorAll('.tab-btn');
+      panes.forEach(function(p, i) { p.classList.toggle('active', i === idx); });
+      btns.forEach(function(b, i)  {
+        b.classList.toggle('active', i === idx);
+        b.setAttribute('aria-selected', String(i === idx));
+      });
+    }
+
+    (function() {
+      var map = [
+        ['.about-hero-inner', ['rv-fd']],
+        ['.vrf-hero-visual-frame', ['rv-sc']],
+        ['.explained-content', ['rv-r','s1']],
+        ['.comparison-header', ['rv']],
+        ['.comparison-card', ['rv-sc']],
+        ['.how-header', ['rv']],
+        ['.tabs-container', ['rv-fd']],
+        ['.units-header', ['rv']],
+        ['.unit-card', ['rv-sc']],
+        ['.excel-header-left', ['rv-l']],
+        ['.excel-header-right', ['rv-r']],
+        ['.excel-card', ['rv-sc']],
+        ['.vrf-cta-inner', ['rv-fd']],
+        ['.footer-main', ['rv']],
+      ];
+      map.forEach(function(pair) {
+        document.querySelectorAll(pair[0]).forEach(function(el, i) {
+          pair[1].forEach(function(cls) { el.classList.add(cls); });
+          if (pair[0] === '.comparison-card' || pair[0] === '.unit-card' || pair[0] === '.excel-card')
+            el.classList.add('s'+ (i + 1));
+        });
+      });
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+      }, { threshold: 0.07, rootMargin: '0px 0px -44px 0px' });
+      document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-sc,.rv-fd').forEach(function(el) { io.observe(el); });
+      document.querySelectorAll('a[href]').forEach(function(a) {
+        var href = a.getAttribute('href') || '';
+        if (!href || href.charAt(0) === '#' || href.indexOf('mailto') === 0 || href.indexOf('tel') === 0 || a.target === '_blank') return;
+        if (href.indexOf('.html') === -1) return;
+        a.addEventListener('click', function(e) {
+          e.preventDefault(); var dest = href;
+          document.body.style.transition = 'opacity 0.3s ease'; document.body.style.opacity = '0';
+          setTimeout(function() { window.location.href = dest; }, 310);
+        });
+      });
+    }());
+  </script>
+
+</body>
+</html>

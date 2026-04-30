@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HVAC Maintenance &amp; After-Sales — Ozone Aircon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════ DESIGN TOKENS (aligned with Home) ═══════════════ */
+    :root {
+      --white:   #FFFFFF;
+      --black:   #080101;
+      --blue:    #0B63A5;
+      --blue-dark:  #084E84;
+      --blue-deep:  #06325A;
+      --gray-bg: #F2F2F2;
+      --gray-soft:  #F7F8FA;
+      --border:  rgba(8,1,1,0.13);
+      --font-sora:  'Sora', sans-serif;
+      --font-inter: 'Inter', sans-serif;
+      --section-pad-v: clamp(64px, 8vw, 120px);
+      --section-pad-h: clamp(20px, 4.4vw, 72px);
+      --container-gap: clamp(40px, 5.5vw, 88px);
+      --pad-v: var(--section-pad-v);
+      --pad-h: var(--section-pad-h);
+      --gap:   var(--container-gap);
+      --shadow-sm: 0 2px 12px rgba(8,1,1,0.07);
+      --shadow-md: 0 8px 32px rgba(8,1,1,0.10);
+      --shadow-lg: 0 20px 60px rgba(8,1,1,0.12);
+      --nav-bar-h: 68px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 93.75%; scroll-behavior: smooth; }
+    body { font-family: var(--font-inter); background: var(--white); color: var(--black); width: 100%; max-width: 1440px; margin: 0 auto; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ═══════════════ TYPE ═══════════════ */
+    .h1 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(36px,5vw,72px); line-height: 115%; letter-spacing: -0.025em; }
+    .h2 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(26px,3.6vw,52px); line-height: 118%; letter-spacing: -0.025em; }
+    .h3 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(22px,3.1vw,44px); line-height: 122%; letter-spacing: -0.02em; }
+    .h4 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(20px,2.5vw,36px); line-height: 130%; letter-spacing: -0.015em; }
+    .h5 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(18px,2vw,28px); line-height: 138%; letter-spacing: -0.01em; }
+    .tagline { font-family: var(--font-inter); font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 150%; color: var(--blue); }
+    .text-md  { font-family: var(--font-inter); font-weight: 400; font-size: clamp(14px,1.2vw,17px); line-height: 165%; }
+    .text-reg { font-family: var(--font-inter); font-weight: 400; font-size: 14px; line-height: 165%; }
+    .text-sm  { font-family: var(--font-inter); font-weight: 400; font-size: 12px; line-height: 150%; }
+    .text-sm-bold { font-family: var(--font-inter); font-weight: 600; font-size: 12px; line-height: 150%; }
+    .text-sm-link { font-family: var(--font-inter); font-weight: 400; font-size: 12px; line-height: 150%; text-decoration: underline; }
+    .h6 { font-family: var(--font-sora); font-weight: 600; font-size: clamp(16px, 1.45vw, 20px); line-height: 130%; letter-spacing: -0.01em; color: var(--black); }
+
+    /* ═══════════════ BUTTONS (same as Home) ═══════════════ */
+    .btn-primary, .btn-secondary, .btn-primary-sm {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; border-radius: 8px; cursor: pointer;
+      font-family: var(--font-inter); font-weight: 600;
+      font-size: 15px; line-height: 150%; text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-primary    { padding: 12px 24px; background: var(--blue); color: var(--white); border: 1.5px solid var(--blue); }
+    .btn-secondary  { padding: 12px 24px; background: transparent; color: var(--black); border: 1.5px solid var(--border); }
+    .btn-primary-sm { padding: 8px 18px; background: var(--blue); color: var(--white); border: 1.5px solid var(--blue); }
+    .btn-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-inter); font-weight: 500; font-size: clamp(14px,1.1vw,16px);
+      color: var(--black); text-decoration: none; padding: 8px 0;
+    }
+    .btn-link svg { width: 20px; height: 20px; stroke: var(--black); transition: transform 0.2s ease; }
+    .btn-link:hover svg { transform: translateX(4px); }
+
+    /* ═══════════════ NAVBAR (same as Home) ═══════════════ */
+    .nav-shell {
+      position: sticky; top: 0; z-index: 100;
+      padding: 0 var(--section-pad-h);
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(12px) saturate(1.25);
+      border-bottom: 1px solid rgba(8,1,1,0.06);
+      box-shadow: 0 10px 26px rgba(8,1,1,0.06);
+    }
+    .nav-shell.scrolled {
+      background: rgba(255,255,255,0.92);
+      border-bottom: 1px solid rgba(8,1,1,0.08);
+    }
+    .navbar-inner {
+      display: flex; flex-direction: row;
+      align-items: center; justify-content: space-between; gap: 16px;
+      min-height: var(--nav-bar-h);
+      padding: 0;
+    }
+    .navbar-brand {
+      display: flex; flex-direction: row; align-items: center; gap: 12px;
+      text-decoration: none; color: inherit;
+      flex-shrink: 0;
+    }
+    .navbar-logo {
+      height: 52px; width: auto; max-width: 150px;
+      object-fit: contain; border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; flex-direction: row; align-items: center;
+      gap: clamp(14px, 2vw, 28px);
+      flex: 1; justify-content: center; min-width: 0;
+    }
+    .nav-link {
+      display: flex; align-items: center; gap: 4px;
+      color: rgba(8,1,1,0.62); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 500;
+      font-size: 14.5px; line-height: 150%; white-space: nowrap;
+    }
+    .nav-link.active { color: var(--blue); font-weight: 600; }
+    .nav-consult {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 7px 9px 7px 16px;
+      background: var(--blue); color: var(--white);
+      border-radius: 10px; text-decoration: none;
+      font-family: var(--font-inter); font-weight: 700; font-size: 14px;
+      border: 1.5px solid var(--blue);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .nav-consult:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(11,99,165,0.38);
+    }
+    .nav-consult-icon {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-consult-icon svg { width: 16px; height: 16px; stroke: var(--blue); }
+    .nav-hamburger {
+      display: none; flex-direction: column;
+      justify-content: center; align-items: center;
+      width: 42px; height: 42px; gap: 5px;
+      background: var(--gray-soft); border: 1px solid var(--border);
+      border-radius: 10px; cursor: pointer; padding: 0;
+      margin-left: auto;
+    }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 2px; transition: all 0.22s ease; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed;
+      top: calc(12px + var(--nav-bar-h) + 10px + 8px);
+      left: 0; right: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      z-index: 99; padding: 8px 0 16px;
+      max-height: calc(100vh - 100px); overflow-y: auto;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-nav-link {
+      display: block; padding: 12px clamp(16px,4vw,24px);
+      color: var(--black); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 400; font-size: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-nav-link:last-child { border-bottom: none; }
+    .mobile-solutions-toggle {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px clamp(16px,4vw,24px);
+      width: 100%; background: none; border: none; border-bottom: 1px solid var(--border);
+      color: var(--black); font-family: var(--font-inter);
+      font-weight: 400; font-size: 16px; cursor: pointer; text-align: left;
+    }
+    .mobile-solutions-toggle svg { width: 18px; height: 18px; transition: transform 0.22s; stroke: var(--black); }
+    .mobile-solutions-toggle.open svg { transform: rotate(180deg); }
+    .mobile-solutions-list { display: none; background: var(--gray-bg); padding: 8px clamp(16px,4vw,24px); }
+    .mobile-solutions-list.open { display: block; }
+    .mobile-solution-item {
+      display: block; padding: 10px 0; color: var(--black); text-decoration: none;
+      font-family: var(--font-inter); font-weight: 500; font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-solution-item:last-child { border-bottom: none; }
+    .mobile-cta { padding: 16px clamp(16px,4vw,24px); }
+    .mobile-cta .btn-primary { width: 100%; justify-content: center; }
+
+    /* Solutions dropdown */
+    .nav-solutions { position: relative; }
+    .nav-solutions-btn {
+      display: flex; align-items: center; gap: 4px;
+      background: none; border: none; cursor: pointer;
+      color: rgba(8,1,1,0.62); font-family: var(--font-inter);
+      font-weight: 500; font-size: 14.5px; line-height: 150%;
+      padding: 0; white-space: nowrap;
+    }
+    .nav-solutions-btn svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.22s ease; stroke: currentColor; }
+    .nav-solutions-btn.open svg { transform: rotate(180deg); }
+    .solutions-dropdown {
+      display: none; position: absolute;
+      top: calc(100% + 14px); left: 50%;
+      transform: translateX(-50%);
+      width: min(640px, calc(100vw - 32px));
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px 24px 20px; z-index: 200;
+      box-shadow: var(--shadow-md);
+    }
+    .solutions-dropdown.open { display: block; }
+    .solutions-dropdown-header {
+      font-family: var(--font-inter); font-weight: 600;
+      font-size: 11px; line-height: 150%; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(8,1,1,0.4); margin-bottom: 14px;
+    }
+    .solutions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .solution-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 12px; border-radius: 8px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .solution-item:hover { background: var(--gray-bg); }
+    .solution-icon {
+      width: 34px; height: 34px; border-radius: 7px;
+      background: var(--gray-bg);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .solution-icon svg { width: 17px; height: 17px; stroke: var(--black); }
+    .solution-text { display: flex; flex-direction: column; gap: 2px; }
+    .solution-title { font-family: var(--font-inter); font-weight: 600; font-size: 13px; line-height: 150%; color: var(--black); }
+    .solution-subtitle { font-family: var(--font-inter); font-weight: 400; font-size: 11px; line-height: 150%; color: rgba(8,1,1,0.5); }
+    .solutions-dropdown-divider { height: 1px; background: var(--border); margin: 14px 0; }
+    .solutions-footer { display: flex; align-items: center; justify-content: flex-end; }
+    .solutions-footer-link {
+      font-family: var(--font-inter); font-weight: 600; font-size: 12px;
+      color: var(--blue); text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .solutions-footer-link svg { width: 13px; height: 13px; stroke: var(--blue); }
+
+    /* ═══════════════════════════════════════
+       PAGE HERO
+    ═══════════════════════════════════════ */
+    .about-hero {
+      position: relative; overflow: hidden;
+      padding: clamp(72px, 10vw, 120px) var(--section-pad-h) clamp(56px, 7vw, 88px);
+      background: linear-gradient(145deg, var(--blue-deep) 0%, #082a52 42%, var(--blue-dark) 100%);
+      color: var(--white);
+    }
+    .about-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 55% at 78% -10%, rgba(11,99,165,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 10% 100%, rgba(11,99,165,0.22) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .about-hero::after {
+      content: ''; position: absolute; inset: 0; opacity: 0.07;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+    }
+    .about-hero-inner {
+      position: relative; z-index: 1;
+      max-width: 900px;
+      display: flex; flex-direction: column;
+      gap: clamp(18px, 3vw, 26px);
+    }
+    .about-hero-tag { color: rgba(255,255,255,0.72) !important; letter-spacing: 0.12em; }
+    .about-hero-title {
+      font-family: var(--font-sora); font-weight: 600;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 108%; letter-spacing: -0.03em;
+      color: var(--white);
+    }
+    .about-hero-lead {
+      max-width: 680px;
+      font-size: clamp(15px, 1.35vw, 18px);
+      line-height: 170%;
+      color: rgba(255,255,255,0.78);
+    }
+    .tagline-wrapper { display: flex; align-items: center; }
+
+    /* ═══════════════════════════════════════
+       SUSTAIN — copy + framed image (maintenance-hero-right.png)
+    ═══════════════════════════════════════ */
+    .section-sustain {
+      background: linear-gradient(180deg, var(--white) 0%, var(--gray-soft) 100%);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      border-top: 1px solid rgba(8,1,1, 0.06);
+    }
+    .sustain-shell { max-width: 1180px; margin: 0 auto; }
+    .sustain-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: clamp(40px, 6vw, 88px); align-items: center;
+    }
+    .sustain-left { display: flex; flex-direction: column; gap: clamp(28px, 4vw, 44px); }
+    .sustain-title { display: flex; flex-direction: column; gap: 14px; }
+    .sustain-title-content { display: flex; flex-direction: column; gap: clamp(18px, 3vw, 24px); }
+    .sustain-title .text-md { max-width: 560px; color: rgba(8,1,1, 0.75); line-height: 170%; }
+    .sustain-list { display: flex; flex-direction: column; gap: 14px; padding: 4px 0 0 0; }
+    .sustain-list-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: clamp(18px, 2.5vw, 26px);
+      background: var(--white);
+      border: 1px solid rgba(8,1,1, 0.08);
+      border-radius: 14px;
+      border-left: 4px solid var(--blue);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .sustain-list-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .sustain-list-dot {
+      width: 8px; height: 8px; flex-shrink: 0;
+      background: var(--blue); border-radius: 50%;
+      margin-top: 7px;
+    }
+    .sustain-list-item .text-reg { flex: 1; color: rgba(8,1,1, 0.75); line-height: 166%; }
+
+    .sustain-image-shell {
+      position: relative;
+      border-radius: 22px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(11,99,165, 0.36), rgba(8,1,1, 0.1));
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .sustain-image-shell:hover { transform: translateY(-4px); }
+    .sustain-right {
+      position: relative;
+      width: 100%; min-height: clamp(340px, 46vw, 560px);
+      border-radius: 21px;
+      overflow: hidden;
+      background: var(--gray-bg);
+    }
+    .sustain-right img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .sustain-image-shell:hover .sustain-right img { transform: scale(1.04); }
+
+    /* ═══════════════════════════════════════
+       MAINTAIN — mixed grid + large image card (maintenance-card-image.png)
+    ═══════════════════════════════════════ */
+    .section-maintain {
+      background: linear-gradient(180deg, var(--gray-soft) 0%, var(--gray-bg) 48%, var(--white) 100%);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      border-top: 1px solid rgba(8,1,1, 0.06);
+    }
+    .maintain-shell { max-width: 1180px; margin: 0 auto; }
+    .maintain-container { display: flex; flex-direction: column; gap: clamp(48px, 6vw, 84px); }
+    .section-title-centered {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 18px; text-align: center;
+    }
+    .section-title-centered .title-content {
+      display: flex; flex-direction: column;
+      gap: 18px; align-items: center;
+      max-width: 620px;
+    }
+
+    .maintain-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: clamp(24px, 3.5vw, 36px); align-items: stretch;
+    }
+    .maintain-left-col {
+      display: flex; flex-direction: column;
+      gap: clamp(20px, 2.5vw, 28px);
+    }
+    .maintain-small-card {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid rgba(8,1,1, 0.08);
+      border-radius: 18px;
+      border-top: 3px solid rgba(11,99,165, 0.45);
+      padding: clamp(24px, 3vw, 36px);
+      display: flex; flex-direction: column;
+      gap: 22px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.22s ease;
+    }
+    .maintain-small-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(11,99,165, 0.2);
+    }
+    .card-icon-wrap {
+      width: 52px; height: 52px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(11,99,165, 0.08);
+      border-radius: 14px;
+      border: 1px solid rgba(11,99,165, 0.12);
+    }
+    .card-icon-wrap svg { width: 28px; height: 28px; stroke: var(--blue); }
+    .maintain-small-card .card-body { display: flex; flex-direction: column; gap: 18px; }
+    .maintain-small-card .card-content { display: flex; flex-direction: column; gap: 12px; }
+    .maintain-small-card .text-reg { color: rgba(8,1,1, 0.7); line-height: 168%; }
+
+    .maintain-large-card {
+      background: var(--white);
+      border: 1px solid rgba(8,1,1, 0.08);
+      border-radius: 20px;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+      border-top: 4px solid var(--blue);
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+    }
+    .maintain-large-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+    .maintain-large-card .card-content-inner {
+      padding: clamp(26px, 3.2vw, 44px);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .maintain-large-card .card-text {
+      display: flex; flex-direction: column;
+      gap: clamp(16px, 3vw, 22px);
+    }
+    .maintain-large-card .h3 {
+      font-size: clamp(22px, 2.8vw, 38px); line-height: 120%;
+      letter-spacing: -0.02em;
+    }
+    .maintain-photo-shell {
+      position: relative; margin: 0 2px 2px 2px;
+      border-radius: 0 0 17px 17px;
+      padding: 1px;
+      background: linear-gradient(180deg, rgba(11,99,165, 0.2), rgba(8,1,1, 0.08));
+    }
+    .maintain-card-image {
+      position: relative; width: 100%;
+      min-height: clamp(260px, 34vw, 400px); flex-shrink: 0;
+      background: var(--gray-soft); overflow: hidden;
+      border-radius: 0 0 16px 16px;
+    }
+    .maintain-card-image img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .maintain-large-card:hover .maintain-card-image img { transform: scale(1.04); }
+
+    /* ═══════════════════════════════════════
+       SUSTAIN CARDS (3 pillars)
+    ═══════════════════════════════════════ */
+    .section-sustain-cards {
+      background: var(--white);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      border-top: 1px solid rgba(8,1,1, 0.06);
+    }
+    .sustain-cards-shell { max-width: 1180px; margin: 0 auto; }
+    .sustain-cards-container { display: flex; flex-direction: column; gap: clamp(48px, 6vw, 84px); }
+    .sustain-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(22px, 3vw, 32px);
+    }
+    .sustain-card {
+      background: linear-gradient(180deg, rgba(247,248,250, 0.92) 0%, var(--white) 65%);
+      border: 1px solid rgba(8,1,1, 0.08);
+      border-radius: 18px;
+      border-top: 4px solid var(--blue);
+      padding: clamp(26px, 3.5vw, 40px);
+      display: flex; flex-direction: column;
+      gap: 18px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.22s ease;
+    }
+    .sustain-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(11,99,165, 0.18);
+    }
+    .sustain-card-top .tagline { font-size: 10px; letter-spacing: 0.12em; }
+    .sustain-card-content .h4 { font-size: clamp(19px, 2.1vw, 28px); }
+    .sustain-card-content .text-reg { color: rgba(8,1,1, 0.7); line-height: 168%; }
+
+    /* ═══════════════════════════════════════
+       SERVICES LIST — icon rows + framed image (maintenance-list-right.png)
+    ═══════════════════════════════════════ */
+    .section-services-list {
+      background: linear-gradient(180deg, var(--gray-bg) 0%, var(--gray-soft) 100%);
+      padding: var(--section-pad-v) var(--section-pad-h);
+      border-top: 1px solid rgba(8,1,1, 0.06);
+    }
+    .services-shell { max-width: 1180px; margin: 0 auto; }
+    .services-list-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: clamp(48px, 7vw, 96px); align-items: center;
+    }
+    .services-list-left { display: flex; flex-direction: column; gap: 18px; padding: 4px 0; }
+    .service-list-item {
+      display: flex; gap: 22px; align-items: flex-start;
+      padding: clamp(22px, 3vw, 34px);
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid rgba(8,1,1, 0.08);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .service-list-item:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .service-item-icon {
+      width: 52px; height: 52px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(11,99,165, 0.08);
+      border-radius: 14px;
+      border: 1px solid rgba(11,99,165, 0.12);
+    }
+    .service-item-icon svg { width: 26px; height: 26px; stroke: var(--blue); }
+    .service-item-body {
+      display: flex; flex-direction: column;
+      gap: 14px; flex: 1; min-width: 0;
+    }
+    .service-item-text {
+      display: flex; flex-direction: column;
+      gap: 10px;
+    }
+    .service-item-text .text-reg { color: rgba(8,1,1, 0.7); line-height: 168%; }
+    .service-item-action { padding-top: 4px; }
+
+    .services-image-shell {
+      position: relative;
+      border-radius: 22px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(11,99,165, 0.34), rgba(8,1,1, 0.12));
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .services-image-shell:hover { transform: translateY(-4px); }
+    .services-list-right {
+      position: relative;
+      width: 100%; min-height: clamp(340px, 44vw, 540px);
+      border-radius: 21px;
+      overflow: hidden;
+      background: var(--gray-bg);
+    }
+    .services-list-right img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .services-image-shell:hover .services-list-right img { transform: scale(1.035); }
+
+    /* ═══════════════════════════════════════
+       CLOSING CTA
+    ═══════════════════════════════════════ */
+    .section-maint-cta {
+      padding: clamp(56px, 8vw, 96px) var(--section-pad-h);
+      background: linear-gradient(135deg, var(--blue-deep) 0%, #0a4578 48%, var(--blue-dark) 100%);
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255, 0.06);
+    }
+    .section-maint-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 100% 0%, rgba(11,99,165, 0.35) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .maint-cta-inner {
+      position: relative; z-index: 1;
+      max-width: 720px; margin: 0 auto;
+      text-align: center;
+      display: flex; flex-direction: column;
+      gap: 18px; align-items: center;
+    }
+    .maint-cta-title {
+      font-family: var(--font-sora); font-weight: 600;
+      font-size: clamp(26px, 3.6vw, 42px);
+      line-height: 118%; color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .maint-cta-lead {
+      font-size: clamp(14px, 1.25vw, 17px);
+      line-height: 168%;
+      color: rgba(255,255,255, 0.78);
+      max-width: 540px;
+    }
+    .maint-cta-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255, 0.55);
+    }
+    .maint-cta-actions {
+      display: flex; flex-wrap: wrap;
+      gap: 12px 16px; justify-content: center;
+      margin-top: 10px;
+    }
+    .section-maint-cta .btn-primary {
+      background: var(--white); color: var(--blue-deep);
+      border-color: var(--white);
+      box-shadow: 0 12px 32px rgba(0,0,0, 0.2);
+    }
+    .section-maint-cta .btn-primary:hover {
+      box-shadow: 0 16px 44px rgba(0,0,0, 0.28);
+    }
+    .section-maint-cta .btn-secondary {
+      background: rgba(255,255,255, 0.1);
+      border-color: rgba(255,255,255, 0.4);
+      color: var(--white);
+    }
+    .section-maint-cta .btn-secondary:hover {
+      background: rgba(255,255,255, 0.16);
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER (same as Home)
+    ═══════════════════════════════════════ */
+    .footer {
+      background: var(--gray-soft);
+      padding: clamp(36px,5vw,56px) var(--section-pad-h);
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.95fr) 1fr 1fr;
+      gap: clamp(24px, 3vw, 44px);
+      align-items: start;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(22px, 3.2vw, 36px);
+    }
+    .footer-brand-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+    .footer-brand {
+      display: inline-flex; flex-direction: row; align-items: center;
+      text-decoration: none; color: inherit;
+    }
+    .footer-logo {
+      height: 48px; width: auto; max-width: 140px; object-fit: contain;
+      border-radius: 10px; flex-shrink: 0;
+    }
+    .footer-social { display: flex; flex-direction: row; gap: 10px; align-items: center; }
+    .footer-social a { color: rgba(8,1,1,0.78); }
+    .footer-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.9);
+      transition: transform 0.22s ease, color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .footer-social a:hover {
+      transform: translateY(-2px);
+      color: var(--blue);
+      border-color: rgba(11,99,165,0.35);
+      background: rgba(11,99,165,0.05);
+    }
+    .footer-contact-block { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+    .footer-contact-row {
+      display: flex; flex-direction: row; align-items: flex-start; gap: 12px;
+    }
+    .footer-contact-icon {
+      width: 20px; height: 20px; border-radius: 0; flex-shrink: 0;
+      margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .footer-contact-icon svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; }
+    .footer-contact-label {
+      font-family: var(--font-inter); font-weight: 600; font-size: 11px;
+      color: rgba(8,1,1,0.45); text-transform: uppercase; letter-spacing: 0.06em;
+      display: block; margin-bottom: 4px;
+    }
+    .footer-contact-value {
+      font-family: var(--font-inter); font-weight: 400; font-size: 14px;
+      line-height: 155%; color: rgba(8,1,1,0.86);
+      margin: 0;
+    }
+    .footer-contact-value a {
+      color: rgba(8,1,1,0.86); text-decoration: none;
+      border-bottom: 1px solid rgba(8,1,1,0.12);
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+    .footer-contact-value a:hover { color: var(--blue); border-color: rgba(11,99,165,0.35); }
+
+    .footer-links-col { display: flex; flex-direction: column; gap: 0; padding-top: 6px; }
+    .footer-link-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 0;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(8,1,1,0.08);
+      transition: background 0.18s ease;
+    }
+    .footer-link-row:last-child { border-bottom: none; }
+    .footer-link-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .footer-link-icon {
+      width: 36px; height: 36px; border-radius: 12px;
+      background: var(--gray-soft);
+      border: 1px solid rgba(8,1,1,0.06);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .footer-link-icon svg { width: 18px; height: 18px; stroke: var(--blue); }
+    .footer-link-text {
+      font-family: var(--font-inter); font-weight: 600; font-size: 14px;
+      color: rgba(8,1,1,0.78);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .footer-link-chevron { width: 18px; height: 18px; flex-shrink: 0; color: rgba(8,1,1,0.35); transition: color 0.18s ease; }
+    .footer-link-row:hover { background: rgba(11,99,165,0.04); }
+    .footer-link-row:hover .footer-link-text { color: var(--blue); }
+    .footer-link-row:hover .footer-link-icon { border-color: rgba(11,99,165,0.18); background: rgba(11,99,165,0.04); }
+    .footer-link-row:hover .footer-link-chevron { color: var(--blue); }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1200px) {
+      .nav-links { gap: 20px; }
+    }
+    @media (max-width: 1024px) {
+      .sustain-inner { grid-template-columns: 1fr; gap: clamp(36px, 5vw, 56px); }
+      .sustain-right { min-height: clamp(260px, 48vw, 420px); }
+      .maintain-grid { grid-template-columns: 1fr; }
+      .maintain-large-card .maintain-photo-shell { margin: 0; border-radius: 0; padding: 0; background: transparent; }
+      .maintain-card-image {
+        border-radius: 0 0 17px 17px;
+      }
+      .services-list-inner { grid-template-columns: 1fr; gap: clamp(40px, 6vw, 64px); }
+      .services-list-right { min-height: 320px; }
+    }
+    @media (max-width: 1180px) {
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer-brand-col { grid-column: 1 / -1; }
+    }
+    @media (max-width: 900px) {
+      .nav-links, .nav-consult { display: none; }
+      .nav-hamburger { display: flex; }
+      .solutions-dropdown { width: min(520px, calc(100vw - 32px)); }
+      .sustain-cards-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .maint-cta-actions .btn-primary,
+      .maint-cta-actions .btn-secondary { width: 100%; justify-content: center; }
+      .maintain-card-image { min-height: 220px; }
+      .services-list-right { min-height: 260px; }
+      .sustain-right { min-height: 260px; }
+    }
+    @media (max-width: 640px) {
+      .solutions-dropdown {
+        position: fixed;
+        top: calc(12px + var(--nav-bar-h) + 10px + 8px);
+        left: 8px; right: 8px;
+        width: auto; border-radius: 10px;
+        transform: translateY(-10px) scale(0.97);
+      }
+      .solutions-dropdown.open { transform: translateY(0) scale(1); }
+      .solutions-grid { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr; }
+      .sustain-cards-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .mobile-cta .btn-primary { width: 100%; justify-content: center; }
+      .footer-links-col { padding-top: 0; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .service-list-item { flex-direction: column; }
+    }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════ */
+    @keyframes pageFadeIn { from{opacity:0} to{opacity:1} }
+    body { animation: pageFadeIn 0.4s ease both; }
+    @keyframes rvUp    { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes rvLeft  { from{opacity:0;transform:translateX(-30px)} to{opacity:1;transform:translateX(0)} }
+    @keyframes rvRight { from{opacity:0;transform:translateX(30px)}  to{opacity:1;transform:translateX(0)} }
+    @keyframes rvScale { from{opacity:0;transform:scale(0.94)}       to{opacity:1;transform:scale(1)} }
+    @keyframes rvFade  { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+    .rv,.rv-l,.rv-r,.rv-sc,.rv-fd { opacity:0; }
+    .rv.on    { animation: rvUp    0.68s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-l.on  { animation: rvLeft  0.68s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-r.on  { animation: rvRight 0.68s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-sc.on { animation: rvScale 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+    .rv-fd.on { animation: rvFade  0.72s cubic-bezier(0.22,1,0.36,1) both; }
+    .s1{animation-delay:.07s!important} .s2{animation-delay:.14s!important} .s3{animation-delay:.21s!important}
+
+    .nav-link { position:relative; transition:color 0.2s ease !important; }
+    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1.5px; background:var(--blue); transition:width 0.22s cubic-bezier(0.22,1,0.36,1); }
+    .nav-link:hover::after, .nav-link.active::after { width:100%; }
+    .nav-link:hover { color:var(--blue) !important; }
+    .nav-solutions-btn { transition:color 0.2s ease !important; }
+    .nav-solutions-btn:hover { color:var(--blue); }
+    .btn-primary { transition: transform 0.22s ease, box-shadow 0.22s ease !important; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(11,99,165,0.30) !important; }
+    .btn-primary:active { transform: translateY(0) scale(0.98) !important; box-shadow: none !important; }
+    .btn-secondary { transition: background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease !important; }
+    .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(8,1,1,0.09) !important; }
+    .btn-secondary:active { transform: translateY(0) scale(0.98) !important; }
+    .btn-primary-sm { transition: transform 0.22s ease, box-shadow 0.22s ease !important; }
+    .btn-primary-sm:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(11,99,165,0.28) !important; }
+    .btn-link { transition:color .18s ease !important; }
+    .btn-link:hover { color:var(--blue) !important; }
+    .btn-link:hover svg { stroke:var(--blue); }
+
+    .solutions-dropdown {
+      display:block !important; visibility:hidden; opacity:0;
+      transform:translateX(-50%) translateY(-10px) scale(0.97); transform-origin:top center; pointer-events:none;
+      transition:opacity .22s ease, transform .22s cubic-bezier(0.22,1,0.36,1), visibility 0s linear .22s;
+    }
+    .solutions-dropdown.open {
+      visibility:visible; opacity:1; transform:translateX(-50%) translateY(0) scale(1); pointer-events:auto;
+      transition:opacity .22s ease, transform .22s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0s;
+    }
+    .solutions-dropdown.open .solution-item:nth-child(1){animation:rvUp .30s .04s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(2){animation:rvUp .30s .08s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(3){animation:rvUp .30s .12s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(4){animation:rvUp .30s .16s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(5){animation:rvUp .30s .20s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(6){animation:rvUp .30s .24s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(7){animation:rvUp .30s .28s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(8){animation:rvUp .30s .32s cubic-bezier(0.22,1,0.36,1) both}
+    .solutions-dropdown.open .solution-item:nth-child(9){animation:rvUp .30s .36s cubic-bezier(0.22,1,0.36,1) both}
+    .solution-item { transition:background .15s ease, transform .17s ease !important; }
+    .solution-item:hover { transform:translateX(3px) !important; }
+    .solution-icon { transition:background .18s ease !important; }
+    .solution-item:hover .solution-icon { background:rgba(11,99,165,0.1); }
+    .mobile-menu { display:block !important; visibility:hidden; opacity:0; transform:translateY(-10px); pointer-events:none; transition:opacity .26s ease, transform .26s cubic-bezier(0.22,1,0.36,1), visibility 0s linear .26s; }
+    .mobile-menu.open { visibility:visible; opacity:1; transform:translateY(0); pointer-events:auto; transition:opacity .26s ease, transform .26s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0s; }
+    .mobile-nav-link { transition:background .15s ease, padding-left .18s ease !important; }
+    .mobile-nav-link:hover { background:var(--gray-bg); padding-left:calc(clamp(16px,4vw,24px) + 6px) !important; }
+    .mobile-solutions-list { display:block !important; visibility:hidden; opacity:0; max-height:0; overflow:hidden; pointer-events:none; transition:max-height .35s cubic-bezier(0.22,1,0.36,1), opacity .25s ease, visibility 0s linear .25s; }
+    .mobile-solutions-list.open { visibility:visible; opacity:1; max-height:600px; pointer-events:auto; transition:max-height .35s cubic-bezier(0.22,1,0.36,1), opacity .25s ease, visibility 0s linear 0s; }
+    .sustain-card { transition:box-shadow .22s ease, transform .22s ease !important; }
+    .maintain-small-card { transition:box-shadow .22s ease !important; }
+    .maintain-small-card:hover { box-shadow:0 4px 20px rgba(8,1,1,0.07); }
+    .navbar-logo { transition:transform .3s cubic-bezier(0.22,1,0.36,1) !important; }
+    .navbar-logo:hover { transform:scale(1.03); }
+    .footer-logo { transition:transform .3s cubic-bezier(0.22,1,0.36,1), opacity .2s ease; display:block; }
+    .footer-logo:hover { transform:scale(1.04); opacity:0.82; }
+    .footer-social a svg rect,
+    .footer-social a svg path,
+    .footer-social a svg circle[r="4.5"] { stroke: rgba(8,1,1,0.62); transition: stroke 0.22s ease; }
+    .footer-social a svg circle[r="1"] { fill: rgba(8,1,1,0.62); transition: fill 0.22s ease; }
+    .footer-social a:hover svg rect,
+    .footer-social a:hover svg path,
+    .footer-social a:hover svg circle[r="4.5"] { stroke: var(--blue); }
+    .footer-social a:hover svg circle[r="1"] { fill: var(--blue); }
+    .text-sm-link { transition: color 0.18s ease !important; }
+    .text-sm-link:hover { color: var(--blue) !important; }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- NAVBAR (same as Home)                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="nav-shell">
+    <nav class="navbar-inner">
+      <a href="index.html" class="navbar-brand">
+        <img src="public/images/logo.png" alt="Ozone Aircon" class="navbar-logo" />
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+
+        <div class="nav-solutions">
+          <button type="button" class="nav-solutions-btn" id="solutionsBtn" onclick="toggleSolutions(event)" aria-expanded="false">
+            Solutions
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+
+          <div class="solutions-dropdown" id="solutionsDropdown" role="menu">
+            <p class="solutions-dropdown-header">Our Services</p>
+            <div class="solutions-grid">
+
+              <a href="services.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Services</span>
+                  <span class="solution-subtitle">Full HVAC service portfolio</span>
+                </div>
+              </a>
+
+              <a href="vrf-system.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1M3 12h1M12 21v-1M21 12h-1"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l.7.7M18.4 5.6l-.7.7M5.6 18.4l.7-.7M18.4 18.4l-.7-.7"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">VRV / VRF System</span>
+                  <span class="solution-subtitle">Variable refrigerant flow systems</span>
+                </div>
+              </a>
+
+              <a href="indoor-units.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="12" y1="12" x2="12" y2="12.5"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Indoor Units</span>
+                  <span class="solution-subtitle">Split, cassette &amp; concealed units</span>
+                </div>
+              </a>
+
+              <a href="chiller-plant.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Chiller Plant</span>
+                  <span class="solution-subtitle">Central cooling infrastructure</span>
+                </div>
+              </a>
+
+              <a href="ventilation.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C6 3 3 9 3 12s3 9 9 9 9-6 9-9-3-9-9-9z"/><path d="M12 8v4M8 12h8"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Ventilation</span>
+                  <span class="solution-subtitle">Fresh air &amp; circulation systems</span>
+                </div>
+              </a>
+
+              <a href="ductwork-design.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 17h16"/><path d="M9 7v10"/><path d="M15 7v10"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Ductwork Design</span>
+                  <span class="solution-subtitle">Air distribution &amp; specification</span>
+                </div>
+              </a>
+
+              <a href="tfas.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">TFA's</span>
+                  <span class="solution-subtitle">Treated fresh air units</span>
+                </div>
+              </a>
+
+              <a href="hvac-consultancy.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">HVAC Consultancy &amp; Design</span>
+                  <span class="solution-subtitle">Expert design &amp; engineering</span>
+                </div>
+              </a>
+
+              <a href="hvac-maintainence.html" class="solution-item" role="menuitem">
+                <div class="solution-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <div class="solution-text">
+                  <span class="solution-title">Maintenance &amp; After-Sales</span>
+                  <span class="solution-subtitle">Ongoing care &amp; support</span>
+                </div>
+              </a>
+
+            </div>
+
+            <div class="solutions-dropdown-divider"></div>
+            <div class="solutions-footer">
+              <a href="contact.html" class="solutions-footer-link">
+                Book a consultation
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="how-we-work.html" class="nav-link">How we work</a>
+        <a href="about-us.html" class="nav-link">About us</a>
+      </div>
+
+      <a href="contact.html" class="nav-consult">
+        Consult
+        <span class="nav-consult-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+
+      <button type="button" class="nav-hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Primary">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <button type="button" class="mobile-solutions-toggle" id="mobileSolutionsBtn" onclick="toggleMobileSolutions()" aria-expanded="false">
+      Solutions
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="mobile-solutions-list" id="mobileSolutionsList">
+      <a href="services.html" class="mobile-solution-item">Services</a>
+      <a href="vrf-system.html" class="mobile-solution-item">VRV / VRF System</a>
+      <a href="indoor-units.html" class="mobile-solution-item">Indoor Units</a>
+      <a href="chiller-plant.html" class="mobile-solution-item">Chiller Plant</a>
+      <a href="ventilation.html" class="mobile-solution-item">Ventilation</a>
+      <a href="ductwork-design.html" class="mobile-solution-item">Ductwork design</a>
+      <a href="tfas.html" class="mobile-solution-item">TFA's</a>
+      <a href="hvac-consultancy.html" class="mobile-solution-item">HVAC Consultancy &amp; Design</a>
+      <a href="hvac-maintainence.html" class="mobile-solution-item">Maintenance &amp; After-Sales Service</a>
+    </div>
+    <a href="how-we-work.html" class="mobile-nav-link">How we work</a>
+    <a href="about-us.html" class="mobile-nav-link">About us</a>
+    <div class="mobile-cta">
+      <a href="contact.html" class="btn-primary">Consult</a>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       PAGE HERO
+  ═══════════════════════════════════════ -->
+  <section class="about-hero" data-nav-scroll-anchor>
+    <div class="about-hero-inner">
+      <span class="tagline-wrapper"><span class="tagline about-hero-tag">Support</span></span>
+      <h1 class="about-hero-title">Maintenance that matters</h1>
+      <p class="about-hero-lead">Keep your systems running strong with expert care and responsive support from our dedicated team of professionals who are committed to ensuring your operations remain efficient and reliable.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 2 — SUSTAIN (white, two-col)
+  ═══════════════════════════════════════ -->
+  <section class="section-sustain">
+    <div class="sustain-shell">
+      <div class="sustain-inner">
+      <div class="sustain-left">
+        <div class="sustain-title">
+          <span class="tagline">Sustain</span>
+          <div class="sustain-title-content">
+            <h2 class="h2">Keep systems running at peak performance</h2>
+            <p class="text-md">Regular maintenance prevents costly failures and keeps your HVAC systems operating at full efficiency. Our comprehensive support ensures your equipment lasts longer and performs reliably when you need it most.</p>
+          </div>
+        </div>
+        <div class="sustain-list">
+          <div class="sustain-list-item">
+            <div class="sustain-list-dot"></div>
+            <p class="text-reg">Routine inspections and diagnostics</p>
+          </div>
+          <div class="sustain-list-item">
+            <div class="sustain-list-dot"></div>
+            <p class="text-reg">Preventive maintenance plans tailored to your needs</p>
+          </div>
+          <div class="sustain-list-item">
+            <div class="sustain-list-dot"></div>
+            <p class="text-reg">Emergency response and rapid repairs</p>
+          </div>
+        </div>
+      </div>
+      <div class="sustain-image-shell">
+        <div class="sustain-right">
+          <img src="public/images/maintenance-hero-right.png" alt="HVAC maintenance service" loading="lazy" />
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 3 — MAINTAIN (gray, centered header + 2-col cards)
+  ═══════════════════════════════════════ -->
+  <section class="section-maintain">
+    <div class="maintain-shell">
+    <div class="maintain-container">
+      <div class="section-title-centered">
+        <span class="tagline">Maintain</span>
+        <div class="title-content">
+          <h2 class="h2">What we service and support</h2>
+          <p class="text-md">Comprehensive care keeps systems dependable</p>
+        </div>
+      </div>
+
+      <div class="maintain-grid">
+
+        <!-- Left column: 2 stacked small cards -->
+        <div class="maintain-left-col">
+
+          <div class="maintain-small-card">
+            <div class="card-body">
+              <div class="card-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                  <circle cx="6" cy="18" r="0.5" fill="currentColor"/>
+                </svg>
+              </div>
+              <div class="card-content">
+                <h3 class="h5">Routine inspections</h3>
+                <p class="text-reg">Scheduled check-ups that identify issues early, clean key components, and verify system performance before small faults become major failures.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="maintain-small-card">
+            <div class="card-body">
+              <div class="card-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                  <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+                </svg>
+              </div>
+              <div class="card-content">
+                <h3 class="h5">Scheduled maintenance</h3>
+                <p class="text-reg">Planned service visits aligned to your operational calendar, ensuring minimum disruption while maintaining full system reliability throughout the year.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: large card with image -->
+        <div class="maintain-large-card">
+          <div class="card-content-inner">
+            <span class="tagline">Support</span>
+            <div class="card-text">
+              <h2 class="h3">Emergency repairs and performance optimization</h2>
+              <p class="text-reg">When systems fail, we respond fast. Our technicians diagnose problems quickly and restore full operation. We also fine-tune performance to maximize efficiency and extend equipment life.</p>
+            </div>
+          </div>
+          <div class="maintain-photo-shell">
+            <div class="maintain-card-image">
+              <img src="public/images/maintenance-card-image.png" alt="Emergency HVAC repair" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 4 — SUSTAIN CARDS (white, 3 cards)
+  ═══════════════════════════════════════ -->
+  <section class="section-sustain-cards">
+    <div class="sustain-cards-shell">
+    <div class="sustain-cards-container">
+      <div class="section-title-centered">
+        <span class="tagline">Sustain</span>
+        <div class="title-content">
+          <h2 class="h2">Systems that last longer</h2>
+          <p class="text-md">Proper maintenance cuts repair costs and keeps equipment running strong</p>
+        </div>
+      </div>
+      <div class="sustain-cards-grid">
+
+        <div class="sustain-card">
+          <div class="sustain-card-top">
+            <span class="tagline">Efficiency</span>
+          </div>
+          <div class="sustain-card-content">
+            <h3 class="h4">Improved system efficiency</h3>
+            <p class="text-reg">Regular care optimizes performance and reduces energy consumption</p>
+          </div>
+        </div>
+
+        <div class="sustain-card">
+          <div class="sustain-card-top">
+            <span class="tagline">Reliability</span>
+          </div>
+          <div class="sustain-card-content">
+            <h3 class="h4">Minimized downtime and consistent comfort</h3>
+            <p class="text-reg">Scheduled maintenance prevents failures when you need systems most</p>
+          </div>
+        </div>
+
+        <div class="sustain-card">
+          <div class="sustain-card-top">
+            <span class="tagline">Protection</span>
+          </div>
+          <div class="sustain-card-content">
+            <h3 class="h4">Cost savings on major repairs</h3>
+            <p class="text-reg">Early detection stops small problems from becoming expensive breakdowns</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTION 5 — SERVICES LIST (gray, two-col)
+  ═══════════════════════════════════════ -->
+  <section class="section-services-list">
+    <div class="services-shell">
+    <div class="services-list-inner">
+
+      <div class="services-list-left">
+
+        <div class="service-list-item">
+          <div class="service-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <line x1="10" y1="9" x2="8" y2="9"/>
+              <path d="M12 20v-4M10 18h4"/>
+            </svg>
+          </div>
+          <div class="service-item-body">
+            <div class="service-item-text">
+              <h3 class="h5">Annual maintenance contracts</h3>
+              <p class="text-reg">Planned care throughout the year keeps systems dependable and efficient</p>
+            </div>
+            <div class="service-item-action">
+              <a href="services.html" class="btn-link">
+                Explore
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-list-item">
+          <div class="service-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <div class="service-item-body">
+            <div class="service-item-text">
+              <h3 class="h5">Emergency breakdown support</h3>
+              <p class="text-reg">Fast response when systems fail ensures minimal disruption to operations</p>
+            </div>
+            <div class="service-item-action">
+              <a href="contact.html" class="btn-link">
+                Explore
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-list-item">
+          <div class="service-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <div class="service-item-body">
+            <div class="service-item-text">
+              <h3 class="h5">Periodic servicing</h3>
+              <p class="text-reg">Scheduled inspections and tune-ups extend equipment life and performance</p>
+            </div>
+            <div class="service-item-action">
+              <a href="how-we-work.html" class="btn-link">
+                Explore
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="services-image-shell">
+      <div class="services-list-right">
+        <img src="public/images/maintenance-list-right.png" alt="HVAC service team" loading="lazy" />
+      </div>
+      </div>
+
+    </div>
+    </div>
+  </section>
+
+  <section class="section-maint-cta" aria-labelledby="maint-cta-heading">
+    <div class="maint-cta-inner">
+      <span class="maint-cta-eyebrow">Partnership</span>
+      <h2 class="maint-cta-title" id="maint-cta-heading">Safeguard performance with a plan built for your site</h2>
+      <p class="maint-cta-lead">Share your timelines and priorities — we&apos;ll tailor inspections, preventive care, and response so comfort and efficiency stay uncompromised.</p>
+      <div class="maint-cta-actions">
+        <a href="contact.html" class="btn-primary">Book a consultation</a>
+        <a href="how-we-work.html" class="btn-secondary">How we work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer">
+
+    <div class="footer-main">
+      <div class="footer-brand-col">
+        <a href="index.html" class="footer-brand">
+          <img src="public/images/logo.png" alt="Ozone Aircon" class="footer-logo" />
+        </a>
+
+        <div class="footer-contact-block">
+          <div class="footer-contact-row">
+            <div class="footer-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div>
+              <span class="footer-contact-label">Location</span>
+              <p class="footer-contact-value">A-41, Basement, Nangal Dewat, Vasant Kunj, New Delhi – 110070</p>
+            </div>
+          </div>
+
+          <div class="footer-contact-row">
+            <div class="footer-contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <span class="footer-contact-label">Reach us</span>
+              <p class="footer-contact-value"><a href="tel:+91">Call our team</a></p>
+              <p class="footer-contact-value" style="margin-top:6px;"><a href="mailto:hello@ozoneaircon.com">hello@ozoneaircon.com</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-social">
+          <a href="https://www.instagram.com/ozoneaircon?igsh=MTBhbGd0bTM2N2xncA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/kanwarpal-singh-13bab9406" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="3" stroke="currentColor" stroke-width="1.5" />
+              <path d="M7 10V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M7 7.2V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M11 17V13C11 11.3431 12.3431 10 14 10C15.6569 10 17 11.3431 17 13V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M11 10V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <a href="about-us.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 21V19a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4 21V19a4 4 0 0 1 3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="footer-link-text">About us</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="how-we-work.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M12 20v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4.93 4.93l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M17.66 17.66l1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M2 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M20 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M4.93 19.07l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="footer-link-text">How we work</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="vrf-system.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M12 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">VRF systems</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="contact.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Contact us</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="services.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Services</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="footer-links-col">
+        <a href="services.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 14l4 4 12-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2" opacity="0.15" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Air purification</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="ventilation.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3C6 3 3 9 3 12s3 9 9 9 9-6 9-9-3-9-9-9z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 8v4M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Ventilation</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="ductwork-design.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 7h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M7 7v14h10V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Ducting</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+
+        <a href="hvac-maintainence.html" class="footer-link-row">
+          <span class="footer-link-left">
+            <span class="footer-link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="footer-link-text">Maintenance</span>
+          </span>
+          <svg class="footer-link-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18L15 12L9 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    function toggleSolutions(e) {
+      e.stopPropagation();
+      var btn = document.getElementById('solutionsBtn');
+      var dd  = document.getElementById('solutionsDropdown');
+      if (!dd || !btn) return;
+      var open = dd.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    document.addEventListener('click', function(e) {
+      var btn = document.getElementById('solutionsBtn');
+      var dd  = document.getElementById('solutionsDropdown');
+      if (!btn || !dd) return;
+      if (!btn.contains(e.target) && !dd.contains(e.target)) {
+        dd.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    function toggleMobileMenu() {
+      var btn  = document.getElementById('hamburgerBtn');
+      var menu = document.getElementById('mobileMenu');
+      if (!btn || !menu) return;
+      var open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    function toggleMobileSolutions() {
+      var btn  = document.getElementById('mobileSolutionsBtn');
+      var list = document.getElementById('mobileSolutionsList');
+      if (!btn || !list) return;
+      var open = list.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      var dd = document.getElementById('solutionsDropdown');
+      var sbtn = document.getElementById('solutionsBtn');
+      if (dd) dd.classList.remove('open');
+      if (sbtn) { sbtn.classList.remove('open'); sbtn.setAttribute('aria-expanded', 'false'); }
+      var menu = document.getElementById('mobileMenu');
+      var hbtn = document.getElementById('hamburgerBtn');
+      if (menu && menu.classList.contains('open') && hbtn) {
+        menu.classList.remove('open');
+        hbtn.classList.remove('open');
+        hbtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 900) {
+        var menu = document.getElementById('mobileMenu');
+        var btn  = document.getElementById('hamburgerBtn');
+        if (menu && btn && menu.classList.contains('open')) {
+          menu.classList.remove('open');
+          btn.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    (function () {
+      var shell = document.querySelector('.nav-shell');
+      var band = document.querySelector('[data-nav-scroll-anchor]')
+        || document.querySelector('.about-hero')
+        || document.querySelector('.hero')
+        || document.querySelector('.section-hero')
+        || document.querySelector('.page-header');
+      if (!shell || !band) return;
+      function sync() {
+        var threshold = band.offsetHeight - 8;
+        if (window.scrollY > threshold) shell.classList.add('scrolled');
+        else shell.classList.remove('scrolled');
+      }
+      window.addEventListener('scroll', sync, { passive: true });
+      sync();
+    }());
+
+    (function() {
+      var map = [
+        ['.about-hero-inner',        ['rv-fd']],
+        ['.sustain-left',            ['rv-l']],
+        ['.sustain-image-shell',     ['rv-r','s1']],
+        ['.section-title-centered',  ['rv']],
+        ['.maintain-small-card',     ['rv-sc']],
+        ['.maintain-large-card',     ['rv-r','s1']],
+        ['.sustain-card',            ['rv-sc']],
+        ['.service-list-item',       ['rv-l']],
+        ['.services-image-shell',    ['rv-r']],
+        ['.maint-cta-inner',         ['rv-fd']],
+        ['.footer-main',             ['rv']],
+      ];
+      map.forEach(function(pair) {
+        document.querySelectorAll(pair[0]).forEach(function(el, i) {
+          pair[1].forEach(function(cls) { el.classList.add(cls); });
+          if (pair[0] === '.sustain-card' || pair[0] === '.maintain-small-card' || pair[0] === '.service-list-item')
+            el.classList.add('s'+ Math.min(i+1, 3));
+        });
+      });
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+      }, { threshold: 0.07, rootMargin: '0px 0px -44px 0px' });
+      document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-sc,.rv-fd').forEach(function(el) { io.observe(el); });
+      document.querySelectorAll('a[href]').forEach(function(a) {
+        var href = a.getAttribute('href') || '';
+        if (!href || href.charAt(0) === '#' || href.indexOf('mailto') === 0 || href.indexOf('tel') === 0 || a.target === '_blank') return;
+        if (href.indexOf('.html') === -1) return;
+        a.addEventListener('click', function(e) {
+          e.preventDefault(); var dest = href;
+          document.body.style.transition = 'opacity 0.3s ease'; document.body.style.opacity = '0';
+          setTimeout(function() { window.location.href = dest; }, 310);
+        });
+      });
+    }());
+  </script>
+</body>
+</html>
