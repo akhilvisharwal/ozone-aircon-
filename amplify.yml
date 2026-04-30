@@ -1,0 +1,12 @@
+# AWS Amplify Hosting (Console: New app > Host web app > Git provider)
+# Pick this repo; Amplify uses these settings for a static HTML site (no build step).
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - echo "Static HTML — no build"
+  artifacts:
+    baseDirectory: .
+    files:
+      - '**/*'
