@@ -1,0 +1,3 @@
+# Exclude from Amplify deploy bundle (infra & local tooling only)
+aws/
+.vercel/
