@@ -1,4 +1,4 @@
-/* Full-page loader: opaque overlay snaps on navigation; fade only when retiring after load */
+/* Full-page loader: ring keeps rotating during overlay fade — no animation cut / snap-back */
 .page-loader {
   position: fixed;
   inset: 0;
@@ -14,6 +14,7 @@
   visibility: visible;
   pointer-events: auto;
   box-sizing: border-box;
+  will-change: opacity;
 }
 
 .page-loader *,
@@ -22,7 +23,7 @@
   box-sizing: border-box;
 }
 
-/* Exit only — no transition while visible so overlay can appear instantly on click */
+/* Exit: eased fade; spinner keeps turning (never animation:none). Blur snaps off to save GPU mid-fade. */
 .page-loader.page-loader--hide {
   opacity: 0;
   visibility: hidden;
@@ -31,14 +32,10 @@
   backdrop-filter: none;
   will-change: auto;
   transition:
-    opacity 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    visibility 0s linear 0.38s,
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0.55s,
     backdrop-filter 0s,
     -webkit-backdrop-filter 0s;
-}
-
-.page-loader.page-loader--hide .page-loader__ring {
-  animation: none;
 }
 
 .page-loader__box {
@@ -50,7 +47,6 @@
   isolation: isolate;
 }
 
-/* Spinner on its own layer so main-thread work during navigation jitters layout less often */
 .page-loader__ring {
   width: 52px;
   height: 52px;
@@ -61,7 +57,7 @@
   border-color: rgba(8, 1, 1, 0.11);
   border-top-color: #0b63a5;
   background: transparent;
-  animation: page-loader-spin 0.88s linear infinite;
+  animation: page-loader-spin 1.22s linear infinite;
   contain: strict;
   transform: translateZ(0);
 }
@@ -85,6 +81,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .page-loader {
+    will-change: auto;
+  }
+
   .page-loader__ring {
     animation: none;
     border-top-color: #0b63a5;
@@ -93,8 +93,8 @@
 
   .page-loader.page-loader--hide {
     transition:
-      opacity 0.12s ease,
-      visibility 0s linear 0.12s,
+      opacity 0.22s ease,
+      visibility 0s linear 0.22s,
       backdrop-filter 0s,
       -webkit-backdrop-filter 0s;
   }
