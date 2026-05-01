@@ -372,6 +372,57 @@
     .form-input:hover { border-color: rgba(8,1,1,0.18); }
     .form-input:focus { border-color:var(--blue); background:var(--white); box-shadow:0 0 0 3px rgba(11,99,165,0.1); }
     .form-input::placeholder { color:rgba(8,1,1,0.3); }
+    .phone-field {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      min-height: 48px;
+      background: var(--gray-soft);
+      border: 1.5px solid rgba(8,1,1,0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .phone-field:hover { border-color: rgba(8,1,1,0.18); }
+    .phone-field:focus-within {
+      border-color: var(--blue);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(11,99,165,0.1);
+    }
+    .phone-code-select {
+      width: 96px;
+      min-width: 96px;
+      border: 0;
+      border-right: 1px solid rgba(8,1,1,0.1);
+      border-radius: 0;
+      background-color: rgba(255,255,255,0.72);
+      color: var(--black);
+      font-family: var(--font-inter);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1;
+      padding: 0 34px 0 14px;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23080101' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 11px center;
+      cursor: pointer;
+      outline: none;
+    }
+    .phone-number-input {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none !important;
+      padding: 0 14px;
+      min-height: 48px;
+    }
+    .phone-number-input:hover,
+    .phone-number-input:focus {
+      border: 0;
+      background: transparent;
+      box-shadow: none !important;
+    }
     .form-select {
       width:100%; background:var(--gray-soft); border:1.5px solid rgba(8,1,1,0.08);
       border-radius:8px; padding:clamp(10px,1.2vw,13px) 14px;
@@ -721,6 +772,10 @@
     }
     @media (max-width: 768px) {
       .form-row { grid-template-columns: 1fr; }
+      .phone-code-select {
+        width: 88px;
+        min-width: 88px;
+      }
       .why-grid { grid-template-columns: 1fr; }
       .info-grid { grid-template-columns: 1fr; }
       .hero-stats { grid-template-columns: repeat(2,1fr); }
@@ -1092,7 +1147,16 @@
             </div>
             <div class="form-group">
               <label class="form-label" for="phone">Phone number</label>
-              <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" />
+              <div class="phone-field">
+                <select class="phone-code-select" id="countryCode" name="countryCode" aria-label="Country code">
+                  <option value="+91" selected>+91</option>
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                  <option value="+61">+61</option>
+                  <option value="+971">+971</option>
+                </select>
+                <input class="form-input phone-number-input" type="tel" id="phone" name="phone" autocomplete="tel-national" inputmode="tel" maxlength="20" placeholder="Enter Mobile Number *" />
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -1515,6 +1579,14 @@
       other: 'Other'
     };
 
+    function normalizePhoneDigits(raw) {
+      return (raw || '').replace(/[^\d]/g, '');
+    }
+
+    function isAllowedPhoneInput(raw) {
+      return /^[0-9()\-\s]+$/.test(raw || '');
+    }
+
     function handleSubmit(e) {
       e.preventDefault();
       var form = document.getElementById('mainContactForm');
@@ -1539,8 +1611,26 @@
       var firstName = document.getElementById('firstName').value.trim();
       var lastName = document.getElementById('lastName').value.trim();
       var email = document.getElementById('email').value.trim();
-      var phone = document.getElementById('phone').value.trim();
+      var phoneInput = document.getElementById('phone');
+      var phone = phoneInput.value.trim();
+      var countryCode = document.getElementById('countryCode').value || '+91';
+      var fullPhone = phone ? (countryCode + ' ' + phone) : '';
       var message = document.getElementById('message').value.trim();
+
+      phoneInput.setCustomValidity('');
+      if (phone) {
+        if (!isAllowedPhoneInput(phone)) {
+          phoneInput.setCustomValidity('Use numbers only (spaces, hyphen, and parentheses are allowed).');
+          phoneInput.reportValidity();
+          return;
+        }
+        var phoneDigits = normalizePhoneDigits(phone);
+        if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+          phoneInput.setCustomValidity('Enter a valid phone number (7 to 15 digits).');
+          phoneInput.reportValidity();
+          return;
+        }
+      }
 
       var topicSelect = document.getElementById('topic');
       var topicVal = topicSelect.value;
@@ -1561,7 +1651,7 @@
         '',
         'Name:        ' + fullName,
         'Email:       ' + email,
-        'Phone:       ' + (phone || '—'),
+        'Phone:       ' + (fullPhone || '—'),
         'Topic:       ' + topicLabel,
         'I am a:      ' + roleLabel,
         '',
@@ -1588,7 +1678,7 @@
           email: email,
           reply_to: email,
           message: plainBody,
-          phone: phone || '—',
+          phone: fullPhone || '—',
           topic: topicLabel,
           role: roleLabel
         })
@@ -1630,6 +1720,14 @@
       btn.innerHTML = contactFormSubmitBtnIdleHTML();
       btn.disabled = false;
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var phoneInput = document.getElementById('phone');
+      if (!phoneInput) return;
+      phoneInput.addEventListener('input', function () {
+        phoneInput.setCustomValidity('');
+      });
+    });
 
     /* ── Scroll reveal ── */
     (function() {
