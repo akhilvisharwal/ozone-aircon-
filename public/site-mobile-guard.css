@@ -1,6 +1,6 @@
 /*
- * Shared mobile containment — fixes horizontal overflow from grid/flex min-content
- * and long tokens. Loaded after page inline <style> (see HTML head).
+ * Shared mobile layout — loaded on every HTML page (after inline <style>).
+ * Includes overflow containment, timeline cards, process/step cards, tabs, forms.
  */
 
 @media (max-width: 900px) {
@@ -134,6 +134,24 @@
     padding-bottom: clamp(8px, 2vw, 16px);
   }
 
+  /* Home process grid + any similar numbered step cards */
+  .process-card {
+    padding: clamp(22px, 5.5vw, 30px);
+    gap: clamp(14px, 3.2vw, 20px);
+    box-sizing: border-box;
+  }
+
+  .process-card-body {
+    gap: clamp(10px, 2.5vw, 14px);
+  }
+
+  .process-card-body .text-reg,
+  .process-card-body .text-md,
+  .process-card-body p {
+    line-height: 1.68;
+    margin: 0;
+  }
+
   .tab-link,
   .tab-link .text-reg,
   .tab-link .h4,
@@ -229,6 +247,10 @@
 @media (max-width: 640px) {
   .timeline-card.timeline-left,
   .timeline-card.timeline-right {
+    padding: clamp(20px, 6vw, 28px);
+  }
+
+  .process-card {
     padding: clamp(20px, 6vw, 28px);
   }
 }
