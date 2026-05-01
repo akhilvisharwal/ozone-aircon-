@@ -4,6 +4,9 @@
   var started = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
   var MIN_VISIBLE_MS = 150;
 
+  /** One assign per outbound navigation — blocks double‑click / repeated synthetic clicks before unload */
+  var assignPending = false;
+
   function getEl() {
     return document.getElementById('page-loader');
   }
@@ -25,14 +28,6 @@
     }
   }
 
-  function showLoader() {
-    var el = getEl();
-    if (!el) return;
-    el.classList.remove('page-loader--hide');
-    el.setAttribute('aria-busy', 'true');
-    el.removeAttribute('aria-hidden');
-  }
-
   function hideLoader() {
     var el = getEl();
     if (!el) return;
@@ -50,14 +45,20 @@
     }, wait);
   }
 
+  /**
+   * Do not show the overlay on the page we are leaving: that spinner restarts when the next
+   * document parses, which reads as a double load. The destination markup already mounts a
+   * visible loader until hideLoader runs — one spinner per navigation.
+   */
   function navigateAway(a) {
+    if (assignPending) return;
     var destUrl = typeof a.href === 'string' ? a.href : '';
     if (!destUrl) return;
-    showLoader();
+    assignPending = true;
+    var root = document.documentElement;
+    if (root && root.style) root.style.pointerEvents = 'none';
     requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        window.location.assign(destUrl);
-      });
+      window.location.assign(destUrl);
     });
   }
 
@@ -66,6 +67,20 @@
   } else {
     hideLoader();
   }
+
+  window.addEventListener('pageshow', function (ev) {
+    assignPending = false;
+    var root = document.documentElement;
+    if (root && root.style && root.style.pointerEvents === 'none') root.style.pointerEvents = '';
+    if (ev.persisted) {
+      var el = getEl();
+      if (el) {
+        el.classList.add('page-loader--hide');
+        el.setAttribute('aria-hidden', 'true');
+        el.setAttribute('aria-busy', 'false');
+      }
+    }
+  });
 
   document.addEventListener(
     'click',
