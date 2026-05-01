@@ -253,11 +253,6 @@ html {
     min-width: 0;
   }
 
-  .mobile-menu.open {
-    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    max-height: calc(100vh - 108px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
-  }
-
   /* Inset gutters for drawer links on notched phones (additive to clamp in page CSS) */
   .mobile-nav-link {
     padding-left: calc(env(safe-area-inset-left, 0px) + clamp(16px, 4vw, 24px));
