@@ -1,6 +1,11 @@
 # Amplify Hosting: connect this repo (main) in Console → Amplify Gen 1 → Hosting.
 # Static HTML at repo root — no npm/yarn install.
 version: 1
+customHeaders:
+  - pattern: '/favicon.ico'
+    headers:
+      - key: Content-Type
+        value: image/png
 frontend:
   phases:
     build:
