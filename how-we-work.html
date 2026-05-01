@@ -843,13 +843,37 @@
 
       .cards-row { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
 
-      /* Linearise timeline */
-      .timeline::before { left: 24px; transform: none; }
-      .timeline-item { grid-template-columns: 48px 1fr; }
-      .timeline-left  { grid-column: 2; padding-right: 0; }
-      .timeline-right { grid-column: 2; padding-left: 0; }
-      .timeline-empty { display: none; }
-      .timeline-connector { grid-column: 1; padding-top: 28px; }
+      /* Linear timeline: same rail + aligned cards (explicit rows avoid zig-zag DOM quirks) */
+      .timeline {
+        --timeline-rail: 52px;
+      }
+      .timeline::before {
+        left: calc(var(--timeline-rail) / 2);
+        transform: translateX(-50%);
+      }
+      .timeline-item {
+        grid-template-columns: var(--timeline-rail) minmax(0, 1fr);
+        align-items: start;
+        column-gap: clamp(12px, 3vw, 18px);
+      }
+      .timeline-empty { display: none !important; }
+      .timeline-connector {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center;
+        align-self: start;
+        padding-top: clamp(14px, 2.5vw, 24px);
+        width: 100%;
+      }
+      .timeline-dot { margin-top: 2px; }
+      .timeline-card.timeline-left,
+      .timeline-card.timeline-right {
+        grid-column: 2;
+        grid-row: 1;
+        padding-left: 0;
+        padding-right: 0;
+        max-width: none;
+      }
 
       .two-col { grid-template-columns: 1fr; }
       .faq-layout { grid-template-columns: 1fr; }
