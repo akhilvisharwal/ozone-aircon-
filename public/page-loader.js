@@ -2,7 +2,7 @@
   'use strict';
 
   var started = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
-  var MIN_VISIBLE_MS = 360;
+  var MIN_VISIBLE_MS = 150;
 
   function getEl() {
     return document.getElementById('page-loader');
