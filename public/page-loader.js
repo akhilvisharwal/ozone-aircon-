@@ -2,7 +2,7 @@
   'use strict';
 
   var started = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
-  var MIN_VISIBLE_MS = 230;
+  var MIN_VISIBLE_MS = 140;
 
   /** One assign per outbound navigation — blocks double‑click / repeated synthetic clicks before unload */
   var assignPending = false;

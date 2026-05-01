@@ -4,6 +4,23 @@
   "outputDirectory": ".",
   "installCommand": null,
   "framework": null,
+  "redirects": [
+    {
+      "source": "/hvac-maintenance.html",
+      "destination": "/hvac-maintainence.html",
+      "permanent": true
+    },
+    {
+      "source": "/hvac-maintenance",
+      "destination": "/hvac-maintainence.html",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/favicon.ico",
