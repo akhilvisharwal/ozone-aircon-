@@ -806,6 +806,7 @@
   </style>
 
   <link rel="stylesheet" href="public/page-loader.css" />
+  <link rel="stylesheet" href="public/nav-stability.css" />
 </head>
 <body>
 
@@ -1480,19 +1481,7 @@
       }
     });
 
-    /* Glass navbar — match Home (over hero, solid after gradient band) */
-    (function () {
-      var shell = document.querySelector('.nav-shell');
-      var hero = document.querySelector('.section-hero');
-      if (!shell || !hero) return;
-      function sync() {
-        var threshold = hero.offsetHeight - 8;
-        if (window.scrollY > threshold) shell.classList.add('scrolled');
-        else shell.classList.remove('scrolled');
-      }
-      window.addEventListener('scroll', sync, { passive: true });
-      sync();
-    }());
+
 
     /* ── Form ── */
     function scrollToForm(e) {
@@ -1662,6 +1651,7 @@
     }());
   </script>
 
+    <script src="public/nav-glass.js" defer></script>
   <script src="public/page-loader.js" defer></script>
 </body>
 </html>

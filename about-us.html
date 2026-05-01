@@ -845,6 +845,7 @@
   </style>
 
   <link rel="stylesheet" href="public/page-loader.css" />
+  <link rel="stylesheet" href="public/nav-stability.css" />
 </head>
 <body>
 
@@ -1407,21 +1408,7 @@
       }
     });
 
-    /* Glass navbar — align with Home (after hero band) */
-    (function () {
-      var shell = document.querySelector('.nav-shell');
-      var band  = document.querySelector('[data-nav-scroll-anchor]') || document.querySelector('.about-hero');
-      if (!shell || !band) return;
 
-      function sync() {
-        var threshold = band.offsetHeight - 8;
-        if (window.scrollY > threshold) shell.classList.add('scrolled');
-        else shell.classList.remove('scrolled');
-      }
-
-      window.addEventListener('scroll', sync, { passive: true });
-      sync();
-    }());
 
     /* ═══════════════════════════════════════
        SCROLL REVEAL — IntersectionObserver
@@ -1460,6 +1447,7 @@
     }());
   </script>
 
+    <script src="public/nav-glass.js" defer></script>
   <script src="public/page-loader.js" defer></script>
 </body>
 </html>

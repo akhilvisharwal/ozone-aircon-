@@ -1,0 +1,20 @@
+/* Compositor-stable sticky nav; tame mobile blur repaint jitter */
+.nav-shell {
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@media (max-width: 900px) {
+  .nav-shell,
+  .nav-shell.scrolled {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    /* Slightly stronger fill when blur is off */
+    background: rgba(255, 255, 255, 0.97) !important;
+  }
+
+  .nav-shell.scrolled {
+    background: rgba(255, 255, 255, 0.99) !important;
+  }
+}

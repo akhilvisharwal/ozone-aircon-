@@ -932,6 +932,7 @@
   </style>
 
   <link rel="stylesheet" href="public/page-loader.css" />
+  <link rel="stylesheet" href="public/nav-stability.css" />
 </head>
 <body>
 
@@ -1683,21 +1684,7 @@
       }
     });
 
-    /* Glass navbar: transparent on hero, solid after scrolling */
-    (function () {
-      var shell = document.querySelector('.nav-shell');
-      var hero  = document.querySelector('.hero');
-      if (!shell || !hero) return;
 
-      function sync() {
-        var threshold = hero.offsetHeight - 8; // keep glass over hero headline
-        if (window.scrollY > threshold) shell.classList.add('scrolled');
-        else shell.classList.remove('scrolled');
-      }
-
-      window.addEventListener('scroll', sync, { passive: true });
-      sync();
-    }());
 
     /* ═══════════════════════════════
        SCROLL REVEAL
@@ -1749,6 +1736,7 @@
     }());
   </script>
 
+    <script src="public/nav-glass.js" defer></script>
   <script src="public/page-loader.js" defer></script>
 </body>
 </html>
