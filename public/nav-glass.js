@@ -13,7 +13,11 @@
 
   if (!band) return;
 
-  var HY = 28;
+  /** Larger band on phones/tablets avoids nav "scrolled" class flicker at the boundary. */
+  function hy() {
+    var w = window.innerWidth || document.documentElement.clientWidth || 980;
+    return w <= 900 ? 72 : 32;
+  }
   var scheduled = false;
 
   function thresh() {
@@ -29,12 +33,12 @@
     var y = window.scrollY || window.pageYOffset || 0;
     var t = thresh();
     if (scrolled) {
-      if (y < t - HY) {
+      if (y < t - hy()) {
         scrolled = false;
         shell.classList.remove('scrolled');
       }
     } else {
-      if (y > t + HY) {
+      if (y > t + hy()) {
         scrolled = true;
         shell.classList.add('scrolled');
       }

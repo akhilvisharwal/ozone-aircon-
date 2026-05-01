@@ -1,7 +1,13 @@
 /*
  * Shared mobile layout — loaded on every HTML page (after inline <style>).
- * Includes overflow containment, timeline cards, process/step cards, tabs, forms.
+ * Cross-device: containment, timelines, tabs, forms, touch targets, safe-areas,
+ * reduced loader cost on narrow viewports (see page-loader.css).
  */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 @media (max-width: 900px) {
   :root {
@@ -234,6 +240,72 @@
   .section-form textarea.form-textarea {
     width: 100%;
   }
+
+  /* Notch / home indicator: keep nav & drawer clear of unsafe areas */
+  .nav-shell {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: 0;
+    padding-left: calc(var(--section-pad-h) + env(safe-area-inset-left, 0px));
+    padding-right: calc(var(--section-pad-h) + env(safe-area-inset-right, 0px));
+  }
+
+  .navbar-inner {
+    min-width: 0;
+  }
+
+  .mobile-menu.open {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    max-height: calc(100vh - 108px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Inset gutters for drawer links on notched phones (additive to clamp in page CSS) */
+  .mobile-nav-link {
+    padding-left: calc(env(safe-area-inset-left, 0px) + clamp(16px, 4vw, 24px));
+    padding-right: calc(env(safe-area-inset-right, 0px) + clamp(16px, 4vw, 24px));
+  }
+
+  .mobile-solutions-toggle {
+    padding-left: calc(env(safe-area-inset-left, 0px) + clamp(16px, 4vw, 24px));
+    padding-right: calc(env(safe-area-inset-right, 0px) + clamp(16px, 4vw, 24px));
+  }
+
+  .mobile-solutions-list {
+    padding-left: calc(env(safe-area-inset-left, 0px) + clamp(16px, 4vw, 24px));
+    padding-right: calc(env(safe-area-inset-right, 0px) + clamp(16px, 4vw, 24px));
+  }
+
+  /* Services & wide flex cards */
+  .service-card,
+  .service-card-content,
+  .engineering-inner {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .service-card-content .text-reg,
+  .service-card-content .text-md {
+    overflow-wrap: anywhere;
+  }
+
+  .benefit-card-inner,
+  .benefit-card-text,
+  .unit-card-content {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Small KPI / misc cards inside grids */
+  .small-card,
+  .op-item-header,
+  .op-item-body-inner {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .op-item-header .text-reg {
+    overflow-wrap: anywhere;
+  }
 }
 
 @media (max-width: 768px) {
@@ -252,5 +324,30 @@
 
   .process-card {
     padding: clamp(20px, 6vw, 28px);
+  }
+}
+
+/* Minimum tap targets (~44×44 CSS px) — phones / tablets without hover */
+@media (hover: none) and (pointer: coarse) and (max-width: 900px) {
+  .nav-hamburger {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .mobile-nav-link,
+  .mobile-solution-item {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .mobile-solutions-toggle {
+    min-height: 48px;
+  }
+
+  .nav-consult-icon {
+    min-width: 30px;
+    min-height: 30px;
   }
 }

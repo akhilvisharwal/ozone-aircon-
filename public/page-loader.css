@@ -99,3 +99,14 @@
       -webkit-backdrop-filter 0s;
   }
 }
+
+/* Phones / tablets: drop expensive backdrop blur to reduce repaints during fade-out */
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .page-loader {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.99);
+    will-change: opacity;
+    transform: translateZ(0);
+  }
+}
