@@ -24,16 +24,16 @@
       --font-sora:  'Sora', sans-serif;
       --font-inter: 'Inter', sans-serif;
       --pad-v: clamp(64px, 8vw, 120px);
-      --pad-h: clamp(20px, 4.4vw, 72px);
+      --pad-h: clamp(20px, 5vw, 96px);
       --gap:   clamp(32px, 5.5vw, 80px);
-      --section-pad-h: clamp(20px, 4.4vw, 72px);
+      --section-pad-h: clamp(20px, 5vw, 96px);
       --nav-bar-h: 68px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 93.75%; scroll-behavior: smooth; }
-    body { font-family: var(--font-inter); background: var(--white); color: var(--black); width: 100%; max-width: 1440px; margin: 0 auto; overflow-x: hidden; }
+    html { font-size: 93.75%; scroll-behavior: smooth; overflow-x: clip; scrollbar-gutter: stable; }
+    body { font-family: var(--font-inter); background: var(--white); color: var(--black); width: 100%; max-width: none; margin-inline: auto; overflow-x: clip; }
     a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
+    img { display: block; max-width: 100%; height: auto; }
     button { cursor: pointer; font-family: inherit; }
 
     /* ═══════════════ TYPE ═══════════════ */
@@ -210,7 +210,7 @@
       display: none; position: absolute;
       top: calc(100% + 14px); left: 50%;
       transform: translateX(-50%);
-      width: min(640px, calc(100vw - 32px));
+      width: min(640px, 94vw);
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: 12px; padding: 24px 24px 20px; z-index: 200;
@@ -267,12 +267,12 @@
       content:''; position:absolute; bottom:0; left:0; right:0; height:80px; pointer-events:none;
       background: linear-gradient(to bottom, transparent, rgba(6,50,90,0.18));
     }
-    .hero-inner { position:relative; z-index:1; max-width: 900px; display: flex; flex-direction: column; gap: 32px; }
+    .hero-inner { position:relative; z-index:1; width:100%; max-width: min(1320px, 100%); display: flex; flex-direction: column; gap: 32px; }
     .hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); border-radius:40px; width:fit-content; }
     .hero-badge-dot { width:7px; height:7px; background:#4FE879; border-radius:50%; }
     .hero-badge-text { font-family:var(--font-inter); font-weight:500; font-size:13px; color:rgba(255,255,255,0.9); }
     .hero-heading { color: var(--white); }
-    .hero-subtitle { color: rgba(255,255,255,0.75); max-width: 540px; }
+    .hero-subtitle { color: rgba(255,255,255,0.75); max-width: min(960px, 85vw); }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
     .hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; overflow: hidden; margin-top: 16px; }
     .hero-stat { padding: clamp(16px,2vw,24px) clamp(20px,2.5vw,32px); background: rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 4px; }
@@ -287,7 +287,8 @@
       padding: var(--pad-v) var(--pad-h);
     }
     .form-wrapper {
-      display: grid; grid-template-columns: 400px 1fr;
+      width: 100%; max-width: none; margin-inline: auto;
+      display: grid; grid-template-columns: clamp(260px, 28vw, 440px) 1fr;
       gap: 0; border-radius: 20px; overflow: hidden;
       box-shadow: var(--shadow-lg); border: 1px solid var(--border);
     }
@@ -425,7 +426,7 @@
       background: var(--gray-soft);
       padding: var(--pad-v) var(--pad-h);
     }
-    .why-header { max-width: 580px; margin-bottom: clamp(40px,5vw,72px); display:flex; flex-direction:column; gap:16px; }
+    .why-header { max-width: min(760px, 90vw); margin-bottom: clamp(40px,5vw,72px); display:flex; flex-direction:column; gap:16px; }
     .why-tag { display:inline-flex; align-items:center; gap:6px; }
     .why-tag-line { width:24px; height:2px; background:var(--blue); border-radius:2px; }
     .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(16px,2vw,28px); }
@@ -503,7 +504,7 @@
       background-image:radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
       background-size:24px 24px;
     }
-    .cta-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; text-align:center; display:flex; flex-direction:column; align-items:center; gap:28px; }
+    .cta-inner { position:relative; z-index:1; width:100%; max-width:min(1100px, 92%); margin-inline:auto; text-align:center; display:flex; flex-direction:column; align-items:center; gap:28px; }
     .cta-eyebrow { font-family:var(--font-inter); font-weight:600; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.55); }
     .cta-heading { font-family:var(--font-sora); font-weight:600; font-size:clamp(28px,3.5vw,50px); line-height:1.15; letter-spacing:-0.015em; color:var(--white); }
     .cta-subtext { font-family:var(--font-inter); font-weight:400; font-size:clamp(15px,1.2vw,17px); color:rgba(255,255,255,0.7); line-height:1.65; }
@@ -578,6 +579,58 @@
     }
     .footer-contact-value a:hover { color: var(--blue); border-color: rgba(11,99,165,0.35); }
 
+    .footer-phone { margin: 0; width: 100%; max-width: 100%; min-width: 0; }
+    .footer-phone-summary {
+      font-family: var(--font-inter); font-weight: 400; font-size: 14px;
+      line-height: 155%; color: rgba(8,1,1,0.86);
+      cursor: pointer;
+      list-style: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      user-select: none;
+      border-bottom: 1px solid rgba(8,1,1,0.12);
+      padding-bottom: 1px;
+      width: fit-content;
+      max-width: 100%;
+      box-sizing: border-box;
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+    .footer-phone-summary::-webkit-details-marker { display: none; }
+    .footer-phone-summary::marker { content: ''; }
+    .footer-phone-summary::after {
+      content: '';
+      width: 0; height: 0;
+      margin-top: 1px; flex-shrink: 0;
+      border-left: 4px solid transparent; border-right: 4px solid transparent;
+      border-top: 5px solid rgba(8,1,1,0.35);
+      transition: transform 0.18s ease;
+    }
+    .footer-phone[open] .footer-phone-summary::after { transform: rotate(180deg); }
+    .footer-phone-summary:hover {
+      color: var(--blue);
+      border-bottom-color: rgba(11,99,165,0.35);
+    }
+    .footer-phone-summary:focus { outline: none; }
+    .footer-phone-summary:focus-visible {
+      color: var(--blue);
+      border-radius: 2px;
+      box-shadow: 0 0 0 3px rgba(11,99,165,0.25);
+    }
+    .footer-phone-options {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-top: 10px; padding-top: 10px;
+      border-top: 1px solid rgba(8,1,1,0.08);
+      min-width: 0;
+    }
+    .footer-phone-link {
+      font-family: var(--font-inter); font-weight: 500; font-size: 14px;
+      line-height: 150%;
+      color: rgba(8,1,1,0.86); text-decoration: none;
+      border-bottom: 1px solid rgba(8,1,1,0.12);
+      padding-bottom: 1px; align-self: flex-start;
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+    .footer-phone-link:hover { color: var(--blue); border-color: rgba(11,99,165,0.35); }
+
     .footer-links-col { display: flex; flex-direction: column; gap: 0; padding-top: 6px; }
     .footer-link-row {
       display: flex; align-items: center; justify-content: space-between; gap: 12px;
@@ -634,7 +687,6 @@
       .footer-brand-col { grid-column: 1 / -1; }
     }
     @media (max-width: 1100px) {
-      .form-wrapper { grid-template-columns: 340px 1fr; }
       .why-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 1024px) {
@@ -647,7 +699,7 @@
     @media (max-width: 900px) {
       .nav-links, .nav-consult { display: none; }
       .nav-hamburger { display: flex; }
-      .solutions-dropdown { width: min(520px, calc(100vw - 32px)); }
+      .solutions-dropdown { width: min(520px, 94vw); }
     }
     @media (max-width: 768px) {
       .form-row { grid-template-columns: 1fr; }
@@ -932,10 +984,6 @@
           Send a message
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="https://maps.google.com/?q=Nangal+Dewat+Vasant+Kunj+New+Delhi" target="_blank" class="btn-ghost-white">
-          Get directions
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </a>
       </div>
     </div>
   </section>
@@ -960,7 +1008,7 @@
             </div>
             <div class="form-contact-body">
               <span class="form-contact-label">Email us</span>
-              <span class="form-contact-value"><a href="mailto:info@ozoneaircon.com">info@ozoneaircon.com</a></span>
+              <span class="form-contact-value"><a href="mailto:info@ozoneairconhvac.com">info@ozoneairconhvac.com</a></span>
             </div>
           </div>
           <div class="form-contact-item">
@@ -969,7 +1017,7 @@
             </div>
             <div class="form-contact-body">
               <span class="form-contact-label">Call us</span>
-              <span class="form-contact-value"><a href="tel:+911120862212">+91-11-20862212</a><br><a href="tel:+919811934078">+91-9811934078</a></span>
+              <span class="form-contact-value"><a href="tel:+911145510343">+91-11-45510343</a><br><a href="tel:+919811934078">+91-9811934078</a></span>
             </div>
           </div>
           <div class="form-contact-item">
@@ -1000,21 +1048,21 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="firstName">First name</label>
-              <input class="form-input" type="text" id="firstName" name="firstName" placeholder="John" required autocomplete="given-name" />
+              <input class="form-input" type="text" id="firstName" name="firstName" required autocomplete="given-name" />
             </div>
             <div class="form-group">
               <label class="form-label" for="lastName">Last name</label>
-              <input class="form-input" type="text" id="lastName" name="lastName" placeholder="Doe" required autocomplete="family-name" />
+              <input class="form-input" type="text" id="lastName" name="lastName" required autocomplete="family-name" />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="email">Email address</label>
-              <input class="form-input" type="email" id="email" name="email" placeholder="you@company.com" required autocomplete="email" />
+              <input class="form-input" type="email" id="email" name="email" required autocomplete="email" />
             </div>
             <div class="form-group">
               <label class="form-label" for="phone">Phone number</label>
-              <input class="form-input" type="tel" id="phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel" />
+              <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" />
             </div>
           </div>
           <div class="form-group">
@@ -1026,7 +1074,6 @@
               <option value="support">Technical support</option>
               <option value="consultation">Design consultation</option>
               <option value="vrf">VRF/VRV systems</option>
-              <option value="chiller">Chiller plant enquiry</option>
               <option value="general">General enquiry</option>
             </select>
           </div>
@@ -1108,10 +1155,10 @@
           <p class="info-card-desc">Send us a detailed message anytime — we respond within 24 hours, every day.</p>
         </div>
         <div class="info-card-value">
-          <a href="mailto:info@ozoneaircon.com">info@ozoneaircon.com</a>
+          <a href="mailto:info@ozoneairconhvac.com">info@ozoneairconhvac.com</a>
         </div>
         <div class="info-card-action">
-          <a href="mailto:info@ozoneaircon.com" class="info-card-link">
+          <a href="mailto:info@ozoneairconhvac.com" class="info-card-link">
             Write to us
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -1126,11 +1173,11 @@
           <p class="info-card-desc">Speak directly with our team for urgent queries or to book a site visit.</p>
         </div>
         <div class="info-card-value">
-          <a href="tel:+911120862212">+91-11-20862212</a><br>
+          <a href="tel:+911145510343">+91-11-45510343</a><br>
           <a href="tel:+919811934078">+91-9811934078</a>
         </div>
         <div class="info-card-action">
-          <a href="tel:+911120862212" class="info-card-link">
+          <a href="tel:+911145510343" class="info-card-link">
             Call now
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -1146,12 +1193,6 @@
         </div>
         <div class="info-card-value">
           A-41, Basement, Nangal Dewat,<br>Vasant Kunj, New Delhi – 110070
-        </div>
-        <div class="info-card-action">
-          <a href="https://maps.google.com/?q=Nangal+Dewat+Vasant+Kunj+New+Delhi" target="_blank" rel="noopener noreferrer" class="info-card-link">
-            Get directions
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
         </div>
       </div>
     </div>
@@ -1205,8 +1246,8 @@
             </div>
             <div>
               <span class="footer-contact-label">Reach us</span>
-              <p class="footer-contact-value"><a href="tel:+91">Call our team</a></p>
-              <p class="footer-contact-value" style="margin-top:6px;"><a href="mailto:hello@ozoneaircon.com">hello@ozoneaircon.com</a></p>
+              <details class="footer-phone"><summary class="footer-phone-summary">Call our team</summary><div class="footer-phone-options" role="group" aria-label="Phone numbers"><a class="footer-phone-link" href="tel:+911145510343">+91-11-45510343</a><a class="footer-phone-link" href="tel:+919811934078">+91-9811934078</a></div></details>
+              <p class="footer-contact-value" style="margin-top:6px;"><a href="mailto:info@ozoneairconhvac.com">info@ozoneairconhvac.com</a></p>
             </div>
           </div>
         </div>
@@ -1384,7 +1425,7 @@
   <script>
     /* Contact form email: create a free access key at https://web3forms.com (sent to your inbox).
        Paste it below, then restrict domains in the Web3Forms dashboard for production. */
-    var WEB3FORMS_ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE';
+    var WEB3FORMS_ACCESS_KEY = '31fe9f9b-b876-421b-bf84-dbe52e62061e';
 
     /* ── Nav ── */
     function toggleSolutions(e) {
@@ -1553,7 +1594,7 @@
         .catch(function () {
           if (errEl) {
             errEl.textContent =
-              'We could not send your message. Check your connection and try again, or email info@ozoneaircon.com.';
+              'We could not send your message. Check your connection and try again, or email info@ozoneairconhvac.com.';
             errEl.classList.add('show');
           }
           btn.disabled = false;
