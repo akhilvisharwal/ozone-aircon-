@@ -372,6 +372,89 @@
     .form-input:hover { border-color: rgba(8,1,1,0.18); }
     .form-input:focus { border-color:var(--blue); background:var(--white); box-shadow:0 0 0 3px rgba(11,99,165,0.1); }
     .form-input::placeholder { color:rgba(8,1,1,0.3); }
+
+    /* Split phone — single visual field */
+    .form-phone-combo {
+      display: flex; align-items: stretch; width: 100%; min-height: calc(1em + clamp(20px, 2.4vw, 26px));
+      background: var(--gray-soft);
+      border: 1.5px solid rgba(8,1,1,0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .form-phone-combo:hover { border-color: rgba(8,1,1,0.18); }
+    .form-phone-combo:focus-within {
+      border-color: var(--blue);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(11,99,165,0.1);
+    }
+    .form-phone-code {
+      flex: 0 1 auto;
+      width: auto;
+      max-width: min(48%, 11.5rem);
+      min-width: min(100%, 8.75rem);
+      margin: 0;
+      padding: clamp(10px, 1.2vw, 13px) 28px clamp(10px, 1.2vw, 13px) 14px;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23080101' stroke-width='2' stroke-opacity='0.45' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      font-family: var(--font-inter);
+      font-weight: 400;
+      font-size: clamp(14px, 1.1vw, 15px);
+      line-height: 150%;
+      color: var(--black);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-phone-code option { font-size: 15px; }
+    .form-phone-divider {
+      flex: 0 0 1px;
+      width: 1px;
+      align-self: stretch;
+      margin: clamp(8px, 1vw, 10px) 0;
+      background: rgba(8,1,1,0.1);
+      pointer-events: none;
+    }
+    .form-phone-number {
+      flex: 1 1 0;
+      min-width: 0;
+      margin: 0;
+      padding: clamp(10px, 1.2vw, 13px) 14px;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      font-family: var(--font-inter);
+      font-weight: 400;
+      font-size: clamp(14px, 1.1vw, 15px);
+      line-height: 150%;
+      color: var(--black);
+      outline: none;
+    }
+    .form-phone-number::placeholder { color: rgba(8,1,1,0.3); }
+    .form-phone-combo.is-invalid {
+      border-color: rgba(180, 35, 24, 0.55);
+      box-shadow: none;
+    }
+    .form-phone-combo.is-invalid:focus-within {
+      border-color: #9b1c1c;
+      box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.14);
+      background: var(--white);
+    }
+    .form-phone-error {
+      display: none;
+      margin: 6px 0 0;
+      font-family: var(--font-inter);
+      font-size: 12px;
+      line-height: 1.5;
+      color: #9b1c1c;
+    }
+    .form-phone-error.show { display: block; }
+
     .form-select {
       width:100%; background:var(--gray-soft); border:1.5px solid rgba(8,1,1,0.08);
       border-radius:8px; padding:clamp(10px,1.2vw,13px) 14px;
@@ -746,6 +829,13 @@
       .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
       .hero-stats { grid-template-columns: 1fr; }
       .footer-links-col { padding-top: 0; }
+      .form-phone-code {
+        max-width: min(50%, 10rem);
+        padding-left: 12px;
+        padding-right: 26px;
+        font-size: 14px;
+      }
+      .form-phone-number { padding-left: 12px; padding-right: 12px; font-size: 14px; }
     }
 
     /* ═══════════════════════════════════════
@@ -1091,8 +1181,41 @@
               <input class="form-input" type="email" id="email" name="email" required autocomplete="email" />
             </div>
             <div class="form-group">
-              <label class="form-label" for="phone">Phone number</label>
-              <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel" />
+              <label class="form-label" id="phone-label" for="phone">Phone number</label>
+              <div class="form-phone-combo" role="group" aria-labelledby="phone-label">
+                <select
+                  class="form-phone-code"
+                  id="phoneCountry"
+                  name="phoneCountry"
+                  autocomplete="tel-country-code"
+                  aria-label="Country calling code"
+                >
+                  <option value="+91" selected>India (+91)</option>
+                  <option value="+1-US">United States (+1)</option>
+                  <option value="+44">United Kingdom (+44)</option>
+                  <option value="+971">United Arab Emirates (+971)</option>
+                  <option value="+1-CA">Canada (+1)</option>
+                  <option value="+61">Australia (+61)</option>
+                  <option value="+49">Germany (+49)</option>
+                  <option value="+65">Singapore (+65)</option>
+                  <option value="+966">Saudi Arabia (+966)</option>
+                  <option value="+33">France (+33)</option>
+                  <option value="+81">Japan (+81)</option>
+                </select>
+                <span class="form-phone-divider" aria-hidden="true"></span>
+                <input
+                  class="form-phone-number"
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="Enter Mobile Number"
+                  autocomplete="tel-national"
+                  inputmode="numeric"
+                  maxlength="11"
+                  aria-describedby="phoneFieldError"
+                />
+              </div>
+              <p class="form-phone-error" id="phoneFieldError" role="alert" aria-live="polite"></p>
             </div>
           </div>
           <div class="form-group">
@@ -1515,17 +1638,137 @@
       other: 'Other'
     };
 
+    var PHONE_RULES = {
+      '+91': { min: 10, max: 10 },
+      '+1-US': { min: 10, max: 10 },
+      '+1-CA': { min: 10, max: 10 },
+      '+44': { min: 10, max: 11 },
+      '+971': { min: 9, max: 9 },
+      '+61': { min: 9, max: 9 },
+      '+49': { min: 10, max: 11 },
+      '+65': { min: 8, max: 8 },
+      '+966': { min: 9, max: 9 },
+      '+33': { min: 9, max: 9 },
+      '+81': { min: 10, max: 10 }
+    };
+
+    function phoneDigitsOnly(str) {
+      return String(str == null ? '' : str).replace(/\D/g, '');
+    }
+
+    function clearPhoneFieldError() {
+      var err = document.getElementById('phoneFieldError');
+      var combo = document.querySelector('.form-phone-combo');
+      var inp = document.getElementById('phone');
+      if (err) { err.textContent = ''; err.classList.remove('show'); }
+      if (combo) combo.classList.remove('is-invalid');
+      if (inp) inp.removeAttribute('aria-invalid');
+    }
+
+    function applyPhoneCountryConstraints() {
+      var inp = document.getElementById('phone');
+      var sel = document.getElementById('phoneCountry');
+      if (!inp || !sel) return;
+      var key = String(sel.value).trim();
+      var rule = PHONE_RULES[key];
+      var max = rule ? rule.max : 15;
+      inp.setAttribute('maxlength', String(max));
+      var d = phoneDigitsOnly(inp.value).slice(0, max);
+      if (inp.value !== d) inp.value = d;
+    }
+
+    function sanitizePhoneNationalInput() {
+      var inp = document.getElementById('phone');
+      var sel = document.getElementById('phoneCountry');
+      if (!inp || !sel) return;
+      var key = String(sel.value).trim();
+      var rule = PHONE_RULES[key];
+      var max = rule ? rule.max : 15;
+      var d = phoneDigitsOnly(inp.value).slice(0, max);
+      if (inp.value !== d) inp.value = d;
+      maybeClearPhoneFieldErrorIfOk();
+    }
+
+    function maybeClearPhoneFieldErrorIfOk() {
+      var inp = document.getElementById('phone');
+      var sel = document.getElementById('phoneCountry');
+      var err = document.getElementById('phoneFieldError');
+      if (!inp || !sel || !err || !err.classList.contains('show')) return;
+      var key = String(sel.value).trim();
+      var rule = PHONE_RULES[key];
+      if (!rule) { clearPhoneFieldError(); return; }
+      var n = phoneDigitsOnly(inp.value).length;
+      if (n === 0 || (n >= rule.min && n <= rule.max)) clearPhoneFieldError();
+    }
+
+    function validateContactPhone() {
+      var inp = document.getElementById('phone');
+      var sel = document.getElementById('phoneCountry');
+      var err = document.getElementById('phoneFieldError');
+      var combo = document.querySelector('.form-phone-combo');
+      if (!inp || !sel) return true;
+      var key = String(sel.value).trim();
+      var rule = PHONE_RULES[key];
+      if (!rule) return true;
+      var national = phoneDigitsOnly(inp.value);
+      if (national.length === 0) {
+        clearPhoneFieldError();
+        return true;
+      }
+      if (national.length < rule.min || national.length > rule.max) {
+        var optText = sel.options[sel.selectedIndex].text.replace(/\s+/g, ' ').trim();
+        var place = optText.indexOf('(') >= 0 ? optText.slice(0, optText.indexOf('(')).trim() : optText;
+        var msg =
+          rule.min === rule.max
+            ? 'Enter a valid mobile number for ' + place + ': exactly ' + rule.min + ' digits required.'
+            : 'Enter a valid mobile number for ' + place + ': ' + rule.min + '–' + rule.max + ' digits required.';
+        if (err) {
+          err.textContent = msg;
+          err.classList.add('show');
+        }
+        if (combo) combo.classList.add('is-invalid');
+        inp.setAttribute('aria-invalid', 'true');
+        inp.focus();
+        try {
+          inp.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        } catch (ex) {}
+        return false;
+      }
+      clearPhoneFieldError();
+      return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var sel = document.getElementById('phoneCountry');
+      var inp = document.getElementById('phone');
+      if (!sel || !inp) return;
+      applyPhoneCountryConstraints();
+      sel.addEventListener('change', function () {
+        clearPhoneFieldError();
+        applyPhoneCountryConstraints();
+      });
+      inp.addEventListener('input', sanitizePhoneNationalInput);
+      inp.addEventListener('blur', function () {
+        var max = parseInt(inp.getAttribute('maxlength'), 10) || 15;
+        var d = phoneDigitsOnly(inp.value).slice(0, max);
+        if (inp.value !== d) inp.value = d;
+      });
+    });
+
     function handleSubmit(e) {
       e.preventDefault();
       var form = document.getElementById('mainContactForm');
       var btn = document.getElementById('submitBtn');
       var errEl = document.getElementById('formError');
       if (errEl) { errEl.textContent = ''; errEl.classList.remove('show'); }
+      clearPhoneFieldError();
 
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
+
+      if (!validateContactPhone()) return;
 
       var key = typeof WEB3FORMS_ACCESS_KEY === 'string' ? WEB3FORMS_ACCESS_KEY.trim() : '';
       if (!key || key === 'YOUR_ACCESS_KEY_HERE') {
@@ -1539,7 +1782,11 @@
       var firstName = document.getElementById('firstName').value.trim();
       var lastName = document.getElementById('lastName').value.trim();
       var email = document.getElementById('email').value.trim();
-      var phone = document.getElementById('phone').value.trim();
+      var dialEl = document.getElementById('phoneCountry');
+      var nationalDigits = phoneDigitsOnly(document.getElementById('phone').value);
+      var rawDial = dialEl ? String(dialEl.value).trim() : '';
+      var dial = rawDial.replace(/-[A-Z]{2}$/, '');
+      var phone = nationalDigits ? (dial ? dial + ' ' + nationalDigits : nationalDigits) : '';
       var message = document.getElementById('message').value.trim();
 
       var topicSelect = document.getElementById('topic');
@@ -1626,6 +1873,8 @@
       document.getElementById('formSuccess').classList.remove('show');
       var errEl = document.getElementById('formError');
       if (errEl) { errEl.textContent = ''; errEl.classList.remove('show'); }
+      clearPhoneFieldError();
+      applyPhoneCountryConstraints();
       var btn = document.getElementById('submitBtn');
       btn.innerHTML = contactFormSubmitBtnIdleHTML();
       btn.disabled = false;
