@@ -50,6 +50,17 @@
     }, wait);
   }
 
+  function navigateAway(a) {
+    var destUrl = typeof a.href === 'string' ? a.href : '';
+    if (!destUrl) return;
+    showLoader();
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        window.location.assign(destUrl);
+      });
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', hideLoader);
   } else {
@@ -61,12 +72,17 @@
     function (e) {
       var a = e.target && e.target.closest && e.target.closest('a[href]');
       if (!a || a.target === '_blank') return;
-      var href = (a.getAttribute('href') || '').trim();
-      if (!href || href.charAt(0) === '#') return;
-      if (/^https?:\/\//i.test(href)) return;
-      if (href.indexOf('.html') === -1) return;
+
+      var hrefAttr = (a.getAttribute('href') || '').trim();
+      if (!hrefAttr || hrefAttr.charAt(0) === '#') return;
+      if (/^https?:\/\//i.test(hrefAttr)) return;
+      if (hrefAttr.indexOf('.html') === -1) return;
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      showLoader();
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      navigateAway(a);
     },
     true
   );

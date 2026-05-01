@@ -1570,16 +1570,7 @@
         entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
       }, { threshold: 0.07, rootMargin: '0px 0px -44px 0px' });
       document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-sc,.rv-fd').forEach(function(el) { io.observe(el); });
-      document.querySelectorAll('a[href]').forEach(function(a) {
-        var href = a.getAttribute('href') || '';
-        if (!href || href.charAt(0) === '#' || href.indexOf('mailto') === 0 || href.indexOf('tel') === 0 || a.target === '_blank') return;
-        if (href.indexOf('.html') === -1) return;
-        a.addEventListener('click', function(e) {
-          e.preventDefault(); var dest = href;
-          document.body.style.transition = 'opacity 0.3s ease'; document.body.style.opacity = '0';
-          setTimeout(function() { window.location.href = dest; }, 310);
-        });
-      });
+
     }());
   </script>
 

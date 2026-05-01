@@ -1,4 +1,4 @@
-/* Full-page loader: continuous border ring; fade tuned for GPU + clean handoff to content */
+/* Full-page loader: opaque overlay snaps on navigation; fade only when retiring after load */
 .page-loader {
   position: fixed;
   inset: 0;
@@ -7,19 +7,13 @@
   align-items: center;
   justify-content: center;
   overflow: visible;
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.99);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   box-sizing: border-box;
-  transition:
-    opacity 0.36s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    visibility 0s linear,
-    backdrop-filter 0s,
-    -webkit-backdrop-filter 0s;
-  will-change: opacity;
 }
 
 .page-loader *,
@@ -28,7 +22,7 @@
   box-sizing: border-box;
 }
 
-/* Blur snaps off immediately when exiting — avoids hitch from animating backdrop-filter under fade */
+/* Exit only — no transition while visible so overlay can appear instantly on click */
 .page-loader.page-loader--hide {
   opacity: 0;
   visibility: hidden;
@@ -37,8 +31,8 @@
   backdrop-filter: none;
   will-change: auto;
   transition:
-    opacity 0.36s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    visibility 0s linear 0.36s,
+    opacity 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    visibility 0s linear 0.38s,
     backdrop-filter 0s,
     -webkit-backdrop-filter 0s;
 }
@@ -56,7 +50,7 @@
   isolation: isolate;
 }
 
-/* One continuous circle: gray ring + blue leading segment (no stroke-dasharray) */
+/* Spinner on its own layer so main-thread work during navigation jitters layout less often */
 .page-loader__ring {
   width: 52px;
   height: 52px;
@@ -67,16 +61,14 @@
   border-color: rgba(8, 1, 1, 0.11);
   border-top-color: #0b63a5;
   background: transparent;
-  animation: page-loader-spin 0.9s linear infinite;
-  will-change: transform;
+  animation: page-loader-spin 0.88s linear infinite;
+  contain: strict;
   transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 @keyframes page-loader-spin {
   to {
-    transform: translateZ(0) rotate(360deg);
+    transform: translateZ(0) rotate(1turn);
   }
 }
 
@@ -96,17 +88,13 @@
   .page-loader__ring {
     animation: none;
     border-top-color: #0b63a5;
-    transform: translateZ(0) rotate(45deg);
-  }
-
-  .page-loader {
-    transition-duration: 0.15s;
+    transform: rotate(45deg);
   }
 
   .page-loader.page-loader--hide {
     transition:
-      opacity 0.15s ease,
-      visibility 0s linear 0.15s,
+      opacity 0.12s ease,
+      visibility 0s linear 0.12s,
       backdrop-filter 0s,
       -webkit-backdrop-filter 0s;
   }
