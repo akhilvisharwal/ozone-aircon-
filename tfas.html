@@ -388,7 +388,11 @@
     .section-content-image.alt-band {
       background: var(--gray-soft);
     }
-    .content-image-shell { width: 100%; max-width: none; margin-inline: auto; }
+    .content-image-shell {
+      width: 100%;
+      max-width: min(1200px, 100%);
+      margin-inline: auto;
+    }
     .content-image-inner {
       display: flex; flex-direction: column;
       gap: clamp(32px, 5vw, 52px);
@@ -454,20 +458,75 @@
     }
     .tfa-media-shell:hover { transform: translateY(-3px); }
     .content-image-right {
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
-      min-height: clamp(280px, 38vw, 480px);
+      min-height: clamp(210px, 26vw, 360px);
+      max-height: min(480px, 54vh);
+      padding: clamp(14px, 2.2vw, 26px);
       border-radius: 20px;
       overflow: hidden;
-      background: var(--gray-bg);
+      background: var(--gray-soft);
       flex-shrink: 0;
+      border: 1px solid rgba(8, 1, 1, 0.06);
     }
     .content-image-right img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover;
+      width: 100%;
+      height: auto;
+      max-height: min(440px, 50vh);
+      object-fit: contain;
+      object-position: center;
       transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .tfa-media-shell:hover .content-image-right img { transform: scale(1.04); }
+    .tfa-media-shell:hover .content-image-right img { transform: scale(1.02); }
+
+    @media (max-width: 899px) {
+      .tfa-media-shell {
+        max-width: min(720px, 100%);
+        margin-inline: auto;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .content-image-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+        gap: clamp(40px, 5vw, 64px);
+        align-items: center;
+      }
+      .section-content-image.band-reverse .content-image-inner {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+      }
+      .content-image-left {
+        align-items: flex-start;
+      }
+      .content-title,
+      .content-title-inner {
+        align-items: flex-start;
+        text-align: left;
+      }
+      .content-image-left .text-md {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 36em;
+      }
+      .content-list-items {
+        align-items: stretch;
+      }
+      .content-list-item {
+        margin-left: 0;
+        max-width: 100%;
+      }
+      .tfa-media-shell { width: 100%; }
+      .content-image-right {
+        min-height: clamp(260px, 22vw, 400px);
+        max-height: min(520px, 62vh);
+      }
+      .content-image-right img {
+        max-height: min(480px, 58vh);
+      }
+    }
 
     /* ═══════════════════════════════════════
        BENEFITS
@@ -766,7 +825,11 @@
     @media (max-width: 768px) {
       .tfa-cta-actions .btn-primary,
       .tfa-cta-actions .btn-secondary { width: 100%; justify-content: center; }
-      .content-image-right { min-height: 280px; }
+      .content-image-right {
+        min-height: 200px;
+        max-height: min(430px, 56vh);
+      }
+      .content-image-right img { max-height: min(390px, 54vh); }
       .essentials-image { min-height: 240px; }
       .tfa-list-row { grid-template-columns: 1fr; }
       .content-list-items { gap: clamp(12px, 2vw, 16px); }
