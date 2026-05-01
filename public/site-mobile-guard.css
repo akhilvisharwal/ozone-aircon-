@@ -4,6 +4,19 @@
  * reduced loader cost on narrow viewports (see page-loader.css).
  */
 
+/* Keep navbar fixed on scroll and offset page content below it. */
+.nav-shell {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+body {
+  padding-top: calc(var(--nav-bar-h, 68px) + env(safe-area-inset-top, 0px));
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
