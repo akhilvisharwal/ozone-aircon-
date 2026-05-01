@@ -483,8 +483,21 @@
 
     @media (max-width: 899px) {
       .tfa-media-shell {
-        max-width: min(720px, 100%);
-        margin-inline: auto;
+        max-width: 100%;
+        margin-inline: 0;
+        box-shadow: 0 14px 32px rgba(8, 1, 1, 0.07);
+      }
+      .content-image-inner {
+        gap: clamp(22px, 4vw, 32px);
+      }
+      /* Hug image height — avoids huge empty card (Science) and oversized portrait (Definition) */
+      .content-image-right {
+        min-height: 0;
+        max-height: none;
+        padding: clamp(10px, 2.8vw, 14px);
+      }
+      .content-image-right img {
+        max-height: clamp(168px, 52vmin, 300px);
       }
     }
 
@@ -825,11 +838,9 @@
     @media (max-width: 768px) {
       .tfa-cta-actions .btn-primary,
       .tfa-cta-actions .btn-secondary { width: 100%; justify-content: center; }
-      .content-image-right {
-        min-height: 200px;
-        max-height: min(430px, 56vh);
+      .content-image-right img {
+        max-height: clamp(152px, 48vmin, 260px);
       }
-      .content-image-right img { max-height: min(390px, 54vh); }
       .essentials-image { min-height: 240px; }
       .tfa-list-row { grid-template-columns: 1fr; }
       .content-list-items { gap: clamp(12px, 2vw, 16px); }
@@ -936,6 +947,7 @@
 
   <link rel="stylesheet" href="public/page-loader.css" />
   <link rel="stylesheet" href="public/nav-stability.css" />
+  <link rel="stylesheet" href="public/site-mobile-guard.css" />
 </head>
 <body>
 

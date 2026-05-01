@@ -1,0 +1,199 @@
+/*
+ * Shared mobile containment — fixes horizontal overflow from grid/flex min-content
+ * and long tokens. Loaded after page inline <style> (see HTML head).
+ */
+
+@media (max-width: 900px) {
+  :root {
+    --section-pad-h: clamp(16px, 4.2vw, 28px);
+  }
+
+  section,
+  header,
+  footer,
+  main {
+    min-width: 0;
+  }
+
+  /* Section wrappers commonly used across solution pages */
+  section [class$="-shell"],
+  section [class$="-container"],
+  section [class$="-inner"],
+  footer [class$="-shell"],
+  footer [class$="-inner"] {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  section [class*="-grid"],
+  section [class*="duct-"],
+  section [class*="chiller-"] {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .info-tab-pane-inner {
+    min-width: 0;
+    max-width: 100%;
+    min-height: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(18px, 4vw, 26px);
+  }
+
+  .info-tab-content,
+  .info-tab-media {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .info-tab-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Chiller: stack operation split before tablet breakpoint */
+  .operation-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tabs-row,
+  .tabs-menu,
+  .tabs-image-shell,
+  .tabs-image-pane,
+  .tabs-container,
+  .tabs-content,
+  .tab-link,
+  .tab-pane,
+  .tab-pane-inner,
+  .tab-pane-content,
+  .component-card,
+  .component-card-content,
+  .components-grid,
+  .types-grid,
+  .type-column,
+  .type-column-content,
+  .content-image-inner,
+  .content-image-left,
+  .content-image-right,
+  .content-list-items,
+  .content-list-item,
+  .tfa-media-shell,
+  .tfa-split-shell,
+  .tfa-split-inner,
+  .tfa-split-left,
+  .tfa-split-right,
+  .tfa-list-row,
+  .tfa-list-item,
+  .comparison-grid,
+  .comparison-card,
+  .comparison-row,
+  .explained-inner,
+  .options-bento,
+  .options-small-cards,
+  .small-cards-row,
+  .units-grid,
+  .excel-grid,
+  .how-shell,
+  .cards-row,
+  .timeline,
+  .timeline-item,
+  .benefits-cards {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .tab-link,
+  .tab-link .text-reg,
+  .tab-link .h4,
+  .component-card-content,
+  .type-column-content,
+  .content-list-item,
+  .tfa-list-item,
+  .comparison-row-label,
+  .comparison-row-value,
+  .tab-pane-content,
+  .explained-body,
+  .section-title-centered .title-content,
+  .section-title-left .title-content {
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
+  }
+
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    overflow-wrap: anywhere;
+  }
+
+  /* VRF / section-how: horizontal tab bar — avoid min-width sum exceeding viewport */
+  .section-how .tabs-menu {
+    max-width: 100%;
+  }
+
+  .section-how .tab-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Tab panes: stack earlier with tighter gutters so flex row never blows out */
+  .tab-pane-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(18px, 4vw, 28px);
+    padding: clamp(20px, 4vw, 32px) clamp(16px, 4vw, 22px);
+  }
+
+  .tab-pane-visual {
+    max-width: 100% !important;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Ventilation / similar: hero image pane stays within column */
+  .tabs-image-shell {
+    width: 100%;
+  }
+
+  .tabs-image-pane {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .tabs-image-pane img {
+    max-width: 100%;
+  }
+
+  .comparison-row .comparison-row-label,
+  .comparison-row .comparison-row-value {
+    min-width: 0;
+  }
+
+  .form-wrapper,
+  .form-info-panel,
+  .form-right-panel,
+  .section-form input.form-input,
+  .section-form select.form-select,
+  .section-form textarea.form-textarea {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .section-form input.form-input,
+  .section-form select.form-select,
+  .section-form textarea.form-textarea {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-how .tab-btn,
+  .info-tab-btn {
+    font-size: clamp(12px, 3.2vw, 14px);
+    padding: 12px 10px;
+  }
+}
