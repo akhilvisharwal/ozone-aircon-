@@ -898,8 +898,24 @@
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
   
   </style>
+
+  <link rel="stylesheet" href="public/page-loader.css" />
 </head>
 <body>
+
+  
+  <!-- Page loader -->
+  <div id="page-loader" class="page-loader" aria-busy="true">
+    <div class="page-loader__box" role="status">
+      <span class="page-loader__sr">Loading...</span>
+      <svg class="page-loader__svg" viewBox="0 0 56 56" width="56" height="56" aria-hidden="true">
+        <circle class="page-loader__track" cx="28" cy="28" r="24" />
+        <g class="page-loader__rotor">
+          <circle class="page-loader__arc" cx="28" cy="28" r="24" transform="rotate(-90 28 28)" />
+        </g>
+      </svg>
+    </div>
+  </div>
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- NAVBAR (same as Home)                      -->
@@ -1787,5 +1803,7 @@
     }());
   </script>
 
+
+  <script src="public/page-loader.js" defer></script>
 </body>
 </html>
