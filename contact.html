@@ -390,7 +390,12 @@
 
     /* Form fields — premium bordered style */
     .contact-form { display: flex; flex-direction: column; gap: 22px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 18px;
+      row-gap: 22px;
+    }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-label {
       font-family:var(--font-inter); font-weight:500; font-size:12px; line-height:150%;
